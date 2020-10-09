@@ -1,0 +1,26 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fbis-ccf-external
+  labels:
+    cert-manager.io/solver: route53
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    ingress.kubernetes.io/whitelist-source-range: "62.25.109.196/32,52.48.127.144/28,52.209.62.128/25,52.56.62.128/25"
+    kubernetes.io/ingress.class: "nginx-external"
+    cert-manager.io/enabled: "true"
+    ingress.kubernetes.io/app-root: /apply
+spec:
+  tls:
+    - hosts:
+        - apply-for-fbis-ccf.homeoffice.gov.uk
+      secretName: fbis-ccf-external
+  rules:
+    - host: apply-for-fbis-ccf.homeoffice.gov.uk
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: fbis-ccf
+              servicePort: 443

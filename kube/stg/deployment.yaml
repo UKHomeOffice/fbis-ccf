@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 07:00-21:00 Europe/London
+  name: fbis-ccf
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: fbis-ccf
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/insight/metrics"
+      labels:
+        name: fbis-ccf
+        app: fbis-ccf
+        service: fbis-ccf
+    spec:
+      containers:
+        - name: fbis-ccf
+          image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/sas/fbis-ccfs:{{.DRONE_COMMIT_SHA}}
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fbis-ccf-configmap
+          env:
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_HOST
+              value: redis
+            - name: NOTIFY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: fbis-notify-key
+                  key: fbis-notify-key
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: session_secret
+          livenessProbe:
+            httpGet:
+              path: /healthz/ping
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "200Mi"
+            limits:
+              cpu: "400m"
+              memory: "400Mi"

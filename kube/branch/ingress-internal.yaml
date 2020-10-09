@@ -1,0 +1,26 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fbis-ccf-internal
+  labels:
+    cert-manager.io/solver: route53
+  annotations:
+    cert-manager.io/enabled: "true"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: "nginx-internal"
+    ingress.kubernetes.io/add-base-url: "true"
+    ingress.kubernetes.io/app-root: /apply
+spec:
+  tls:
+    - hosts:
+        - fbis-ccf.branch.internal.sas-notprod.homeoffice.gov.uk
+      secretName: fbis-ccf-internal
+  rules:
+    - host: fbis-ccf.branch.internal.sas-notprod.homeoffice.gov.uk
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: fbis-ccf
+              servicePort: 443

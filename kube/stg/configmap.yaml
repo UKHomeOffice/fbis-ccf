@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fbis-ccf-configmap
+  namespace: {{ .KUBE_NAMESPACE }}
+  labels:
+    name: fbis-ccf
+data:
+  ENVIRONMENT: "STG"
+  COMMIT_SHA: {{ .DRONE_COMMIT_SHA }}
+  GA_ID: "UA-666666-1"
+  NODE_ENV: "production"

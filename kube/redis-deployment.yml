@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        name: redis
+        service: redis
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: quay.io/ukhomeofficedigital/redis:v1.0.1
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /var/lib/redis
+              name: data
+          securityContext:
+            runAsNonRoot: true
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "100Mi"
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
+      volumes:
+        - name: data
+          emptyDir: {}
