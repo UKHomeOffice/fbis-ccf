@@ -1,0 +1,9 @@
+{
+  "theme": "govuk",
+  "routes": [
+    "./apps/fbis-ccf"
+  ],
+  "session": {
+    "name": "fbis-ccf.hof.sid"
+  }
+}
