@@ -6,10 +6,14 @@ RUN mkdir /public && \
     chown -R 999:998 /app/
 
 COPY package.json /app/package.json
+
 WORKDIR /app
-RUN npm --loglevel warn install --production
+
+RUN npm --loglevel warn install --production --no-optional
+
 COPY . /app
-RUN npm --loglevel warn run postinstall --production
+
+RUN npm --loglevel warn run postinstall --production && \
     chown -R 999:998 public && \
     chown -R 999:998 /app/
 
