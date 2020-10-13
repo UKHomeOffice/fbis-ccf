@@ -1,0 +1,4 @@
+node_modules/
+public
+apps/*/translations/*
+!apps/*/translations/src
