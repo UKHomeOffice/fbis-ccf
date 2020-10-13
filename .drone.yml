@@ -27,7 +27,7 @@ pipeline:
     tolerate: medium
     #whitelist: CVE_SOMENAME_1,CVE_SOMENAME_2
     #whitelist_file: <PATH>
-    show_all_vulnerabilities: true
+    show_all_vulnerabilities: false
     fail_on_detection: false
     when:
       event: push
