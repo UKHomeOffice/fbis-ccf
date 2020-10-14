@@ -40,6 +40,7 @@ steps:
     SERVICE_URL: http://anchore-submission-server:10080
     LOCAL_IMAGE: true
     TOLERATE: medium
+    FAIL_ON_DETECTION: false
   when:
     branch:
       - [ master, development ]
@@ -47,24 +48,19 @@ steps:
       - push
 
 - name: create_artefact
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/ecr:latest
-  settings:
-    repo: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/sas/fbis-ccf
-    tags:
-    - latest_${DRONE_BRANCH}
-    - ${DRONE_COMMIT_SHA}
-  environment:
-    AWS_ACCESS_KEY_ID:
-      from_secret: AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY:
-      from_secret: AWS_SECRET_ACCESS_KEY
+  image: docker:dind
+  commands:
+    - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
+    - docker tag $${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_BUILD_NUMBER}
+    - docker push quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_BUILD_NUMBER}
+  volumes:
+    - name: dockersock
+      path: /var/run
   when:
     branch:
-    - master
-    - development
+      - [ master, development ]
     event:
-    - push
+      - push
 
 - name: deploy_to_dev
   pull: if-not-exists
