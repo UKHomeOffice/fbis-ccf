@@ -1,0 +1,13 @@
+{{<partials-page}}
+    {{$header}}
+        {{#values.in-UK}}
+            {{#t}}pages.landing.header.in{{/t}}
+        {{/values.in-UK}}
+        {{^values.in-UK}}
+            {{#t}}pages.landing.header.out{{/t}}
+        {{/values.in-UK}}
+    {{/header}}
+    {{$page-content}}
+        <button class="button" type="submit">{{#t}}buttons.start{{/t}}</button>
+    {{/page-content}}
+{{/partials-page}}
