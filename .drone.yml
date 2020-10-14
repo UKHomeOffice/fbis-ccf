@@ -24,15 +24,12 @@ steps:
     # wait for docker service to be up before running docker build
     - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
     - docker build -t sas/fbis-ccf:$${DRONE_BUILD_NUMBER} .
-  environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
   volumes:
     - name: dockersock
       path: /var/run
   when:
     branch:
-    - master
-    - development
+    - [ master, development ]
     event:
     - push
 
