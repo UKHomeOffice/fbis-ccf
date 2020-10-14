@@ -33,20 +33,18 @@ steps:
     event:
     - push
 
-- name: scan
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/anchore-submission:latest
-  settings:
-    dockerfile: ./Dockerfile
-    image_name: sas/fbis-ccf:${DRONE_BUILD_NUMBER}
-    local_image: true
-    tolerate: medium
+- name: scan-image
+  image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
+  environment:
+    IMAGE_NAME: sas/fbis-ccf:${DRONE_BUILD_NUMBER}
+    SERVICE_URL: http://anchore-submission-server:10080
+    LOCAL_IMAGE: true
+    TOLERATE: medium
   when:
     branch:
-    - master
-    - development
+      - [ master, development ]
     event:
-    - push
+      - push
 
 - name: create_artefact
   pull: if-not-exists
