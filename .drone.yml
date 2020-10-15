@@ -54,8 +54,8 @@ steps:
       from_secret: docker_password
   commands:
     - docker login -u="ukhomeofficedigital+sas_fbis_robot" -p=$${DOCKER_PASSWORD} quay.io
-    - docker tag sas/fbis-ccf:${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_COMMIT_SHA}
-    - docker push quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_COMMIT_SHA}
+    - docker tag sas/fbis-ccf:${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/sas-fbis-ccf:${DRONE_COMMIT_SHA}
+    - docker push quay.io/ukhomeofficedigital/sas-fbis-ccf:${DRONE_COMMIT_SHA}
   volumes:
     - name: dockersock
       path: /var/run
