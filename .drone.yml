@@ -23,7 +23,7 @@ steps:
   commands:
     # wait for docker service to be up before running docker build
     - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
-    - docker build -t sas/fbis-ccf:$${DRONE_BUILD_NUMBER} .
+    - docker build -t sas/fbis-ccf:$${DRONE_COMMIT_SHA} .
   volumes:
     - name: dockersock
       path: /var/run
@@ -36,14 +36,14 @@ steps:
 - name: scan-image
   image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
   environment:
-    IMAGE_NAME: sas/fbis-ccf:${DRONE_BUILD_NUMBER}
+    IMAGE_NAME: sas/fbis-ccf:${DRONE_COMMIT_SHA}
     SERVICE_URL: http://anchore-submission-server:10080
     LOCAL_IMAGE: true
     TOLERATE: medium
     FAIL_ON_DETECTION: false
   when:
     branch:
-      - [ master, development ]
+      - [ master ]
     event:
       - push
 
@@ -54,8 +54,7 @@ steps:
       from_secret: docker_password
   commands:
     - docker login -u="ukhomeofficedigital+sas_fbis_robot" -p=$${DOCKER_PASSWORD} quay.io
-    - docker tag $${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_BUILD_NUMBER}
-    - docker push quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_BUILD_NUMBER}
+    - docker push quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_COMMIT_SHA}
   volumes:
     - name: dockersock
       path: /var/run
