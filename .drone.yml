@@ -49,8 +49,11 @@ steps:
 
 - name: create_artefact
   image: docker:dind
+  environment:
+    DOCKER_PASSWORD:
+      from_secret: docker_password
   commands:
-    - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
+    - docker login -u="ukhomeofficedigital+sas_fbis_robot" -p=$${DOCKER_PASSWORD} quay.io
     - docker tag $${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_BUILD_NUMBER}
     - docker push quay.io/ukhomeofficedigital/sas/fbis-ccf:${DRONE_BUILD_NUMBER}
   volumes:
