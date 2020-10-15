@@ -1,209 +1,251 @@
-pipeline:
+---
+kind: pipeline
+name: default
+type: kubernetes
 
-  unit_test:
-    image: node
-    commands:
-      - npm install
-      - npm test
-    when:
-      event: push
-      branch: [ master, development ]
+steps:
 
-  build:
-    image: docker:17.09.0-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker build -t sas/fbis-ccf:$${DRONE_BUILD_NUMBER} .
-    when:
-      event: push
-      branch: [ master, development ]
+- name: unit_test
+  pull: if-not-exists
+  image: node
+  commands:
+  - npm install
+  - npm test
+  when:
+    branch:
+    - master
+    - development
+    event:
+    - push
 
-  scan:
-    image: quay.io/ukhomeofficedigital/anchore-submission:latest
-    dockerfile: ./Dockerfile
-    image_name: sas/fbis-ccf:${DRONE_BUILD_NUMBER}
-    local_image: true
-    tolerate: medium
-    #whitelist: CVE_SOMENAME_1,CVE_SOMENAME_2
-    #whitelist_file: <PATH>
-    show_all_vulnerabilities: false
-    fail_on_detection: false
-    when:
-      event: push
-      branch: [ master, development ]
+- name: build-image
+  image: docker:dind
+  commands:
+    # wait for docker service to be up before running docker build
+    - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
+    - docker build -t sas/fbis-ccf:$${DRONE_COMMIT_SHA} .
+  volumes:
+    - name: dockersock
+      path: /var/run
+  when:
+    branch:
+    - [ master, development ]
+    event:
+    - push
 
-  create_artefact:
-    image: quay.io/ukhomeofficedigital/ecr:latest
-    secrets:
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-    repo: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/sas/fbis-ccf
-    tags:
-      - latest_${DRONE_BRANCH}
-      - ${DRONE_COMMIT_SHA}
-    when:
-      event: push
-      branch: [ master, development ]
+- name: scan-image
+  image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
+  environment:
+    IMAGE_NAME: sas/fbis-ccf:${DRONE_COMMIT_SHA}
+    SERVICE_URL: http://anchore-submission-server:10080
+    LOCAL_IMAGE: true
+    TOLERATE: medium
+    FAIL_ON_DETECTION: false
+  when:
+    branch:
+      - master
+    event:
+      - push
 
-  deploy_to_dev:
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    secrets:
-      - kube_token_fbis_acp_notprod
-    environment:
-      - KUBE_NAMESPACE=sas-fbis-dev
-      - KUBE_SERVER=https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
-    commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
-      - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
-      - kd --insecure-skip-tls-verify -f kube/dev/configmap.yaml -f kube/dev/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/dev/deployment.yaml
-    when:
-      event: push
-      branch: master
+- name: create_artefact
+  image: docker:dind
+  environment:
+    DOCKER_PASSWORD:
+      from_secret: docker_password
+  commands:
+    - docker login -u="ukhomeofficedigital+sas_fbis_robot" -p=$${DOCKER_PASSWORD} quay.io
+    - docker tag sas/fbis-ccf:${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/sas-fbis-ccf:${DRONE_COMMIT_SHA}
+    - docker push quay.io/ukhomeofficedigital/sas-fbis-ccf:${DRONE_COMMIT_SHA}
+  volumes:
+    - name: dockersock
+      path: /var/run
+  when:
+    branch:
+      - [ master, development ]
+    event:
+      - push
 
-  deploy_to_branch:
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    secrets:
-      - kube_token_fbis_acp_notprod
-    environment:
-      - KUBE_NAMESPACE=sas-fbis-branch
-      - KUBE_SERVER=https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
-    commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
-      - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
-      - kd --insecure-skip-tls-verify -f kube/branch/configmap.yaml -f kube/branch/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/branch/deployment.yaml
-    when:
-      event: push
-      branch: development
+- name: deploy_to_dev
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
+  - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+  - kd --insecure-skip-tls-verify -f kube/dev/configmap.yaml -f kube/dev/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
+  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/dev/deployment.yaml
+  environment:
+    KUBE_NAMESPACE: sas-fbis-dev
+    KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
+    KUBE_TOKEN_FBIS_ACP_NOTPROD:
+      from_secret: kube_token_fbis_acp_notprod
+  when:
+    branch:
+    - master
+    event:
+    - push
 
-  deploy_to_uat:
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    secrets:
-      - kube_token_fbis_acp_notprod
-    environment:
-      - KUBE_NAMESPACE=sas-fbis-uat
-      - KUBE_SERVER=https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
-    commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN_fbis_ACP_NOTPROD}
-      - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
-      - kd --insecure-skip-tls-verify -f kube/uat/configmap.yaml -f kube/uat/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/uat/deployment.yaml
-    when:
-      environment: UAT
-      event: deployment
+- name: deploy_to_branch
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
+  - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+  - kd --insecure-skip-tls-verify -f kube/branch/configmap.yaml -f kube/branch/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
+  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/branch/deployment.yaml
+  environment:
+    KUBE_NAMESPACE: sas-fbis-branch
+    KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
+    KUBE_TOKEN_FBIS_ACP_NOTPROD:
+      from_secret: kube_token_fbis_acp_notprod
+  when:
+    branch:
+    - development
+    event:
+    - push
 
-  deploy_to_stg:
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    secrets:
-      - kube_token_fbis_acp_prod
-    environment:
-      - KUBE_NAMESPACE=sas-fbis-stg
-      - KUBE_SERVER=https://kube-api-prod.prod.acp.homeoffice.gov.uk
-    commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_PROD}
-      - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
-      - kd --insecure-skip-tls-verify -f kube/stg/configmap.yaml -f kube/stg/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/stg/deployment.yaml
-    when:
-      environment: STG
-      event: deployment
+- name: deploy_to_uat
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+  - export KUBE_TOKEN=$${KUBE_TOKEN_fbis_ACP_NOTPROD}
+  - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+  - kd --insecure-skip-tls-verify -f kube/uat/configmap.yaml -f kube/uat/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
+  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/uat/deployment.yaml
+  environment:
+    KUBE_NAMESPACE: sas-fbis-uat
+    KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
+    KUBE_TOKEN_FBIS_ACP_NOTPROD:
+      from_secret: kube_token_fbis_acp_notprod
+  when:
+    event:
+    - promote
+    target:
+    - UAT
 
-  deploy_to_prod:
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    secrets:
-      - kube_token_fbis_acp_prod
-    environment:
-      - KUBE_NAMESPACE=sas-fbis-prod
-      - KUBE_SERVER=https://kube-api-prod.prod.acp.homeoffice.gov.uk
-    commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_PROD}
-      - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
-      - kd --insecure-skip-tls-verify -f kube/prod/configmap.yaml -f kube/prod/ingress-external.yaml -f kube/networkpolicy-external.yaml -f kube/service.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/prod/deployment.yaml
-    when:
-      environment: PROD
-      event: deployment
+- name: deploy_to_stg
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_PROD}
+  - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+  - kd --insecure-skip-tls-verify -f kube/stg/configmap.yaml -f kube/stg/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
+  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/stg/deployment.yaml
+  environment:
+    KUBE_NAMESPACE: sas-fbis-stg
+    KUBE_SERVER: https://kube-api-prod.prod.acp.homeoffice.gov.uk
+    KUBE_TOKEN_FBIS_ACP_PROD:
+      from_secret: kube_token_fbis_acp_prod
+  when:
+    event:
+    - promote
+    target:
+    - STG
 
-  manual_deploy_to_branch:
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    secrets:
-      - kube_token_fbis_acp_notprod
-    environment:
-      - KUBE_NAMESPACE=sas-fbis-branch
-      - KUBE_SERVER=https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
-    commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
-      - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
-      - kd --insecure-skip-tls-verify -f kube/branch/configmap.yaml -f kube/branch/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/branch/deployment.yaml
-    when:
-      environment: BRANCH
-      event: deployment
+- name: deploy_to_prod
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_PROD}
+  - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+  - kd --insecure-skip-tls-verify -f kube/prod/configmap.yaml -f kube/prod/ingress-external.yaml -f kube/networkpolicy-external.yaml -f kube/service.yaml
+  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/prod/deployment.yaml
+  environment:
+    KUBE_NAMESPACE: sas-fbis-prod
+    KUBE_SERVER: https://kube-api-prod.prod.acp.homeoffice.gov.uk
+    KUBE_TOKEN_FBIS_ACP_PROD:
+      from_secret: kube_token_fbis_acp_prod
+  when:
+    event:
+    - promote
+    target:
+    - PROD
 
-  sonar-scanner:
-    image: quay.io/ukhomeofficedigital/sonar-scanner-node:latest
+- name: manual_deploy_to_branch
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
+  - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+  - kd --insecure-skip-tls-verify -f kube/branch/configmap.yaml -f kube/branch/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
+  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/branch/deployment.yaml
+  environment:
+    KUBE_NAMESPACE: sas-fbis-branch
+    KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
+    KUBE_TOKEN_FBIS_ACP_NOTPROD:
+      from_secret: kube_token_fbis_acp_notprod
+  when:
+    event:
+    - promote
+    target:
+    - BRANCH
+
+- name: sonar-scanner
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/sonar-scanner-node:latest
+  settings:
     failure: ignore
-    when:
-      event: push
-      branch: master
+  when:
+    branch:
+    - master
+    event:
+    - push
 
-  notify_slack_build:
-    image: plugins/slack:1.1
-    failure: ignore
-    secrets:
-      - SLACK_WEBHOOK
+- name: notify_slack_build
+  pull: if-not-exists
+  image: plugins/slack:1.1
+  settings:
     channel: refugee-integration-loan-build
-    username: Drone
-    icon_url: http://readme.drone.io/0.5/logo_dark.svg
-    icon.url: http://readme.drone.io/0.5/logo_dark.svg
-    template: >
-      BUILD on {{build.event}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}>
-      {{#success build.status}}
-        :thumbsup: :thumbsup: :thumbsup:
-      {{else}}
-        :x: :x: :x:
-      {{/success}}
-      Author: {{build.author}}
-
-
-      Duration: {{since job.started}}\n
-
-
-      Job: <{{build.link}}|#{{build.number}}>\n
-
-
-      Commit: {{build.commit}}
-    when:
-      branch: master
-      event: push
-
-  notify_slack_deploy:
-    image: plugins/slack:1.1
     failure: ignore
-    secrets:
-      - SLACK_WEBHOOK
-    channel: refugee-integration-loan-build
-    username: Drone
-    icon_url: http://readme.drone.io/0.5/logo_dark.svg
     icon.url: http://readme.drone.io/0.5/logo_dark.svg
-    template: >
-      DEPLOY to {{deploy.to}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}>
-      {{#success build.status}}
-        :thumbsup: :thumbsup: :thumbsup:
-      {{else}}
-        :x: :x: :x:
-      {{/success}}
-      Author: {{build.author}}
+    icon_url: http://readme.drone.io/0.5/logo_dark.svg
+    template: "BUILD on {{build.event}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\\n\n\nJob: <{{build.link}}|#{{build.number}}>\\n\n\nCommit: {{build.commit}}\n"
+    username: Drone
+  environment:
+    SLACK_WEBHOOK:
+      from_secret: SLACK_WEBHOOK
+  when:
+    branch:
+    - master
+    event:
+    - push
 
+- name: notify_slack_deploy
+  pull: if-not-exists
+  image: plugins/slack:1.1
+  settings:
+    channel: refugee-integration-loan-build
+    failure: ignore
+    icon.url: http://readme.drone.io/0.5/logo_dark.svg
+    icon_url: http://readme.drone.io/0.5/logo_dark.svg
+    template: "DEPLOY to {{deploy.to}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+    username: Drone
+  environment:
+    SLACK_WEBHOOK:
+      from_secret: SLACK_WEBHOOK
+  when:
+    event:
+    - promote
 
-      Duration: {{since job.started}}
+services:
+  - name: docker
+    image: docker:dind
+    volumes:
+      - name: dockersock
+        path: /var/run
 
+  - name: anchore-submission-server
+    image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
+    commands:
+      - /anchore-submission server
+    environment:
+      ANCHORE_URL: "acp-anchore.acp.homeoffice.gov.uk"
+      REGISTRY_URL: "acp-ephemeral-registry.acp.homeoffice.gov.uk"
+    volumes:
+      - name: dockersock
+        path: /var/run
 
-      Job: <{{build.link}}|#{{build.number}}>
+volumes:
+  - name: dockersock
+    temp: {}
 
-
-      Commit: {{build.commit}}
-    when:
-      event: deployment
+...

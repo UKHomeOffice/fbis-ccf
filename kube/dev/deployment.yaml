@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: fbis-ccf
-          image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/sas/fbis-ccfs:{{.DRONE_COMMIT_SHA}}
+          image: quay.io/ukhomeofficedigital/sas-fbis-ccf:{{.DRONE_COMMIT_SHA}}
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true

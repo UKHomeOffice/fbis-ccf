@@ -10,3 +10,4 @@ data:
   COMMIT_SHA: {{ .DRONE_COMMIT_SHA }}
   GA_ID: "UA-999999-1"
   NODE_ENV: "development"
+  SUPPORT_TEMPLATE: "837dc8ac-6abf-4f6a-9f0c-57a28ea7f43c"

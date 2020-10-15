@@ -14,10 +14,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - fbis-ccf.branch.internal.sas-notprod.homeoffice.gov.uk
+        - fbis-contact-form.branch.internal.sas-notprod.homeoffice.gov.uk
       secretName: fbis-ccf-internal
   rules:
-    - host: fbis-ccf.branch.internal.sas-notprod.homeoffice.gov.uk
+    - host: fbis-contact-form.branch.internal.sas-notprod.homeoffice.gov.uk
       http:
         paths:
           - path: /
