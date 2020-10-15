@@ -33,19 +33,19 @@ steps:
     event:
     - push
 
-#- name: scan-image
-#  image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
-#  environment:
-#    IMAGE_NAME: sas/fbis-ccf:${DRONE_COMMIT_SHA}
-#    SERVICE_URL: http://anchore-submission-server:10080
-#    LOCAL_IMAGE: true
-#    TOLERATE: medium
-#    FAIL_ON_DETECTION: false
-#  when:
-#    branch:
-#      - [ master ]
-#    event:
-#      - push
+- name: scan-image
+  image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
+  environment:
+    IMAGE_NAME: sas/fbis-ccf:${DRONE_COMMIT_SHA}
+    SERVICE_URL: http://anchore-submission-server:10080
+    LOCAL_IMAGE: true
+    TOLERATE: medium
+    FAIL_ON_DETECTION: false
+  when:
+    branch:
+      - master
+    event:
+      - push
 
 - name: create_artefact
   image: docker:dind
