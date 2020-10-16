@@ -63,7 +63,7 @@ steps:
   - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/dev/configmap.yaml -f kube/dev/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/dev/deployment.yaml
+  - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/dev/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-dev
     KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
@@ -80,7 +80,7 @@ steps:
   - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/branch/configmap.yaml -f kube/branch/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/branch/deployment.yaml
+  - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/branch/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-branch
     KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
@@ -97,7 +97,7 @@ steps:
   - export KUBE_TOKEN=$${KUBE_TOKEN_fbis_ACP_NOTPROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/uat/configmap.yaml -f kube/uat/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/uat/deployment.yaml
+  - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/uat/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-uat
     KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
@@ -114,7 +114,7 @@ steps:
   - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_PROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/stg/configmap.yaml -f kube/stg/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/stg/deployment.yaml
+  - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/stg/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-stg
     KUBE_SERVER: https://kube-api-prod.prod.acp.homeoffice.gov.uk
@@ -131,7 +131,7 @@ steps:
   - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_PROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/prod/configmap.yaml -f kube/prod/ingress-external.yaml -f kube/networkpolicy-external.yaml -f kube/service.yaml
-  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/prod/deployment.yaml
+  - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/prod/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-prod
     KUBE_SERVER: https://kube-api-prod.prod.acp.homeoffice.gov.uk
@@ -148,7 +148,7 @@ steps:
   - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/branch/configmap.yaml -f kube/branch/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
-  - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/branch/deployment.yaml
+  - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/branch/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-branch
     KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
@@ -186,7 +186,7 @@ steps:
 
 - name: notify_slack_deploy
   pull: if-not-exists
-  image: plugins/slack:1.1
+  image: plugins/slack
   settings:
     channel: sas-build
     failure: ignore
