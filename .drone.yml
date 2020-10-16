@@ -12,11 +12,8 @@ steps:
   - npm install
   - npm test
   when:
-    branch:
-    - master
-    - development
-    event:
-    - push
+    branch: [ master, development ]
+    event: push
 
 - name: build-image
   image: docker:dind
@@ -28,10 +25,8 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch:
-    - [ master, development ]
-    event:
-    - push
+    branch: [ master, development ]
+    event: push
 
 - name: scan-image
   image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
@@ -42,10 +37,8 @@ steps:
     TOLERATE: medium
     FAIL_ON_DETECTION: false
   when:
-    branch:
-      - master
-    event:
-      - push
+    branch: master
+    event: push
 
 - name: create_artefact
   image: docker:dind
@@ -60,10 +53,8 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch:
-      - [ master, development ]
-    event:
-      - push
+    branch: [ master, development ]
+    event: push
 
 - name: deploy_to_dev
   pull: if-not-exists
@@ -79,10 +70,8 @@ steps:
     KUBE_TOKEN_FBIS_ACP_NOTPROD:
       from_secret: kube_token_fbis_acp_notprod
   when:
-    branch:
-    - master
-    event:
-    - push
+    branch: master
+    event: push
 
 - name: deploy_to_branch
   pull: if-not-exists
@@ -98,10 +87,8 @@ steps:
     KUBE_TOKEN_FBIS_ACP_NOTPROD:
       from_secret: kube_token_fbis_acp_notprod
   when:
-    branch:
-    - development
-    event:
-    - push
+    branch: development
+    event: push
 
 - name: deploy_to_uat
   pull: if-not-exists
@@ -117,10 +104,8 @@ steps:
     KUBE_TOKEN_FBIS_ACP_NOTPROD:
       from_secret: kube_token_fbis_acp_notprod
   when:
-    event:
-    - promote
-    target:
-    - UAT
+    event: promote
+    target: UAT
 
 - name: deploy_to_stg
   pull: if-not-exists
@@ -136,10 +121,8 @@ steps:
     KUBE_TOKEN_FBIS_ACP_PROD:
       from_secret: kube_token_fbis_acp_prod
   when:
-    event:
-    - promote
-    target:
-    - STG
+    event: promote
+    target: STG
 
 - name: deploy_to_prod
   pull: if-not-exists
@@ -155,10 +138,8 @@ steps:
     KUBE_TOKEN_FBIS_ACP_PROD:
       from_secret: kube_token_fbis_acp_prod
   when:
-    event:
-    - promote
-    target:
-    - PROD
+    event: promote
+    target: PROD
 
 - name: manual_deploy_to_branch
   pull: if-not-exists
@@ -174,10 +155,8 @@ steps:
     KUBE_TOKEN_FBIS_ACP_NOTPROD:
       from_secret: kube_token_fbis_acp_notprod
   when:
-    event:
-    - promote
-    target:
-    - BRANCH
+    event: promote
+    target: BRANCH
 
 - name: sonar-scanner
   pull: if-not-exists
@@ -185,46 +164,41 @@ steps:
   settings:
     failure: ignore
   when:
-    branch:
-    - master
-    event:
-    - push
+    branch: master
+    event: push
 
 - name: notify_slack_build
   pull: if-not-exists
-  image: plugins/slack:1.1
+  image: plugins/slack
   settings:
-    channel: refugee-integration-loan-build
+    channel: sas-build
     failure: ignore
     icon.url: http://readme.drone.io/0.5/logo_dark.svg
     icon_url: http://readme.drone.io/0.5/logo_dark.svg
     template: "BUILD on {{build.event}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\\n\n\nJob: <{{build.link}}|#{{build.number}}>\\n\n\nCommit: {{build.commit}}\n"
     username: Drone
-  environment:
-    SLACK_WEBHOOK:
+    webhook:
       from_secret: SLACK_WEBHOOK
   when:
-    branch:
-    - master
-    event:
-    - push
+    branch: [ master, development ]
+    event: push
+    status: [ success, failure ]
 
 - name: notify_slack_deploy
   pull: if-not-exists
   image: plugins/slack:1.1
   settings:
-    channel: refugee-integration-loan-build
+    channel: sas-build
     failure: ignore
     icon.url: http://readme.drone.io/0.5/logo_dark.svg
     icon_url: http://readme.drone.io/0.5/logo_dark.svg
-    template: "DEPLOY to {{deploy.to}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+    template: "DEPLOY to {{build.deployTo}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
     username: Drone
-  environment:
-    SLACK_WEBHOOK:
+    webhook:
       from_secret: SLACK_WEBHOOK
-  when:
-    event:
-    - promote
+    when:
+      event: promote
+      status: [ success, failure ]
 
 services:
   - name: docker
