@@ -11,6 +11,7 @@ steps:
   commands:
   - npm install
   - npm test
+  - exit 1
   when:
     branch: [ master, development ]
     event: push
