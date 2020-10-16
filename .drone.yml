@@ -193,7 +193,7 @@ steps:
 
 - name: notify_slack_build
   pull: if-not-exists
-  image: plugins/slack:1.1
+  image: plugins/slack
   settings:
     channel: refugee-integration-loan-build
     failure: ignore
@@ -201,14 +201,12 @@ steps:
     icon_url: http://readme.drone.io/0.5/logo_dark.svg
     template: "BUILD on {{build.event}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\\n\n\nJob: <{{build.link}}|#{{build.number}}>\\n\n\nCommit: {{build.commit}}\n"
     username: Drone
-  environment:
-    SLACK_WEBHOOK:
+    webhook:
       from_secret: SLACK_WEBHOOK
   when:
-    branch:
-    - [ master, development ]
-    event:
-    - push
+    branch: [ master, development ]
+    event: push
+    status: [ success, failure ]
 
 - name: notify_slack_deploy
   pull: if-not-exists
