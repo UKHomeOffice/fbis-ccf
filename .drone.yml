@@ -197,9 +197,9 @@ steps:
     webhook:
       from_secret: SLACK_WEBHOOK
     when:
-    event: promote
-    branch: [ master, development ]
-    status: [ success, failure ]
+      event: promote
+      branch: [ master, development ]
+      status: [ success, failure ]
 
 services:
   - name: docker
