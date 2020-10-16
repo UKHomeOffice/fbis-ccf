@@ -197,7 +197,7 @@ steps:
     webhook:
       from_secret: SLACK_WEBHOOK
     when:
-      event: promote
+      event: rollback
       status: [ success, failure ]
 
 services:
