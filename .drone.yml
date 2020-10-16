@@ -11,6 +11,7 @@ steps:
   commands:
   - npm install
   - npm test
+  - exit 1
   when:
     branch:
     - master
@@ -205,7 +206,7 @@ steps:
       from_secret: SLACK_WEBHOOK
   when:
     branch:
-    - master
+    - [ master, development ]
     event:
     - push
 
