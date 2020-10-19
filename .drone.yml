@@ -5,9 +5,11 @@ type: kubernetes
 
 steps:
 
-- name: unit_test
+- name: unit-test
   pull: if-not-exists
   image: node
+  environment:
+    NOTIFY_KEY: USE_MOCK
   commands:
   - npm install
   - npm test
@@ -40,7 +42,7 @@ steps:
     branch: master
     event: push
 
-- name: create_artefact
+- name: create-artefact
   image: docker:dind
   environment:
     DOCKER_PASSWORD:
@@ -56,7 +58,7 @@ steps:
     branch: [ master, development ]
     event: push
 
-- name: deploy_to_dev
+- name: deploy-to-dev
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
@@ -73,7 +75,7 @@ steps:
     branch: master
     event: push
 
-- name: deploy_to_branch
+- name: deploy-to-branch
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
@@ -90,7 +92,7 @@ steps:
     branch: development
     event: push
 
-- name: deploy_to_uat
+- name: deploy-to-uat
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
@@ -107,7 +109,7 @@ steps:
     event: promote
     target: UAT
 
-- name: deploy_to_stg
+- name: deploy-to-stg
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
@@ -124,7 +126,7 @@ steps:
     event: promote
     target: STG
 
-- name: deploy_to_prod
+- name: deploy-to-prod
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
@@ -141,7 +143,7 @@ steps:
     event: promote
     target: PROD
 
-- name: manual_deploy_to_branch
+- name: manual-deploy-to-branch
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
@@ -167,7 +169,7 @@ steps:
     branch: master
     event: push
 
-- name: notify_slack_build
+- name: notify-slack-build
   pull: if-not-exists
   image: plugins/slack
   settings:
@@ -184,7 +186,7 @@ steps:
     event: push
     status: [ success, failure ]
 
-- name: notify_slack_deploy
+- name: notify-slack-deploy
   pull: if-not-exists
   image: plugins/slack
   settings:

@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "hof-build watch",
-    "test": "npm run test:lint",
+    "test": "npm run unit && npm run test:lint && npm audit --audit-level=high && nyc --reporter=lcov --reporter=text-summary mocha",
     "test:lint": "eslint .",
     "build": "hof-build",
     "postinstall": "npm run build"
@@ -16,7 +16,8 @@
   },
   "devDependencies": {
     "eslint": "^3.14.0",
-    "eslint-config-homeoffice": "^2.1.0"
+    "eslint-config-homeoffice": "^2.1.0",
+    "nyc": "^15.1.0"
   },
   "name": "fbis-ccf",
   "description": "Future Border and Immigration System (FBIS) Customer Contact Form (CCF)",
