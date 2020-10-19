@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "hof-build watch",
-    "test": "npm run unit && npm run test:lint && npm audit --audit-level=high && nyc --reporter=lcov --reporter=text-summary mocha",
+    "test": "npm test",
     "test:lint": "eslint .",
     "build": "hof-build",
     "postinstall": "npm run build"
