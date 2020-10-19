@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "hof-build watch",
-    "test": "npm test",
+    "test": "npm --version",
     "test:lint": "eslint .",
     "build": "hof-build",
     "postinstall": "npm run build"
