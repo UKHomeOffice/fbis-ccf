@@ -6,3 +6,15 @@ rules:
 
 env:
   es6: true
+  node: true
+  mocha: true
+
+overrides:
+  - files:
+      "test/*.js"
+    rules:
+      implicit-dependencies/no-implicit: [error, { dev: true }]
+    globals:
+      chai: true
+      sinon: true
+      expect: true

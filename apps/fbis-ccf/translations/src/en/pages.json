@@ -1,5 +1,11 @@
 {
-  "name": {
-    "header": "Personal details"
+  "landing": {
+    "header": {
+      "in": "FBIS technical advice",
+      "out": "Advice on your application"
+    }
+  },
+  "question": {
+    "header": "What is your question about?"
   }
 }
