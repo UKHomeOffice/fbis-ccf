@@ -198,9 +198,9 @@ steps:
     username: Drone
     webhook:
       from_secret: SLACK_WEBHOOK
-    when:
-      event: promote
-      status: [ success, failure ]
+  when:
+    event: promote
+    status: [ success, failure ]
 
 services:
   - name: docker
