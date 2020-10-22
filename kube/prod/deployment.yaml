@@ -10,10 +10,6 @@ spec:
       name: fbis-ccf
   template:
     metadata:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
-        prometheus.io/path: "/insight/metrics"
       labels:
         name: fbis-ccf
         app: fbis-ccf
