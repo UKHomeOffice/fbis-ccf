@@ -96,7 +96,7 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
-  - export KUBE_TOKEN=$${KUBE_TOKEN_fbis_ACP_NOTPROD}
+  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
   - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
   - kd --insecure-skip-tls-verify -f kube/uat/configmap.yaml -f kube/uat/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
   - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/uat/deployment.yaml
