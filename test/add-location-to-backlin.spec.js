@@ -19,7 +19,7 @@ describe('Add location to backlink behaviour', () => {
     res = {};
   });
 
-  describe('getValues', () => {
+  describe('locals', () => {
 
     class Base {
       locals() {

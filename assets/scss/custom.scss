@@ -1,0 +1,20 @@
+// Custom styling for overriding HOF defaults as required by designs
+
+#query {
+  height: 120px; // 6x default line-height for screens < 641px wide
+  width: 100%;
+}
+
+@media (min-width: 641px) {
+  #query {
+    height: 150px; // 6x default line-height for this screen width
+  }
+
+  #name, #email {
+    width: 80%;
+  }
+
+  #phone, #application-number {
+    width: 67%;
+  }
+}
