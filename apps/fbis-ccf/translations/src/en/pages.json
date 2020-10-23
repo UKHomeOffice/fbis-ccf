@@ -7,5 +7,8 @@
   },
   "question": {
     "header": "What is your question about?"
+  },
+  "query": {
+    "header": "What is your query?"
   }
 }

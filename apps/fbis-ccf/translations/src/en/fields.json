@@ -1,1 +1,17 @@
-{}
+{
+  "application-number": {
+    "label": "Application number"
+  },
+  "query": {
+    "label": "Query"
+  },
+  "name": {
+    "label": "name"
+  },
+  "email": {
+    "label": "email"
+  },
+  "phone": {
+    "label": "Phone"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "application-number": {
+    "required": "You must enter an application number"
+  },
+  "query": {
+    "required": "You must enter your query"
+  },
+  "name": {
+    "required": "You must enter a name"
+  },
+  "email": {
+    "required": "You must enter an email",
+    "email": "Enter a valid email address"
+  }
+}

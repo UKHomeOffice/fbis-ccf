@@ -15,6 +15,10 @@ module.exports = {
     },
     '/question': {
       behaviours: [addLocationToBacklink],
+      next: '/query'
+    },
+    '/query': {
+      fields: ['application-number', 'query', 'name', 'email', 'phone'],
       next: '/confirm'
     },
     '/confirm': {
