@@ -24,7 +24,8 @@ steps:
   commands:
     - wget https://storage.googleapis.com/kore-releases/latest/kore-cli-linux-amd64
     - ln -s kore-cli-linux-amd64 kore
-    - kore version
+    - ls -l
+    - ./kore version
     - echo kore run build build-it -t fbis
   volumes:
     - name: dockersock
