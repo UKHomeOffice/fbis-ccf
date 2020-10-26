@@ -5,16 +5,16 @@
   width: 100%;
 }
 
-#name, #email {
-  width: 80%;
-}
-
-#phone, #application-number {
-  width: 67%;
-}
-
 @media (min-width: 641px) {
   #query {
     height: 150px; // 6x default line-height for this screen width
+  }
+
+  #name, #email {
+    width: 80%;
+  }
+
+  #phone, #application-number {
+    width: 67%;
   }
 }
