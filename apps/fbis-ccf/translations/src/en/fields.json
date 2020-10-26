@@ -1,17 +1,19 @@
 {
-  "application-number": {
-    "label": "Application number"
-  },
   "query": {
-    "label": "Query"
+    "label": "Give us a detailed description of the problem",
+    "hint": "Describe what you were doing when the problem happened and any error messages"
   },
   "name": {
-    "label": "name"
+    "label": "Full name"
   },
   "email": {
-    "label": "email"
+    "label": "Email address"
   },
   "phone": {
-    "label": "Phone"
+    "label": "Phone number (optional)"
+  },
+  "application-number": {
+    "label": "Unique application number (UAN)",
+    "hint": "For example, 3434-0000-0000-0001"
   }
 }

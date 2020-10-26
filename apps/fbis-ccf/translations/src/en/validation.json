@@ -1,15 +1,16 @@
 {
-  "application-number": {
-    "required": "You must enter an application number"
-  },
   "query": {
-    "required": "You must enter your query"
+    "required": "Enter details of the problem",
+    "maxlength": "Summary must be 500 characters or fewer"
   },
   "name": {
-    "required": "You must enter a name"
+    "required": "Enter your full name"
   },
   "email": {
-    "required": "You must enter an email",
+    "required": "Enter your email address",
     "email": "Enter a valid email address"
+  },
+  "application-number": {
+    "required": "Enter your unique application number (UAN)"
   }
 }

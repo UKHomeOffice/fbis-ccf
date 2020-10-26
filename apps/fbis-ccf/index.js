@@ -18,7 +18,7 @@ module.exports = {
       next: '/query'
     },
     '/query': {
-      fields: ['application-number', 'query', 'name', 'email', 'phone'],
+      fields: ['query', 'name', 'email', 'phone', 'application-number'],
       next: '/confirm'
     },
     '/confirm': {
