@@ -1,0 +1,15 @@
+{{<layout}}
+    {{$header}}
+        {{#values.isAccount}}
+            {{#t}}pages.query.header.account{{/t}}
+        {{/values.isAccount}}
+
+        {{#values.isStatus}}
+            {{#t}}pages.query.header.status{{/t}}
+        {{/values.isStatus}}
+
+        {{#values.isIdCheck}}
+            {{#t}}pages.query.header.id-check{{/t}}
+        {{/values.isIdCheck}}
+    {{/header}}
+{{/layout}}

@@ -9,6 +9,10 @@
     "header": "What is your question about?"
   },
   "query": {
-    "header": "Tell us about a problem viewing or proving your immigration status"
+    "header": {
+      "status": "Tell us about a problem viewing or proving your immigration status",
+      "account": "Tell us about a problem updating your immigration account details",
+      "id-check": "Tell us about a problem with the 'ID check' app"
+    }
   }
 }

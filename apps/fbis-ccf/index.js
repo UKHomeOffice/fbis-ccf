@@ -20,6 +20,7 @@ module.exports = {
     },
     '/query': {
       fields: ['query', 'name', 'email', 'phone', 'application-number'],
+      template: 'query',
       next: '/confirm'
     },
     '/confirm': {
