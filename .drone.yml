@@ -17,16 +17,13 @@ steps:
     event: push
 
 - name: create-artefact-kore
-  image: docker:dind
+  image: quay.io/appvia/kore:latest
   environment:
     KORE_SERVER: https://api.kore.acp.homeoffice.gov.uk
     KORE_TOKEN:
       from_secret: kore_token
     KORE_TEAM: fbis
   commands:
-    - wget https://storage.googleapis.com/kore-releases/latest/kore-cli-linux-amd64
-    - ln -s kore-cli-linux-amd64 kore
-    - chmod a+x kore
     - ./kore version
     - ./kore run build build-it -t fbis
   volumes:
@@ -40,12 +37,13 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
-  - export KUBE_TOKEN=$${KUBE_TOKEN_FBIS_ACP_NOTPROD}
-  - echo Deployed
+    - kd --insecure-skip-tls-verify --check-interval 10s -f kube/redis-service.yml -f kube/redis-network-policy.yml -f kube/redis-deployment.yml
+    - kd --insecure-skip-tls-verify -f kube/dev/configmap.yaml -f kube/dev/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
+    - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/dev/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-dev
-    KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
-    KUBE_TOKEN_FBIS_ACP_NOTPROD:
+    KUBE_SERVER:
+    KUBE_TOKEN:
       from_secret: kube_token_fbis_acp_notprod_kore
   when:
     branch: kore
