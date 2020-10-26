@@ -11,9 +11,7 @@ module.exports = {
   'email': {
     validate: ['required', 'email'],
   },
-  'phone': {
-    validate: ['required'],
-  },
+  'phone': {},
   'application-number': {
     validate: ['required'],
   }
