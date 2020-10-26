@@ -22,6 +22,9 @@ steps:
     DOCKER_PASSWORD:
       from_secret: docker_password
   commands:
+    - wget https://storage.googleapis.com/kore-releases/latest/kore-cli-linux-amd64
+    - ln -s kore-cli-linux-amd64 kore
+    - kore version
     - echo kore run build build-it -t fbis
   volumes:
     - name: dockersock
@@ -40,7 +43,7 @@ steps:
     KUBE_NAMESPACE: sas-fbis-dev
     KUBE_SERVER: https://kube-api-notprod.notprod.acp.homeoffice.gov.uk
     KUBE_TOKEN_FBIS_ACP_NOTPROD:
-      from_secret: kube_token_fbis_acp_notprod
+      from_secret: kube_token_fbis_acp_notprod_kore
   when:
     branch: kore
     event: push
