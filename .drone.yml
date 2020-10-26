@@ -24,8 +24,8 @@ steps:
       from_secret: kore_token
     KORE_TEAM: fbis
   commands:
-    - ./kore version
-    - ./kore run build build-it -t fbis
+    - kore version
+    - kore run build build-it -t fbis
   volumes:
     - name: dockersock
       path: /var/run
