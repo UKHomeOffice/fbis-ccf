@@ -15,5 +15,19 @@
   "application-number": {
     "label": "Unique application number (UAN)",
     "hint": "For example, 3434-0000-0000-0001"
+  },
+  "question": {
+    "legend": "What is your question about?",
+    "options": {
+      "status" : {
+        "label" : "Viewing or proving your immigration status"
+      },
+      "account" : {
+        "label": "Updating your immigration account details"
+      },
+      "id-check": {
+        "label": "The 'ID check' app"
+      }
+    }
   }
 }

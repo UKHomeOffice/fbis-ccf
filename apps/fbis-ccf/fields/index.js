@@ -18,17 +18,7 @@ module.exports = {
   question: {
     mixin: 'radio-group',
     validate: ['required'],
-    options: {
-      status: {
-        label: 'Viewing or proving your immigration status'
-      },
-      account: {
-        label: 'Updating your immigration account details'
-      },
-      'id-check': {
-        label: 'The \'ID check\' app'
-      }
-    },
+    options: ['status', 'account', 'id-check'],
     legend: {
       className: 'visuallyhidden'
     }
