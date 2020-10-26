@@ -1,4 +1,4 @@
-{{<layout}}
+{{<step}}
     {{$header}}
         {{#values.is-account}}
             {{#t}}pages.query.header.account{{/t}}
@@ -12,4 +12,16 @@
             {{#t}}pages.query.header.id-check{{/t}}
         {{/values.is-id-check}}
     {{/header}}
-{{/layout}}
+
+    {{$page-content}}
+        {{#textarea}}query{{/textarea}}
+        {{#input-text}}name{{/input-text}}
+        {{#input-text}}email{{/input-text}}
+        {{#input-text}}phone{{/input-text}}
+        {{^values.is-id-check}}
+            {{#input-text}}application-number{{/input-text}}
+        {{/values.is-id-check}}
+        {{#input-submit}}continue{{/input-submit}}
+    {{/page-content}}
+
+{{/step}}
