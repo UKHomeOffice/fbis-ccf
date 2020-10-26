@@ -19,14 +19,16 @@ steps:
 - name: create-artefact-kore
   image: docker:dind
   environment:
-    DOCKER_PASSWORD:
-      from_secret: docker_password
+    KORE_SERVER: https://api.kore.acp.homeoffice.gov.uk
+    KORE_TOKEN:
+      from_secret: kore_token
+    KORE_TEAM: fbis
   commands:
     - wget https://storage.googleapis.com/kore-releases/latest/kore-cli-linux-amd64
     - ln -s kore-cli-linux-amd64 kore
     - chmod a+x kore
     - ./kore version
-    - echo kore run build build-it -t fbis
+    - ./kore run build build-it -t fbis
   volumes:
     - name: dockersock
       path: /var/run
