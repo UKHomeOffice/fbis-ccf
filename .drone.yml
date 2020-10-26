@@ -26,9 +26,6 @@ steps:
   commands:
     - kore version
     - kore run build build-it -t fbis
-  volumes:
-    - name: dockersock
-      path: /var/run
   when:
     branch: kore
     event: push
@@ -42,22 +39,11 @@ steps:
     - kd --insecure-skip-tls-verify --timeout 4m --check-interval 10s -f kube/dev/deployment.yaml
   environment:
     KUBE_NAMESPACE: sas-fbis-dev
-    KUBE_SERVER:
+    KUBE_SERVER: https://a5b9fcc3230c34486b574ccb55f0b621-302467264.eu-west-2.elb.amazonaws.com
     KUBE_TOKEN:
       from_secret: kube_token_fbis_acp_notprod_kore
   when:
     branch: kore
     event: push
-
-services:
-  - name: docker
-    image: docker:dind
-    volumes:
-      - name: dockersock
-        path: /var/run
-
-volumes:
-  - name: dockersock
-    temp: {}
 
 ...
