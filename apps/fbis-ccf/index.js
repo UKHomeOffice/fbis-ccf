@@ -1,7 +1,8 @@
 'use strict';
 
-const setLocation = require('./behaviours/set-location');
 const addLocationToBacklink = require('./behaviours/add-location-to-backlink');
+const setLocation = require('./behaviours/set-location');
+const setQuestion = require('./behaviours/set-question');
 const summaryPage = require('hof-behaviour-summary-page');
 
 module.exports = {
@@ -19,6 +20,7 @@ module.exports = {
       next: '/query'
     },
     '/query': {
+      behaviours: [setQuestion],
       fields: ['query', 'name', 'email', 'phone', 'application-number'],
       template: 'query',
       next: '/confirm'
