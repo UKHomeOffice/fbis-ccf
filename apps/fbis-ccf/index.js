@@ -15,6 +15,7 @@ module.exports = {
     },
     '/question': {
       behaviours: [addLocationToBacklink],
+      fields: ['question'],
       next: '/query'
     },
     '/query': {

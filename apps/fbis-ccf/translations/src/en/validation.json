@@ -12,5 +12,8 @@
   },
   "application-number": {
     "required": "Enter your unique application number (UAN)"
+  },
+  "question": {
+    "required": "Select what your question is about"
   }
 }
