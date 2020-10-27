@@ -11,7 +11,6 @@ module.exports = {
   steps: {
     '/landing': {
       behaviours: [setLocation],
-      template: 'landing',
       next: '/question'
     },
     '/question': {
@@ -22,7 +21,6 @@ module.exports = {
     '/query': {
       behaviours: [setQuestion],
       fields: ['query', 'name', 'email', 'phone', 'application-number'],
-      template: 'query',
       next: '/confirm'
     },
     '/confirm': {
