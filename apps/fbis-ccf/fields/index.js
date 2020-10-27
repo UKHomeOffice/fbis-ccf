@@ -18,7 +18,7 @@ module.exports = {
   question: {
     mixin: 'radio-group',
     validate: ['required'],
-    options: ['status', 'account', 'id-check'],
+    options: ['id-check', 'status', 'account'],
     legend: {
       className: 'visuallyhidden'
     }

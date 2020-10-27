@@ -17,16 +17,16 @@
     "hint": "For example, 3434-0000-0000-0001"
   },
   "question": {
-    "legend": "What is your question about?",
+    "legend": "What is your technical problem about?",
     "options": {
+      "id-check": {
+        "label": "The 'ID check' app"
+      },
       "status" : {
         "label" : "Viewing or proving your immigration status"
       },
       "account" : {
         "label": "Updating your immigration account details"
-      },
-      "id-check": {
-        "label": "The 'ID check' app"
       }
     }
   }
