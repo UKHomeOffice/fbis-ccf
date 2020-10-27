@@ -1,9 +1,12 @@
 {
+  "representative-name": {
+    "required": "Enter your full name"
+  },
   "query": {
     "required": "Enter details of the problem",
     "maxlength": "Summary must be 500 characters or fewer"
   },
-  "name": {
+  "applicant-name": {
     "required": "Enter your full name"
   },
   "email": {
@@ -15,5 +18,8 @@
   },
   "question": {
     "required": "Select what your technical problem is about"
+  },
+  "identity": {
+    "required": "Select if you are contacting us on behalf of someone else"
   }
 }
