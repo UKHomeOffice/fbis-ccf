@@ -1,0 +1,19 @@
+{
+  "query": {
+    "required": "Enter details of the problem",
+    "maxlength": "Summary must be 500 characters or fewer"
+  },
+  "name": {
+    "required": "Enter your full name"
+  },
+  "email": {
+    "required": "Enter your email address",
+    "email": "Enter a valid email address"
+  },
+  "application-number": {
+    "required": "Enter your unique application number (UAN)"
+  },
+  "question": {
+    "required": "Select what your technical problem is about"
+  }
+}

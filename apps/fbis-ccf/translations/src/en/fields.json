@@ -1,1 +1,33 @@
-{}
+{
+  "query": {
+    "label": "Give us a detailed description of the problem",
+    "hint": "Describe what you were doing when the problem happened and any error messages"
+  },
+  "name": {
+    "label": "Full name"
+  },
+  "email": {
+    "label": "Email address"
+  },
+  "phone": {
+    "label": "Phone number (optional)"
+  },
+  "application-number": {
+    "label": "Unique application number (UAN)",
+    "hint": "For example, 3434-0000-0000-0001"
+  },
+  "question": {
+    "legend": "What is your technical problem about?",
+    "options": {
+      "id-check": {
+        "label": "The 'ID check' app"
+      },
+      "status" : {
+        "label" : "Viewing or proving your immigration status"
+      },
+      "account" : {
+        "label": "Updating your immigration account details"
+      }
+    }
+  }
+}
