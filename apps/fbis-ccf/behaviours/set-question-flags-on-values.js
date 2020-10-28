@@ -2,7 +2,7 @@
 
 const options = require('../fields/index').question.options;
 
-module.exports = superclass => class SetQuestion extends superclass {
+module.exports = superclass => class SetQuestionFlagsOnValues extends superclass {
 
   getValues(req, res, next) {
     return super.getValues(req, res, (err, values) => {

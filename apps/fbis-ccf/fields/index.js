@@ -22,9 +22,7 @@ module.exports = {
     validate: ['required', 'email'],
   },
   'applicant-phone': {},
-  'application-number': {
-    validate: ['required'],
-  },
+  'application-number': {},
   question: {
     mixin: 'radio-group',
     validate: ['required'],
