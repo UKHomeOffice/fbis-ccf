@@ -1,8 +1,9 @@
 'use strict';
 
 const addLocationToBacklink = require('./behaviours/add-location-to-backlink');
-const setLocation = require('./behaviours/set-location');
-const setQuestion = require('./behaviours/set-question');
+const addUANValidatorIfRequired = require('./behaviours/add-uan-validator-if-required');
+const setLocationOnSession = require('./behaviours/set-location-on-session');
+const setQuestionFlagsOnValues = require('./behaviours/set-question-flags-on-values');
 const summaryPage = require('hof-behaviour-summary-page');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
   baseUrl: '',
   steps: {
     '/landing': {
-      behaviours: [setLocation],
+      behaviours: [setLocationOnSession],
       next: '/question'
     },
     '/question': {
@@ -36,7 +37,7 @@ module.exports = {
       next: '/query'
     },
     '/query': {
-      behaviours: [setQuestion],
+      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired],
       fields: ['query', 'applicant-name', 'email', 'applicant-phone', 'application-number'],
       next: '/confirm'
     },

@@ -1,12 +1,12 @@
 'use strict';
 
-const Behaviour = require('../apps/fbis-ccf/behaviours/set-location');
+const Behaviour = require('../apps/fbis-ccf/behaviours/set-location-on-session');
 
 describe('Set location behaviour', () => {
 
   let req;
   let res;
-  let SetLocation;
+  let SetLocationOnSession;
   let testInstance;
 
   beforeEach(() => {
@@ -27,8 +27,8 @@ describe('Set location behaviour', () => {
     }
 
     beforeEach(() => {
-      SetLocation = Behaviour(Base);
-      testInstance = new SetLocation();
+      SetLocationOnSession = Behaviour(Base);
+      testInstance = new SetLocationOnSession();
     });
 
     it('should set `in-UK` flag true if using base route (fbis.gov.uk/landing)', () => {

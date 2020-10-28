@@ -1,10 +1,10 @@
 'use strict';
 
-const Behaviour = require('../apps/fbis-ccf/behaviours/set-question');
+const Behaviour = require('../apps/fbis-ccf/behaviours/set-question-flags-on-values');
 
 describe('Set question behaviour', () => {
 
-  let SetQuestion;
+  let SetQuestionFlagsOnValues;
   let testInstance;
   let superErr;
   let superValues;
@@ -19,8 +19,8 @@ describe('Set question behaviour', () => {
     }
 
     beforeEach(() => {
-      SetQuestion = Behaviour(Base);
-      testInstance = new SetQuestion();
+      SetQuestionFlagsOnValues = Behaviour(Base);
+      testInstance = new SetQuestionFlagsOnValues();
 
       nextStub = sinon.stub();
     });
