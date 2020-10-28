@@ -5,16 +5,30 @@
   width: 100%;
 }
 
+#representative-name-hint {
+  margin-bottom: 1em;
+}
+
+#identity-group {
+  .multiple-choice {
+    clear: right;
+    margin-right: 2em;
+  }
+  legend {
+    margin-bottom: 1em;
+  }
+}
+
 @media (min-width: 641px) {
   #query {
     height: 150px; // 6x default line-height for this screen width
   }
 
-  #name, #email {
+  #applicant-name, #representative-name, #representative-phone, #email {
     width: 80%;
   }
 
-  #phone, #application-number {
+  #applicant-phone, #organisation, #application-number {
     width: 67%;
   }
 }

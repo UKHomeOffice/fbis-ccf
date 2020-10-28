@@ -16,11 +16,28 @@ module.exports = {
     '/question': {
       behaviours: [addLocationToBacklink],
       fields: ['question'],
+      template: 'save-and-continue',
+      next: '/identity'
+    },
+    '/identity': {
+      fields: ['identity'],
+      template: 'save-and-continue',
+      next: '/query',
+      forks: [{
+        target: '/details',
+        condition: {
+          field: 'identity',
+          value: 'yes'
+        }
+      }],
+    },
+    '/details': {
+      fields: ['representative-name', 'representative-phone', 'organisation'],
       next: '/query'
     },
     '/query': {
       behaviours: [setQuestion],
-      fields: ['query', 'name', 'email', 'phone', 'application-number'],
+      fields: ['query', 'applicant-name', 'email', 'applicant-phone', 'application-number'],
       next: '/confirm'
     },
     '/confirm': {
