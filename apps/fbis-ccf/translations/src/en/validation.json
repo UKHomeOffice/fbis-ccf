@@ -14,7 +14,8 @@
     "email": "Enter a valid email address"
   },
   "application-number": {
-    "required": "Enter your unique application number (UAN)"
+    "required": "Enter your unique application number (UAN)",
+    "uan": "Enter a valid unique application number (UAN)"
   },
   "question": {
     "required": "Select what your technical problem is about"
