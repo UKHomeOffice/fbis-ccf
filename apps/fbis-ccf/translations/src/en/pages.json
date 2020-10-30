@@ -20,5 +20,8 @@
       "account": "Tell us about a problem updating your immigration account details",
       "id-check": "Tell us about a problem with the 'ID check' app"
     }
+  },
+  "confirm": {
+    "header": "Check your answers"
   }
 }
