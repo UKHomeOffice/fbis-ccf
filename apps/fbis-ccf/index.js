@@ -5,6 +5,7 @@ const addUANValidatorIfRequired = require('./behaviours/add-uan-validator-if-req
 const setLocationOnSession = require('./behaviours/set-location-on-session');
 const setQuestionFlagsOnValues = require('./behaviours/set-question-flags-on-values');
 const summaryPage = require('hof-behaviour-summary-page');
+const formatSummaryLocals = require('./behaviours/format-summary-locals');
 
 module.exports = {
   name: 'fbis-ccf',
@@ -28,7 +29,7 @@ module.exports = {
         target: '/details',
         condition: {
           field: 'identity',
-          value: 'yes'
+          value: 'Yes'
         }
       }],
     },
@@ -42,7 +43,7 @@ module.exports = {
       next: '/confirm'
     },
     '/confirm': {
-      behaviours: ['complete', summaryPage],
+      behaviours: ['complete', summaryPage, formatSummaryLocals],
       next: '/complete'
     },
     '/complete': {

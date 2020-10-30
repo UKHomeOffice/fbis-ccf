@@ -18,32 +18,32 @@
   "applicant-name": {
     "label": {
       "identity": {
-        "no" : "Full name",
-        "yes": "Applicant's full name"
+        "No" : "Full name",
+        "Yes": "Applicant's full name"
       }
     }
   },
   "email": {
     "label": {
       "identity": {
-        "no" : "Email address",
-        "yes": "Applicant's email address"
+        "No" : "Email address",
+        "Yes": "Applicant's email address"
       }
     }
   },
   "applicant-phone": {
     "label": {
       "identity": {
-        "no" : "Phone number (optional)",
-        "yes": "Applicant's phone number (optional)"
+        "No" : "Phone number (optional)",
+        "Yes": "Applicant's phone number (optional)"
       }
     }
   },
   "application-number": {
     "label": {
       "identity": {
-        "no" : "Unique application number (UAN)",
-        "yes": "Applicant's unique application number (UAN)"
+        "No" : "Unique application number (UAN)",
+        "Yes": "Applicant's unique application number (UAN)"
       }
     },
     "hint": "For example, 3434-0000-0000-0001"
@@ -63,12 +63,12 @@
     }
   },
   "identity" : {
-    "legend": "Select 'yes' if you are the applicant's friend, family member, employer, a community group or a supporting organisation",
+    "legend": "Select 'Yes' if you are the applicant's friend, family member, employer, a community group or a supporting organisation",
     "options": {
-      "no": {
+      "No": {
         "label": "No"
       },
-      "yes": {
+      "Yes": {
         "label": "Yes"
       }
     }

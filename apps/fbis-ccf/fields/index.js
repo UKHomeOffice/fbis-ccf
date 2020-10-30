@@ -4,7 +4,7 @@ module.exports = {
   identity: {
     mixin: 'radio-group',
     validate: ['required'],
-    options: ['no', 'yes']
+    options: ['No', 'Yes']
   },
   'representative-name': {
     validate: ['required']
