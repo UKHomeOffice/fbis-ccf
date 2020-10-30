@@ -12,7 +12,7 @@
     "label": "Your organisation's name (optional)"
   },
   "query": {
-    "label": "Give us a detailed description of the problem",
+    "label": "Give a detailed description of the problem",
     "hint": "Describe what you were doing when the problem happened and any error messages"
   },
   "applicant-name": {
