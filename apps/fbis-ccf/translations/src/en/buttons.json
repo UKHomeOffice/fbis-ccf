@@ -1,3 +1,5 @@
 {
-    "start": "Start"
+    "start": "Start",
+    "continue": "Submit",
+    "save": "Save and continue"
 }

@@ -6,6 +6,22 @@
     }
   },
   "question": {
-    "header": "What is your question about?"
+    "header": "What is your technical problem about?"
+  },
+  "identity": {
+    "header": "Are you contacting us on behalf of someone else?"
+  },
+  "details": {
+    "header": "Your details"
+  },
+  "query": {
+    "header": {
+      "status": "Tell us about a problem viewing or proving your immigration status",
+      "account": "Tell us about a problem updating your immigration account details",
+      "id-check": "Tell us about a problem with the 'ID check' app"
+    }
+  },
+  "confirm": {
+    "header": "Check your answers"
   }
 }

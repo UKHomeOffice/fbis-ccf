@@ -1,0 +1,27 @@
+{{<step}}
+    {{$header}}
+        {{#values.is-account}}
+            {{#t}}pages.query.header.account{{/t}}
+        {{/values.is-account}}
+
+        {{#values.is-status}}
+            {{#t}}pages.query.header.status{{/t}}
+        {{/values.is-status}}
+
+        {{#values.is-id-check}}
+            {{#t}}pages.query.header.id-check{{/t}}
+        {{/values.is-id-check}}
+    {{/header}}
+
+    {{$page-content}}
+        {{#textarea}}query{{/textarea}}
+        {{#input-text}}applicant-name{{/input-text}}
+        {{#input-text}}email{{/input-text}}
+        {{#input-text}}applicant-phone{{/input-text}}
+        {{^values.is-id-check}}
+            {{#input-text}}application-number{{/input-text}}
+        {{/values.is-id-check}}
+        {{#input-submit}}continue{{/input-submit}}
+    {{/page-content}}
+
+{{/step}}
