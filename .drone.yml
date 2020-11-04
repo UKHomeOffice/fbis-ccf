@@ -6,14 +6,14 @@ type: kubernetes
 steps:
 
 - name: checker
-    pull: if-not-exists
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    commands:
-      - . bin/check_deployment.sh
-    environment:
-    when:
-      branch: test
-      event: push
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+    - . bin/check_deployment.sh
+  environment:
+  when:
+    branch: test
+    event: push
 
 - name: unit-test
   pull: if-not-exists
