@@ -21,6 +21,8 @@ steps:
   commands:
     - . bin/check_deployment.sh
   environment:
+    PRODUCTION_RELEASE_KEY:
+      from_secret: production_release_key
   when:
     event: promote
     target: ZZZ
