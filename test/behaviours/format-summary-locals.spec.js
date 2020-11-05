@@ -1,8 +1,8 @@
 'use strict';
 
-const Behaviour = require('../apps/fbis-ccf/behaviours/format-summary-locals');
-const fields = require('../apps/fbis-ccf/translations/src/en/fields');
-const pages = require('../apps/fbis-ccf/translations/src/en/pages');
+const Behaviour = require('../../apps/fbis-ccf/behaviours/format-summary-locals');
+const fields = require('../../apps/fbis-ccf/translations/src/en/fields');
+const pages = require('../../apps/fbis-ccf/translations/src/en/pages');
 const translations = { fields, pages};
 
 describe('Format summary locals behaviour', () => {

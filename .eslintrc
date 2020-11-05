@@ -11,7 +11,7 @@ env:
 
 overrides:
   - files:
-      "test/*.js"
+      "test/**/*.js"
     rules:
       implicit-dependencies/no-implicit: [error, { dev: true }]
     globals:

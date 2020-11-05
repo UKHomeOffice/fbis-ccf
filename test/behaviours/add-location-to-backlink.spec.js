@@ -1,6 +1,6 @@
 'use strict';
 
-const Behaviour = require('../apps/fbis-ccf/behaviours/add-location-to-backlink');
+const Behaviour = require('../../apps/fbis-ccf/behaviours/add-location-to-backlink');
 
 describe('Add location to backlink behaviour', () => {
 
