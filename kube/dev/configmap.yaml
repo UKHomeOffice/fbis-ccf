@@ -11,3 +11,4 @@ data:
   GA_ID: "UA-999999-1"
   NODE_ENV: "development"
   SUPPORT_TEMPLATE: "837dc8ac-6abf-4f6a-9f0c-57a28ea7f43c"
+  TEMPLATE_QUERY: "f74ed86d-6d95-4e4a-88c8-b9875ed69b12"

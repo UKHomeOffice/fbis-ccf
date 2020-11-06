@@ -3,7 +3,7 @@
 
 module.exports = {
   notify: {
-    apiKey: process.env.NOTIFY_API_KEY,
+    apiKey: process.env.NOTIFY_KEY,
     srcCaseworkEmail: process.env.SRC_CASEWORK_EMAIL,
     templateQuery: process.env.TEMPLATE_QUERY
   }

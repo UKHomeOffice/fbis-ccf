@@ -36,6 +36,11 @@ spec:
                 secretKeyRef:
                   name: fbis-notify-key
                   key: fbis-notify-key
+            - name: SRC_CASEWORK_EMAIL
+                valueFrom:
+                  secretKeyRef:
+                    name: fbis-casework-email
+                    key: fbis-casework-email
           livenessProbe:
             httpGet:
               path: /healthz/ping
