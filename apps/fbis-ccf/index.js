@@ -2,10 +2,11 @@
 
 const addLocationToBacklink = require('./behaviours/add-location-to-backlink');
 const addUANValidatorIfRequired = require('./behaviours/add-uan-validator-if-required');
+const formatSummaryLocals = require('./behaviours/format-summary-locals');
 const setLocationOnSession = require('./behaviours/set-location-on-session');
 const setQuestionFlagsOnValues = require('./behaviours/set-question-flags-on-values');
+const submit = require('./behaviours/submit');
 const summaryPage = require('hof-behaviour-summary-page');
-const formatSummaryLocals = require('./behaviours/format-summary-locals');
 
 module.exports = {
   name: 'fbis-ccf',
@@ -43,7 +44,7 @@ module.exports = {
       next: '/confirm'
     },
     '/confirm': {
-      behaviours: ['complete', summaryPage, formatSummaryLocals],
+      behaviours: [summaryPage, formatSummaryLocals, submit, 'complete'],
       next: '/complete'
     },
     '/complete': {

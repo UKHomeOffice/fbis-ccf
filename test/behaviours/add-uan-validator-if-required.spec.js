@@ -1,7 +1,7 @@
 'use strict';
 
-const Behaviour = require('../apps/fbis-ccf/behaviours/add-uan-validator-if-required');
-const uanValidator = require('../apps/fbis-ccf/validators/index').uan;
+const Behaviour = require('../../apps/fbis-ccf/behaviours/add-uan-validator-if-required');
+const uanValidator = require('../../apps/fbis-ccf/validators').uan;
 
 describe('Add UAN validator if required behaviour', () => {
 

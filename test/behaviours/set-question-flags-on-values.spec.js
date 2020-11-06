@@ -1,6 +1,6 @@
 'use strict';
 
-const Behaviour = require('../apps/fbis-ccf/behaviours/set-question-flags-on-values');
+const Behaviour = require('../../apps/fbis-ccf/behaviours/set-question-flags-on-values');
 
 describe('Set question behaviour', () => {
 
