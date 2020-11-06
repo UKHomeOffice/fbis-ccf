@@ -9,7 +9,7 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
-    - . bin/check_deployment.sh
+    - echo "Built"
   environment:
   when:
     branch: test
