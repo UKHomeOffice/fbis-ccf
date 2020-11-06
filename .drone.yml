@@ -162,7 +162,7 @@ steps:
 
 - name: sonar-scanner
   pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/sonar-scanner-node:latest
+  image: quay.io/ukhomeofficedigital/sonar-scanner-node:6a03c77c7e1bad005893cdcc9cd3d99479b79d5c
   settings:
     failure: ignore
   when:
