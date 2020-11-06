@@ -16,7 +16,7 @@ To run the app using the notprod Notify test service, you will need to:
 Then add the values retrieved above to your environment variables:
 
 ```.env
-export NOTIFY_API_KEY=[API_KEY]
+export NOTIFY_KEY=[API_KEY]
 export SRC_CASEWORK_EMAIL=[FBIS_CCF_DEVELOPERS_EMAIL]
 export TEMPLATE_QUERY=[QUERY_TEMPLATE_ID]
 ```
