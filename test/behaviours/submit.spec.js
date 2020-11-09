@@ -36,7 +36,8 @@ describe('Submit behaviour', () => {
     req = {
       form: {
         historicalValues: {}
-      }
+      },
+      log: sinon.stub()
     };
 
     res = {};
@@ -58,6 +59,7 @@ describe('Submit behaviour', () => {
 
     afterEach(() => {
       mockUtils.sendEmail.resetHistory();
+      req.log.resetHistory();
     });
 
     it('should call utils \'sendEmail\' with template query, SRC casework email, and a UUID', () => {
@@ -70,29 +72,29 @@ describe('Submit behaviour', () => {
     it('should call utils \'sendEmail\' with emailData containing only necessary fields from the form', () => {
       req.form.historicalValues = {
         'some-unwanted-field': 'unwanted value',
-        'applicant-name': 'test name',
-        'applicant-phone': 'test phone',
-        'application-number': 'test number',
-        email: 'test mail',
+        'applicant-name': 'John Smith',
+        'applicant-phone': '07000000000',
+        'application-number': '3434-0000-0000-0001',
+        email: 'john.smith@mail.com',
         identity: 'yes',
-        organisation: 'test org',
-        query: 'test query',
+        organisation: 'Charity',
+        query: 'I am having an issue',
         question: 'account',
-        'representative-name': 'test name',
-        'representative-phone': 'test phone'
+        'representative-name': 'Mary Sue',
+        'representative-phone': '07111111111'
       };
 
       const expected = {
-        'applicant-name': 'test name',
-        'applicant-phone': 'test phone',
-        'application-number': 'test number',
-        email: 'test mail',
+        'applicant-name': 'John Smith',
+        'applicant-phone': '07000000000',
+        'application-number': '3434-0000-0000-0001',
+        email: 'john.smith@mail.com',
         identity: 'yes',
-        organisation: 'test org',
-        query: 'test query',
+        organisation: 'Charity',
+        query: 'I am having an issue',
         question: 'account',
-        'representative-name': 'test name',
-        'representative-phone': 'test phone'
+        'representative-name': 'Mary Sue',
+        'representative-phone': '07111111111'
       };
 
       testInstance.saveValues(req, res, nextStub)
@@ -104,26 +106,26 @@ describe('Submit behaviour', () => {
 
     it('should call substitute falsy form fields with \'n/a\'', () => {
       req.form.historicalValues = {
-        'applicant-name': 'test name',
+        'applicant-name': 'John Smith',
         'applicant-phone': '',
         'application-number': null,
-        email: 'test mail',
+        email: 'john.smith@mail.com',
         identity: 'no',
         organisation: undefined,
-        query: 'test query',
+        query: 'I am having an issue',
         question: 'account',
         'representative-name': false,
         'representative-phone': false
       };
 
       const expected = {
-        'applicant-name': 'test name',
+        'applicant-name': 'John Smith',
         'applicant-phone': 'n/a',
         'application-number': 'n/a',
-        email: 'test mail',
+        email: 'john.smith@mail.com',
         identity: 'no',
         organisation: 'n/a',
-        query: 'test query',
+        query: 'I am having an issue',
         question: 'account',
         'representative-name': 'n/a',
         'representative-phone': 'n/a'
@@ -136,11 +138,39 @@ describe('Submit behaviour', () => {
         });
     });
 
-    it('should pass the error to the next middleware step if there is an error sending the email', () => {
-      mockUtils.sendEmail.rejects('testError');
+    it('should log a success message and the email reference if the email sends successfully', () => {
       testInstance.saveValues(req, res, nextStub)
-        .catch(() => {
-          expect(nextStub).to.have.been.calledOnceWith('testError');
+        .then(() => {
+          expect(req.log).to.have.been.calledOnceWith(
+            'info',
+            'Email sent to SRC casework address',
+            'reference=mockUUID'
+          );
+        });
+    });
+
+    it('should pass the error to the next middleware step if there is an error sending the email', () => {
+      const testError = new Error('testError');
+      mockUtils.sendEmail.rejects(testError);
+
+      testInstance.saveValues(req, res, nextStub)
+        .then(() => {
+          expect(nextStub).to.have.been.calledOnceWith(testError);
+        });
+    });
+
+    it('should log the error and email reference if there is an error sending the email', () => {
+      const testError = new Error('testError');
+      mockUtils.sendEmail.rejects(testError);
+
+      testInstance.saveValues(req, res, nextStub)
+        .then(() => {
+          expect(req.log).to.have.been.calledOnceWith(
+            'error',
+            'Error sending email to SRC casework address',
+            'reference=mockUUID',
+            testError
+          );
         });
     });
 
