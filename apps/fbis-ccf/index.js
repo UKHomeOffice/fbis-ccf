@@ -10,7 +10,6 @@ const summaryPage = require('hof-behaviour-summary-page');
 
 module.exports = {
   name: 'fbis-ccf',
-  baseUrl: '',
   steps: {
     '/landing': {
       behaviours: [setLocationOnSession],
