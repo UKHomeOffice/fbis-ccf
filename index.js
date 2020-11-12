@@ -8,7 +8,4 @@ settings.routes = settings.routes.map(route => require(route));
 settings.root = __dirname;
 settings.start = false;
 
-const app = hof(settings);
-app.use('', (req, res, next) => req.path === '/' ? res.redirect('/landing') : next());
-
-module.exports = app;
+module.exports = hof(settings);
