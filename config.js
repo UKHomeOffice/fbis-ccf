@@ -4,7 +4,10 @@
 module.exports = {
   notify: {
     apiKey: process.env.NOTIFY_KEY,
+    templateQuery: process.env.TEMPLATE_QUERY,
+    submitEmailSessionName: 'submit-email-reference',
     srcCaseworkEmail: process.env.SRC_CASEWORK_EMAIL,
-    templateQuery: process.env.TEMPLATE_QUERY
+    statusRetryLimit: 5,
+    statusRetryInterval: 1000
   }
 };
