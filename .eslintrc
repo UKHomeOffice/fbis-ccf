@@ -18,3 +18,7 @@ overrides:
       chai: true
       sinon: true
       expect: true
+  - files:
+      "assets/js/*.js"
+    env:
+      browser: true
