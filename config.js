@@ -8,8 +8,9 @@ module.exports = {
     templateQuery: process.env.TEMPLATE_QUERY,
     submitEmailSessionName: 'submit-email-reference',
     srcCaseworkEmail: process.env.SRC_CASEWORK_EMAIL,
-    feedbackEmail: process.env.FEEDBACK_EMAIL,
     templateFeedback: process.env.TEMPLATE_FEEDBACK,
+    feedbackEmailSessionName: 'feedback-email-reference',
+    feedbackEmail: process.env.FEEDBACK_EMAIL,
     statusRetryLimit: 5,
     statusRetryInterval: 1000
   }

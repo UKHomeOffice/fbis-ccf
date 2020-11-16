@@ -9,9 +9,9 @@ module.exports = superclass => class Feedback extends superclass {
   getValues(req, res, next) {
 
     const redirectFrom = req.headers.referer;
-    const redirectFromFeedback = redirectFrom.endsWith('/feedback');
+    const isRedirectFromFeedback = redirectFrom.endsWith('/feedback');
 
-    if (redirectFrom && redirectFromFeedback !== true) {
+    if (redirectFrom && isRedirectFromFeedback === false) {
       req.sessionModel.set('feedbackReturnTo', redirectFrom);
     }
 
@@ -19,7 +19,7 @@ module.exports = superclass => class Feedback extends superclass {
   }
 
   saveValues(req, res, next) {
-    let reference = req.sessionModel.get(notify.submitEmailSessionName);
+    let reference = req.sessionModel.get(notify.feedbackEmailSessionName);
 
     if (reference) {
       return utils.pollEmailStatus(reference, 0, notify.statusRetryInterval)
@@ -28,8 +28,10 @@ module.exports = superclass => class Feedback extends superclass {
     }
 
     reference = uuidv4();
-    req.sessionModel.set(notify.submitEmailSessionName, reference);
+    req.sessionModel.set(notify.feedbackEmailSessionName, reference);
     req.session.save();
+
+    // create data object first
 
     return utils.sendEmail(notify.templateFeedback, notify.feedbackEmail, reference, {
       feedbackRating: req.form.values.feedbackRating,

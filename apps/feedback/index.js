@@ -1,7 +1,7 @@
 'use strict';
 
 const submitFeedback = require('./behaviours/feedback');
-const feedbackSubmitted = require('./behaviours/feedback-submitted');
+const clearFeedback = require('./behaviours/clear-feedback');
 
 module.exports = {
   name: 'feedback',
@@ -12,7 +12,7 @@ module.exports = {
       next: '/feedback-submitted'
     },
     '/feedback-submitted': {
-      behaviours: [feedbackSubmitted],
+      behaviours: [clearFeedback],
       backLink: false
     }
   }
