@@ -1,11 +1,14 @@
 'use strict';
 
+const notify = require('../../../config').notify;
+
 module.exports = superclass => class extends superclass {
   getValues(req, res, next) {
     req.sessionModel.unset([
       'feedbackRating',
       'feedbackText',
-      'feedbackEmail'
+      'feedbackEmail',
+      notify.feedbackEmailSessionName
     ]);
 
     return super.getValues(req, res, next);
