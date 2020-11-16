@@ -2,11 +2,15 @@
 /* eslint no-process-env: 0 */
 
 module.exports = {
+  submitThrottleTimeout: 1000,
   notify: {
     apiKey: process.env.NOTIFY_KEY,
+    templateQuery: process.env.TEMPLATE_QUERY,
+    submitEmailSessionName: 'submit-email-reference',
     srcCaseworkEmail: process.env.SRC_CASEWORK_EMAIL,
     feedbackEmail: process.env.FEEDBACK_EMAIL,
-    templateQuery: process.env.TEMPLATE_QUERY,
-    templateFeedback: process.env.TEMPLATE_FEEDBACK
+    templateFeedback: process.env.TEMPLATE_FEEDBACK,
+    statusRetryLimit: 5,
+    statusRetryInterval: 1000
   }
 };

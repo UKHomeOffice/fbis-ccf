@@ -9,7 +9,6 @@ settings.root = __dirname;
 settings.start = false;
 
 const app = hof(settings);
-app.use('', (req, res, next) => req.oriinalUrl === '/' ? res.redirect('/landing') : next());
 
 app.use((req, res, next) => {
   res.locals.feedbackUrl = '/feedback';
@@ -17,3 +16,5 @@ app.use((req, res, next) => {
 });
 
 module.exports = app;
+
+

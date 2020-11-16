@@ -2,6 +2,7 @@
 
 const addLocationToBacklink = require('./behaviours/add-location-to-backlink');
 const addUANValidatorIfRequired = require('./behaviours/add-uan-validator-if-required');
+const clearSession = require('./behaviours/clear-session');
 const formatSummaryLocals = require('./behaviours/format-summary-locals');
 const setLocationOnSession = require('./behaviours/set-location-on-session');
 const setQuestionFlagsOnValues = require('./behaviours/set-question-flags-on-values');
@@ -10,7 +11,6 @@ const summaryPage = require('hof-behaviour-summary-page');
 
 module.exports = {
   name: 'fbis-ccf',
-  baseUrl: '',
   steps: {
     '/landing': {
       behaviours: [setLocationOnSession],
@@ -44,10 +44,11 @@ module.exports = {
       next: '/confirm'
     },
     '/confirm': {
-      behaviours: [summaryPage, formatSummaryLocals, submit, 'complete'],
+      behaviours: [summaryPage, formatSummaryLocals, submit],
       next: '/complete'
     },
     '/complete': {
+      behaviours: [clearSession],
       template: 'confirmation'
     }
   }
