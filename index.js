@@ -11,4 +11,9 @@ settings.start = false;
 const app = hof(settings);
 app.use('', (req, res, next) => req.oriinalUrl === '/' ? res.redirect('/landing') : next());
 
+app.use((req, res, next) => {
+  res.locals.feedbackUrl = '/feedback';
+  next();
+});
+
 module.exports = app;

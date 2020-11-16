@@ -1,7 +1,8 @@
 {
   "theme": "govuk",
   "routes": [
-    "./apps/fbis-ccf"
+    "./apps/fbis-ccf",
+    "./apps/feedback"
   ],
   "session": {
     "name": "fbis-ccf.hof.sid"
