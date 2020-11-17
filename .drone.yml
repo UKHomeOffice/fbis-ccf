@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  image: drone/cli:1.2.4-linux-ppc64le
   commands:
     - . bin/check_deployment.sh
   environment:
