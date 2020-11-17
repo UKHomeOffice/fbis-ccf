@@ -7,7 +7,7 @@ if [ "${PRODUCTION_RELEASE_KEY}" == "${SECRET}" ]
     echo "Secret check FAILED"
     exit 1
 fi
-now="$(date + '%d/%m/%Y')"
+now="$(date +'%d/%m/%Y')"
 echo "Checking deployment date of ${DRONE_COMMIT_SHA} from build ${DRONE_BUILD_PARENT} against ${now}"
 if [ "${now}" == "${TODAY}" ]
   then
