@@ -7,3 +7,4 @@ if [ "${PRODUCTION_RELEASE_KEY}" == "${SECRET}" ]
     echo "Invalid deployment key"
     exit 1
 fi
+echo "Done...."
