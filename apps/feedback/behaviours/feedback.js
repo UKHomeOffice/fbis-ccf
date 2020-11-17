@@ -31,13 +31,13 @@ module.exports = superclass => class Feedback extends superclass {
     req.sessionModel.set(notify.feedbackEmailSessionName, reference);
     req.session.save();
 
-    // create data object first
-
-    return utils.sendEmail(notify.templateFeedback, notify.feedbackEmail, reference, {
+    const emailData = {
       feedbackRating: req.form.values.feedbackRating,
       feedbackText: req.form.values.feedbackText,
-      feedbackEmail: req.form.values.feedbackEmail
-    })
+      feedbackEmail: req.form.values.feedbackEmail || 'n/a'
+    };
+
+    return utils.sendEmail(notify.templateFeedback, notify.feedbackEmail, reference, emailData)
       .then(() => Feedback.handleSuccess(req, next, reference, true))
       .catch(err => Feedback.handleError(req, next, reference, err));
   }

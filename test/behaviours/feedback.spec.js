@@ -12,7 +12,7 @@ const mockUtils = {
 const mockConfig = {
   notify: {
     templateFeedback: 'templateFeedback',
-    feedbackEmail: 'srcFeedbackEmail',
+    feedbackEmail: 'feedbackEmail',
     feedbackEmailSessionName: 'feedback-email',
     statusRetryInterval: 1000
   }
@@ -48,6 +48,9 @@ describe('Feedback behaviour', () => {
       },
       session: {
         save: sinon.stub()
+      },
+      headers: {
+        referer: ''
       }
     };
 
@@ -56,13 +59,38 @@ describe('Feedback behaviour', () => {
 
   describe('getValues', () => {
 
-    it('should set feedbackReturnTo to the location where the user directed to the feedback page from', () => {
+    class Base {
+      getValues() {}
+    }
+
+    beforeEach(() => {
+      Feedback = Behaviour(Base);
+      testInstance = new Feedback();
+      nextStub = sinon.stub();
+    });
+
+    describe('on redirect to feedback page', () => {
+
+      it('should set feedbackReturnTo to the location where the user directed to the feedback page from', () => {
+        req.headers.referer = 'referred-from-link.com';
+        const expected = 'referred-from-link.com';
+
+        testInstance.getValues(req, res, nextStub);
+        expect(req.sessionModel.set).to.have.been.calledOnceWith('feedbackReturnTo', expected);
+      });
+
+      it('should not set feedbackReturnTo if the user redirected from the feedback page', () => {
+        req.headers.referer = 'referred-from-link.com/feedback';
+
+        testInstance.getValues(req, res, nextStub);
+        expect(req.sessionModel.set.notCalled).to.equal(true);
+      });
 
     });
 
   });
 
-  describe.only('saveValues', () => {
+  describe('saveValues', () => {
 
     class Base {
       saveValues() {}
@@ -91,14 +119,150 @@ describe('Feedback behaviour', () => {
         req.sessionModel.get.reset();
       });
 
-      it('should call utils \'sendEmail\' with feedback template, SRC feedback email and UUID', () => {
+      it('should call utils \'sendEmail\' with feedback template, feedback email and UUID', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
-            expect(mockUtils.sendEmail).to.have.been.calledOnceWith('templateFeedback', 'srcFeedbackEmail', 'mockUUID');
+            expect(mockUtils.sendEmail).to.have.been.calledOnceWith('templateFeedback', 'feedbackEmail', 'mockUUID');
           });
       });
 
-      it('');
+      it('should call utils \'sendEmail\' with emailData containing only necessary fields from the form', () => {
+        req.form.values = {
+          'unwanted-field': 'unwanted value',
+          'feedbackRating': 'satisfied',
+          'feedbackText': 'Satisfied with the service',
+          'feedbackEmail': 'email@address.com'
+        };
+
+        const expected = {
+          'feedbackRating': 'satisfied',
+          'feedbackText': 'Satisfied with the service',
+          'feedbackEmail': 'email@address.com'
+        };
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(mockUtils.sendEmail).to.have.been
+              .calledOnceWith('templateFeedback', 'feedbackEmail', 'mockUUID', expected);
+          });
+      });
+
+      it('should replace feedbackEmail with \'n/a\' if not provided', () => {
+        req.form.values = {
+          'feedbackRating': 'satisfied',
+          'feedbackText': 'Satisfied with the service',
+          'feedbackEmail': undefined
+        };
+
+        const expected = {
+          'feedbackRating': 'satisfied',
+          'feedbackText': 'Satisfied with the service',
+          'feedbackEmail': 'n/a'
+        };
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(mockUtils.sendEmail).to.have.been
+              .calledOnceWith('templateFeedback', 'feedbackEmail', 'mockUUID', expected);
+          });
+      });
+
+      it('should call the next middleware step if the email send successfully', () => {
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(nextStub.calledOnce).to.equal(true);
+          });
+      });
+
+      it('should log a success message and the email reference if the email sends successfully', () => {
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(req.log).to.have.been.calledOnceWith(
+              'info',
+              'Feedback sent to feedback address',
+              'reference=mockUUID'
+            );
+          });
+      });
+
+      it('should pass the error to the next middleware step if there is an error sending the email', () => {
+        const testError = new Error('testError');
+        mockUtils.sendEmail.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(nextStub).to.have.been.calledOnceWith(testError);
+          });
+      });
+
+      it('should log the error and email reference if there is an error sending the email', () => {
+        const testError = new Error('testError');
+        mockUtils.sendEmail.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(req.log).to.have.been.calledOnceWith(
+              'error',
+              'Error sending feedback email to feedback address',
+              'reference=mockUUID'
+            );
+          });
+      });
+
+    });
+
+    describe('on duplicate submit', () => {
+
+      beforeEach(() => {
+        req.sessionModel.get.withArgs(mockConfig.notify.feedbackEmailSessionName).returns('mockUUID');
+      });
+
+      afterEach(() => {
+        req.sessionModel.get.reset();
+        mockUtils.pollEmailStatus.reset();
+      });
+
+      it('should call the next middleware step if polling is successful', () => {
+        mockUtils.pollEmailStatus.resolves();
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(nextStub.calledOnce).to.equal(true);
+          });
+      });
+
+      it('should not log success on duplicate submission', () => {
+        mockUtils.pollEmailStatus.resolves();
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(req.log.notCalled).to.equal(true);
+          });
+      });
+
+      it('should pass the error to the next middleware step if there is an error when polling', () => {
+        const testError = new Error('testError');
+        mockUtils.pollEmailStatus.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(nextStub).to.have.been.calledOnceWith(testError);
+          });
+      });
+
+      it('should log the error and email reference if there is an error sending the email', () => {
+        const testError = new Error('testError');
+        mockUtils.pollEmailStatus.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(req.log).to.have.been.calledOnceWith(
+              'error',
+              'Error sending feedback email to feedback address',
+              'reference=mockUUID'
+            );
+          });
+      });
 
     });
 
