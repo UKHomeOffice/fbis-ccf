@@ -1,10 +1,18 @@
 #!/bin/bash
-echo "Checking deployment of ${DRONE_COMMIT_SHA} from build ${DRONE_BUILD_PARENT} ${PRODUCTION_RELEASE_KEY} ${SECRET}"
+echo "Checking deployment secret of ${DRONE_COMMIT_SHA} from build ${DRONE_BUILD_PARENT}"
 if [ "${PRODUCTION_RELEASE_KEY}" == "${SECRET}" ]
   then
-    echo "We are a go!"
+    echo "Secret check PASSED"
   else
-    echo "Invalid deployment key"
+    echo "Secret check FAILED"
     exit 1
 fi
-echo "Done...."
+now=$(date + '%d/%m/%Y')
+echo "Checking deployment date of ${DRONE_COMMIT_SHA} from build ${DRONE_BUILD_PARENT} against ${now}"
+if [ "${now}" == "${TODAY}" ]
+  then
+    echo "Date check PASSED"
+  else
+    echo "Date check FAILED"
+    exit 1
+fi
