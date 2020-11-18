@@ -1,0 +1,29 @@
+{
+  "feedbackRating": {
+    "legend": "Overall, how did you feel about the service you received today?",
+    "options": {
+      "very-satisfied": {
+        "label": "Very satisfied"
+      },
+      "satisfied": {
+        "label": "Satisfied"
+      },
+      "neutral": {
+        "label": "Neither satisfied or dissatisfied"
+      },
+      "dissatisfied": {
+        "label": "Dissatisfied"
+      },
+      "very-dissatisfied": {
+        "label": "Very dissatisfied"
+      }
+    }
+  },
+  "feedbackText": {
+    "label": "Tell us how we could improve this service",
+    "hint": "Do not include any personal information - for example, your unique application number (UAN)"
+  },
+  "feedbackEmail": {
+    "label": "Email address (optional)"
+  }
+}

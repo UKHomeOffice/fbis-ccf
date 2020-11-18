@@ -1,6 +1,6 @@
 'use strict';
 var $ = require('jquery');
-var throttleTImeout = require('../../config').submitThrottleTimeout;
+var throttleTimeout = require('../../config').submitThrottleTimeout;
 
 
 $(document).ready(function disableMultipleSubmit() {
@@ -17,7 +17,7 @@ $(document).ready(function disableMultipleSubmit() {
 
     setTimeout(() => {
       $inputSubmit.data('throttle', false);
-    }, throttleTImeout);
+    }, throttleTimeout);
   });
 
 });

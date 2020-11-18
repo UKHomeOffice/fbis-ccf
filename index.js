@@ -8,4 +8,11 @@ settings.routes = settings.routes.map(route => require(route));
 settings.root = __dirname;
 settings.start = false;
 
-module.exports = hof(settings);
+const app = hof(settings);
+
+app.use((req, res, next) => {
+  res.locals.feedbackUrl = '/feedback';
+  next();
+});
+
+module.exports = app;

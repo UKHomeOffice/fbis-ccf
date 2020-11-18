@@ -1,0 +1,11 @@
+{
+  "feedbackEmail": {
+    "email": "Enter a valid email address"
+  },
+  "feedbackText": {
+    "required": "Enter feedback"
+  },
+  "feedbackRating": {
+    "required": "Select how you feel about the service you received"
+  }
+}
