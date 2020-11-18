@@ -19,6 +19,7 @@ steps:
   pull: if-not-exists
   image: drone/cli:1.2.4-linux-ppc64le
   commands:
+    - echo "Starting deployment check"
     - . bin/check_deployment.sh
   environment:
     PRODUCTION_RELEASE_KEY:
