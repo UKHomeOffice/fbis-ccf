@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: if-not-exists
-  image: drone/cli:1.2.4-linux-ppc64le
+  image: alpine
   commands:
     - echo "Starting deployment check"
     - . bin/check_deployment.sh
