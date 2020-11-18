@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 echo "Checking deployment secret of ${DRONE_COMMIT_SHA} from build ${DRONE_BUILD_PARENT}"
 if [ "${PRODUCTION_RELEASE_KEY}" == "${SECRET}" ]
   then
