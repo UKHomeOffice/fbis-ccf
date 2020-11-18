@@ -13,7 +13,7 @@ module.exports = {
   organisation: {},
   query: {
     mixin: 'textarea',
-    validate: ['required', { type: 'maxlength', arguments: 500 }],
+    validate: ['required', { type: 'maxlength', arguments: 2000 }],
   },
   'applicant-name': {
     validate: ['required'],
