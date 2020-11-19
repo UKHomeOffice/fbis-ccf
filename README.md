@@ -114,3 +114,37 @@ npm run test:ui:webkit          // requires that app is already running
 ```
 
 All automated UI test scripts require that redis is already running.
+
+## UI test naming conventions
+
+UI tests are linked to their requirement ID and Jira ticket number via describe text:
+
+```javascript
+describe('/route', () => {
+
+  describe('FR-FEE-1 (FBISCC-01)', () => {
+
+    it('should [insert desired functionality]', async()=> {
+      // some test code for a business requirement
+    });
+
+  });
+
+});
+```
+
+Where there is no requirement ID, i.e. when testing dev tasks that are not captured by business requirements, replace the requirement id with 'DEV':
+
+```javascript
+describe('/route', () => {
+
+  describe('DEV (FBISCC-02)', () => {
+
+    it('should [insert desired functionality]', async()=> {
+      // some test code for a dev task, or similar
+    });
+
+  });
+
+});
+```
