@@ -95,8 +95,14 @@ npm test:unit
 
 UI tests use [Playwright](https://playwright.dev/#version=v1.6.1) for browser automation and are run with Mocha using Sinon for stubs and Chai for assertions as above. Tests can be run in chromium, firefox, or webkit browser engines.
 
-`test/ui/ui-test-helpers.js` is a helper script that initialises the `browser` and `page` variables before each test run and makes them available globally.
+`test/ui/ui-test-helpers.js` is a helper script that initialises the `browser` and `page` variables before each test run and makes them available globally. It also provides the following helper functions for common test interactions and assertions:
 
+```javascript
+getSubmit()                     // get an element handle for the page's submit button, e.g. to test it's value
+submitPage()                    // submit the page and wait for the next page state to load
+getErrorSummaries()             // get an array of element handles containing all error summary elements
+getErrorMessages()              // get an array of element handdles containing all error message elements
+```
 
 To test against all browsers, use one of the following commands:
 
@@ -114,3 +120,37 @@ npm run test:ui:webkit          // requires that app is already running
 ```
 
 All automated UI test scripts require that redis is already running.
+
+#### Naming convention
+
+UI tests are linked to their requirement ID and Jira ticket number via describe text:
+
+```javascript
+describe('/route', () => {
+
+  describe('FR-FEE-1 (FBISCC-01)', () => {
+
+    it('should [insert desired functionality]', async()=> {
+      // some test code for a business requirement
+    });
+
+  });
+
+});
+```
+
+Where there is no requirement ID, i.e. when testing dev tasks that are not captured by business requirements, replace the requirement id with 'DEV':
+
+```javascript
+describe('/route', () => {
+
+  describe('DEV (FBISCC-02)', () => {
+
+    it('should [insert desired functionality]', async()=> {
+      // some test code for a dev task, or similar
+    });
+
+  });
+
+});
+```

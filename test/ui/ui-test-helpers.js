@@ -54,3 +54,14 @@ afterEach(async() => {
     console.log(e);
   }
 });
+
+global.getSubmit = async() => await page.$('input[type="submit"]');
+
+global.submitPage = async() => {
+  const submit = await getSubmit();
+  await submit.click();
+  await page.waitForLoadState();
+};
+
+global.getErrorSummaries = async() => await page.$$('.error-summary a');
+global.getErrorMessages = async() => await page.$$('.error-message');
