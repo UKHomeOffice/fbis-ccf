@@ -4,7 +4,7 @@
   },
   "query": {
     "required": "Enter details of the problem",
-    "maxlength": "Summary must be 500 characters or fewer"
+    "maxlength": "Summary must be 2000 characters or fewer"
   },
   "applicant-name": {
     "required": "Enter your full name"
