@@ -21,6 +21,9 @@ steps:
   pull: if-not-exists
   image: redis
   detach: true
+  when:
+    branch: [ master, development ]
+    event: push
 
 - name: ui-test
   pull: if-not-exists
