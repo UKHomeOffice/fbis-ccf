@@ -17,6 +17,23 @@ steps:
     branch: [ master, development ]
     event: push
 
+- name: redis-test-service
+  pull: if-not-exists
+  image: redis
+  detach: true
+
+- name: ui-test
+  pull: if-not-exists
+  image: mcr.microsoft.com/playwright:bionic
+  environment:
+    NOTIFY_KEY: $${notprod_notify_key}
+  commands:
+    - npm install -s
+    - npm run test:ui:server
+  when:
+    branch: [ master, development ]
+    event: push
+
 - name: build-image
   image: docker:dind
   commands:

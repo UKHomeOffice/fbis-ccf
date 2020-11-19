@@ -13,8 +13,8 @@ const mockNotifyModule = {
   NotifyClient: sinon.stub().returns(mockNotifyClient)
 };
 
-const utils = proxyquire('../../lib/utils', { 'notifications-node-client': mockNotifyModule });
-const config = require('../../config');
+const utils = proxyquire('../../../lib/utils', { 'notifications-node-client': mockNotifyModule });
+const config = require('../../../config');
 
 afterEach(() => {
   mockNotifyClient.sendEmail.reset();

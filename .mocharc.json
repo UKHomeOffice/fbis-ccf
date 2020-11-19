@@ -1,4 +1,0 @@
-{
-    "recursive": true,
-    "require": "test/helpers.js"
-}

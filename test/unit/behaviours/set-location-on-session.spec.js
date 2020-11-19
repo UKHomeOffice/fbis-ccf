@@ -1,6 +1,6 @@
 'use strict';
 
-const Behaviour = require('../../apps/fbis-ccf/behaviours/set-location-on-session');
+const Behaviour = require('../../../apps/fbis-ccf/behaviours/set-location-on-session');
 
 describe('Set location behaviour', () => {
 

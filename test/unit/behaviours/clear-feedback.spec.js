@@ -8,7 +8,7 @@ const mockConfig = {
   }
 };
 
-const Behaviour = proxyquire('../../apps/feedback/behaviours/clear-feedback', {'../../../config': mockConfig});
+const Behaviour = proxyquire('../../../apps/feedback/behaviours/clear-feedback', {'../../../config': mockConfig});
 
 
 describe('Clear feedback behaviour', () => {

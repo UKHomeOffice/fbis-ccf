@@ -11,9 +11,9 @@ const mockUtils = {
 
 const mockConfig = {
   notify: {
-    templateFeedback: 'templateFeedback',
-    feedbackEmail: 'feedbackEmail',
-    feedbackEmailSessionName: 'feedback-email',
+    templateQuery: 'templateQuery',
+    srcCaseworkEmail: 'srcCaseworkEmail',
+    submitEmailSessionName: 'submit-email',
     statusRetryInterval: 1000
   }
 };
@@ -22,24 +22,25 @@ const mockUUID = {
   v4: () => 'mockUUID'
 };
 
-const Behaviour = proxyquire('../../apps/feedback/behaviours/feedback', {
+const Behaviour = proxyquire('../../../apps/fbis-ccf/behaviours/submit', {
   '../../../lib/utils': mockUtils,
   '../../../config': mockConfig,
   'uuid': mockUUID
 });
 
-describe('Feedback behaviour', () => {
+
+describe('Submit behaviour', () => {
 
   let req;
   let res;
-  let Feedback;
+  let Submit;
   let testInstance;
   let nextStub;
 
   beforeEach(() => {
     req = {
       form: {
-        values: {}
+        historicalValues: {}
       },
       log: sinon.stub(),
       sessionModel: {
@@ -48,46 +49,10 @@ describe('Feedback behaviour', () => {
       },
       session: {
         save: sinon.stub()
-      },
-      headers: {
-        referer: ''
       }
     };
 
     res = {};
-  });
-
-  describe('getValues', () => {
-
-    class Base {
-      getValues() {}
-    }
-
-    beforeEach(() => {
-      Feedback = Behaviour(Base);
-      testInstance = new Feedback();
-      nextStub = sinon.stub();
-    });
-
-    describe('on redirect to feedback page', () => {
-
-      it('should set feedbackReturnTo to the user\'s previous location', () => {
-        const referredFrom = 'referred-from-link.com';
-        req.headers.referer = referredFrom;
-
-        testInstance.getValues(req, res, nextStub);
-        expect(req.sessionModel.set).to.have.been.calledOnceWith('feedbackReturnTo', referredFrom);
-      });
-
-      it('should not set feedbackReturnTo if the user redirected from the feedback page', () => {
-        req.headers.referer = 'referred-from-link.com/feedback';
-
-        testInstance.getValues(req, res, nextStub);
-        expect(req.sessionModel.set.notCalled).to.equal(true);
-      });
-
-    });
-
   });
 
   describe('saveValues', () => {
@@ -97,8 +62,8 @@ describe('Feedback behaviour', () => {
     }
 
     beforeEach(() => {
-      Feedback = Behaviour(Base);
-      testInstance = new Feedback();
+      Submit = Behaviour(Base);
+      testInstance = new Submit();
 
       mockUtils.sendEmail.resolves();
       nextStub = sinon.stub();
@@ -119,55 +84,83 @@ describe('Feedback behaviour', () => {
         req.sessionModel.get.reset();
       });
 
-      it('should call utils \'sendEmail\' with feedback template, feedback email and UUID', () => {
+      it('should call utils \'sendEmail\' with template query, SRC casework email, and a UUID', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
-            expect(mockUtils.sendEmail).to.have.been.calledOnceWith('templateFeedback', 'feedbackEmail', 'mockUUID');
+            expect(mockUtils.sendEmail).to.have.been.calledOnceWith('templateQuery', 'srcCaseworkEmail', 'mockUUID');
           });
       });
 
       it('should call utils \'sendEmail\' with emailData containing only necessary fields from the form', () => {
-        req.form.values = {
-          'unwanted-field': 'unwanted value',
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': 'email@address.com'
+        req.form.historicalValues = {
+          'some-unwanted-field': 'unwanted value',
+          'applicant-name': 'John Smith',
+          'applicant-phone': '07000000000',
+          'application-number': '3434-0000-0000-0001',
+          email: 'john.smith@mail.com',
+          identity: 'yes',
+          organisation: 'Charity',
+          query: 'I am having an issue',
+          question: 'account',
+          'representative-name': 'Mary Sue',
+          'representative-phone': '07111111111'
         };
 
         const expected = {
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': 'email@address.com'
+          'applicant-name': 'John Smith',
+          'applicant-phone': '07000000000',
+          'application-number': '3434-0000-0000-0001',
+          email: 'john.smith@mail.com',
+          identity: 'yes',
+          organisation: 'Charity',
+          query: 'I am having an issue',
+          question: 'account',
+          'representative-name': 'Mary Sue',
+          'representative-phone': '07111111111'
         };
 
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(mockUtils.sendEmail).to.have.been
-              .calledOnceWith('templateFeedback', 'feedbackEmail', 'mockUUID', expected);
+              .calledOnceWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
           });
       });
 
-      it('should replace feedbackEmail with \'n/a\' if not provided', () => {
-        req.form.values = {
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': undefined
+      it('should call substitute falsy form fields with \'n/a\'', () => {
+        req.form.historicalValues = {
+          'applicant-name': 'John Smith',
+          'applicant-phone': '',
+          'application-number': null,
+          email: 'john.smith@mail.com',
+          identity: 'no',
+          organisation: undefined,
+          query: 'I am having an issue',
+          question: 'account',
+          'representative-name': false,
+          'representative-phone': false
         };
 
         const expected = {
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': 'n/a'
+          'applicant-name': 'John Smith',
+          'applicant-phone': 'n/a',
+          'application-number': 'n/a',
+          email: 'john.smith@mail.com',
+          identity: 'no',
+          organisation: 'n/a',
+          query: 'I am having an issue',
+          question: 'account',
+          'representative-name': 'n/a',
+          'representative-phone': 'n/a'
         };
 
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(mockUtils.sendEmail).to.have.been
-              .calledOnceWith('templateFeedback', 'feedbackEmail', 'mockUUID', expected);
+              .calledOnceWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
           });
       });
 
-      it('should call the next middleware step if the email send successfully', () => {
+      it('should call the next middleware step if the email sends successfully', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(nextStub.calledOnce).to.equal(true);
@@ -179,7 +172,7 @@ describe('Feedback behaviour', () => {
           .then(() => {
             expect(req.log).to.have.been.calledOnceWith(
               'info',
-              'Feedback sent to feedback address',
+              'Email sent to SRC casework address',
               'reference=mockUUID'
             );
           });
@@ -203,8 +196,9 @@ describe('Feedback behaviour', () => {
           .then(() => {
             expect(req.log).to.have.been.calledOnceWith(
               'error',
-              'Error sending feedback email to feedback address',
-              'reference=mockUUID'
+              'Error sending email to SRC casework address',
+              'reference=mockUUID',
+              testError
             );
           });
       });
@@ -214,7 +208,7 @@ describe('Feedback behaviour', () => {
     describe('on duplicate submit', () => {
 
       beforeEach(() => {
-        req.sessionModel.get.withArgs(mockConfig.notify.feedbackEmailSessionName).returns('mockUUID');
+        req.sessionModel.get.withArgs(mockConfig.notify.submitEmailSessionName).returns('mockUUID');
       });
 
       afterEach(() => {
@@ -231,7 +225,7 @@ describe('Feedback behaviour', () => {
           });
       });
 
-      it('should not log success on duplicate submission', () => {
+      it('should not log the success as this would duplicate the original submit log', () => {
         mockUtils.pollEmailStatus.resolves();
 
         return testInstance.saveValues(req, res, nextStub)
@@ -258,8 +252,9 @@ describe('Feedback behaviour', () => {
           .then(() => {
             expect(req.log).to.have.been.calledOnceWith(
               'error',
-              'Error sending feedback email to feedback address',
-              'reference=mockUUID'
+              'Error sending email to SRC casework address',
+              'reference=mockUUID',
+              testError
             );
           });
       });
