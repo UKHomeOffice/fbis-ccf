@@ -18,7 +18,7 @@ describe('/question', () => {
 
     it('should include three radio buttons with correct query categories', async()=> {
       const radios = await page.$$('input[type="radio"]');
-      const labels = await page.$$('label');
+      const labels = await page.$$('.form-group label');
 
       expect(radios.length).to.equal(3);
       expect(labels.length).to.equal(3);
@@ -33,7 +33,7 @@ describe('/question', () => {
       expect(await submit.getAttribute('value')).to.equal('Continue');
     });
 
-    describe('if user clicks submit without choosing a question', () => {
+    describe('when user clicks submit without choosing a question', () => {
 
       beforeEach(async() => {
         const radios = await page.$$('input[type="radio"]');
@@ -59,7 +59,7 @@ describe('/question', () => {
 
     });
 
-    describe('if user clicks submit after choosing a question', () => {
+    describe('when user clicks submit after choosing a question', () => {
 
       let radios;
 
@@ -94,7 +94,7 @@ describe('/question', () => {
 
     it('should include three radio buttons with correct query categories', async()=> {
       const radios = await page.$$('input[type="radio"]');
-      const labels = await page.$$('label');
+      const labels = await page.$$('.form-group label');
 
       expect(radios.length).to.equal(3);
       expect(labels.length).to.equal(3);
@@ -109,7 +109,7 @@ describe('/question', () => {
       expect(await submit.getAttribute('value')).to.equal('Continue');
     });
 
-    describe('if user clicks submit without choosing a question', () => {
+    describe('when user clicks submit without choosing a question', () => {
 
       beforeEach(async() => {
         const radios = await page.$$('input[type="radio"]');
@@ -135,7 +135,7 @@ describe('/question', () => {
 
     });
 
-    describe('if user clicks submit after choosing a question', () => {
+    describe('when user clicks submit after choosing a question', () => {
 
       let radios;
 

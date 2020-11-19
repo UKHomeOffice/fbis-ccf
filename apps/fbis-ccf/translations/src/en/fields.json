@@ -42,8 +42,8 @@
   "application-number": {
     "label": {
       "identity": {
-        "No" : "Unique application number (UAN)",
-        "Yes": "Applicant's unique application number (UAN)"
+        "Yes": "Applicant's unique application number (UAN)",
+        "No" : "Unique application number (UAN)"
       }
     },
     "hint": "For example, 3434-0000-0000-0001"
