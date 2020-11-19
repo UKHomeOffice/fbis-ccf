@@ -2,13 +2,13 @@
 
 describe('Base url', () => {
 
-  describe('DEV (FBISCC-46)', () => {
+  describe('DEV (FBISCC-46) - Landing page redirect', () => {
 
-    it('should redirect to the landing page', async()=> {
+    it('should redirect to the landing page', async() => {
       await page.goto(baseURL);
 
       const header = await page.$('h1');
-      const submit = await page.$('input[type="submit"]');
+      const submit = await getSubmit();
 
       expect(await page.title()).to.equal('FBIS technical advice – GOV.UK');
       expect(await page.url()).to.equal(baseURL + '/landing');

@@ -24,6 +24,10 @@ overrides:
       browser: true
       page: true
       baseURL: true
+      getSubmit: true
+      submitPage: true
+      getErrorSummaries: true
+      getErrorMessages: true
   - files:
       "assets/js/*.js"
     env:

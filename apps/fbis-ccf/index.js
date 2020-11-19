@@ -19,12 +19,10 @@ module.exports = {
     '/question': {
       behaviours: [addLocationToBacklink],
       fields: ['question'],
-      template: 'save-and-continue',
       next: '/identity'
     },
     '/identity': {
       fields: ['identity'],
-      template: 'save-and-continue',
       next: '/query',
       forks: [{
         target: '/details',
