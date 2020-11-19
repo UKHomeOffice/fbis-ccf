@@ -1,6 +1,6 @@
 'use strict';
 
-const validators = require('../../apps/fbis-ccf/validators');
+const validators = require('../../../apps/fbis-ccf/validators');
 
 describe('Custom validators', () => {
 

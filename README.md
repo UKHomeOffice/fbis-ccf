@@ -74,12 +74,43 @@ npm run debug
 
 ### Unit tests and linting
 
-Unit tests use [Mocha](https://mochajs.org/), [Sinon](https://sinonjs.org/) for stubs, [Chai](https://www.chaijs.com/) for assertions, and [Proxyquire](https://github.com/thlorenz/proxyquire#readme) for dependency mocking. Linting uses [ESLint](https://eslint.org/). Run the following command from the root directory to run linting and unit tests:
+Unit tests use [Mocha](https://mochajs.org/), [Sinon](https://sinonjs.org/) for stubs, [Chai](https://www.chaijs.com/) for assertions, and [Proxyquire](https://github.com/thlorenz/proxyquire#readme) for dependency mocking. Linting uses [ESLint](https://eslint.org/).
+
+`test/test-helpers.js` is a helper script that makes Sinon and Chai's `expect` keyword available globally.
+
+Use the following command from the root directory to run linting and unit tests:
 
 ```bash
 npm test
 ```
 
-### Run automated UI tests
+To run linting and unit tests separately, use the following commands:
 
-Watch this space.
+```bash
+npm test:lint
+npm test:unit
+```
+
+### Automated UI tests
+
+UI tests use [Playwright](https://playwright.dev/#version=v1.6.1) for browser automation and are run with Mocha using Sinon for stubs and Chai for assertions as above. Tests can be run in chromium, firefox, or webkit browser engines.
+
+`test/ui/ui-test-helpers.js` is a helper script that initialises the `browser` and `page` variables before each test run and makes them available globally.
+
+
+To test against all browsers, use one of the following commands:
+
+```bash
+npm run test:ui                 // requires that app is already running
+npm run test:ui:server          // starts the app, runs tests, terminates the app
+```
+
+To test against individual browsers, use one of the following commands:
+
+```bash
+npm run test:ui:chromium        // requires that app is already running
+npm run test:ui:firefox         // requires that app is already running
+npm run test:ui:webkit          // requires that app is already running
+```
+
+All automated UI test scripts require that redis is already running.
