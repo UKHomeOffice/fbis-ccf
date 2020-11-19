@@ -33,6 +33,8 @@ module.exports = superclass => class Submit extends superclass {
       return data;
     }, {});
 
+    emailData.location = ((req.form.historicalValues['in-UK'] === true) ? 'Inside UK' : 'Outside UK');
+
     return utils.sendEmail(notify.templateQuery, notify.srcCaseworkEmail, reference, emailData)
       .then(() => Submit.handleSuccess(req, next, reference, true))
       .catch(err => Submit.handleError(req, next, reference, err));
