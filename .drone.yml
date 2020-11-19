@@ -16,8 +16,8 @@ steps:
     event: push
 
 - name: deployment_checker
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/amazonlinux-with-extras
+  pull: always
+  image: quay.io/ukhomeofficedigital/amazonlinux-with-extras:latest
   commands:
     - echo "Checking deployment info"
     - drone --version
