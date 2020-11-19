@@ -17,8 +17,9 @@ steps:
 
 - name: deployment_checker
   pull: if-not-exists
-  image: drone/cli
+  image: drone/cli:latest
   commands:
+    - drone --version
     - echo "Starting deployment check"
     - . bin/check_deployment.sh
   environment:
