@@ -19,7 +19,10 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/amazonlinux-with-extras
   commands:
+    - echo "Checking deployment info"
+    - drone --version
     - drone build info UKHomeOffice/fbis-ccf 228
+    - echo "Done"
   environment:
     PRODUCTION_RELEASE_KEY:
       from_secret: production_release_key
@@ -207,43 +210,5 @@ steps:
     branch: [ master, development ]
     event: push
     status: [ success, failure ]
-
-- name: notify-slack-deploy
-  pull: if-not-exists
-  image: plugins/slack
-  settings:
-    channel: sas-build
-    failure: ignore
-    icon.url: http://readme.drone.io/0.5/logo_dark.svg
-    icon_url: http://readme.drone.io/0.5/logo_dark.svg
-    template: "DEPLOY to {{build.deployTo}} of FBIS has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
-    username: Drone
-    webhook:
-      from_secret: SLACK_WEBHOOK
-  when:
-    event: promote
-    status: [ success, failure ]
-
-services:
-  - name: docker
-    image: docker:dind
-    volumes:
-      - name: dockersock
-        path: /var/run
-
-  - name: anchore-submission-server
-    image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
-    commands:
-      - /anchore-submission server
-    environment:
-      ANCHORE_URL: "acp-anchore.acp.homeoffice.gov.uk"
-      REGISTRY_URL: "acp-ephemeral-registry.acp.homeoffice.gov.uk"
-    volumes:
-      - name: dockersock
-        path: /var/run
-
-volumes:
-  - name: dockersock
-    temp: {}
 
 ...
