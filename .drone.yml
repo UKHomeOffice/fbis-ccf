@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: if-not-exists
-  image: drone/cli:latest
+  image: quay.io/ukhomeofficedigital/amazonlinux-with-extras
   commands:
     - drone build info UKHomeOffice/fbis-ccf 228
   environment:
