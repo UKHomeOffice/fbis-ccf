@@ -5,10 +5,13 @@ module.exports = {
   submitThrottleTimeout: 1000,
   notify: {
     apiKey: process.env.NOTIFY_KEY,
-    templateQuery: process.env.TEMPLATE_QUERY,
-    submitEmailSessionName: 'submit-email-reference',
+    feedbackEmailReference: 'feedback-email-reference',
+    feedbackEmail: process.env.FEEDBACK_EMAIL,
     srcCaseworkEmail: process.env.SRC_CASEWORK_EMAIL,
     statusRetryLimit: 5,
-    statusRetryInterval: 1000
+    statusRetryInterval: 1000,
+    submitEmailSessionName: 'submit-email-reference',
+    templateFeedback: process.env.TEMPLATE_FEEDBACK,
+    templateQuery: process.env.TEMPLATE_QUERY,
   }
 };
