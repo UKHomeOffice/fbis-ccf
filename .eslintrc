@@ -17,6 +17,7 @@ overrides:
       "test/**/*.js"
     rules:
       implicit-dependencies/no-implicit: [error, { dev: true }]
+      max-nested-callbacks: off
     globals:
       chai: true
       sinon: true

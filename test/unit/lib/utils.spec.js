@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint max-nested-callbacks: 0 */
-
 const proxyquire = require('proxyquire');
 
 const mockNotifyClient = {

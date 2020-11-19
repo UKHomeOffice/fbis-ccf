@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint max-nested-callbacks: off */
-
 describe('/identity', () => {
 
   beforeEach(async() => {

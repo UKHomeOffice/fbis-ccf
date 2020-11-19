@@ -1,6 +1,6 @@
 'use strict';
 
-/* eslint max-nested-callbacks: off */
+const config = require('../ui-test-config');
 
 describe('/details', () => {
 
@@ -13,7 +13,7 @@ describe('/details', () => {
     await radio.check();
     await submitPage();
 
-    // select 'Yes', contacting us on behalf of somebody else
+    // select 'Yes', contacting us on behalf of somebody else, and continue
     const yes = await page.$('input#identity-Yes');
     await yes.click();
     await submitPage();
@@ -60,7 +60,7 @@ describe('/details', () => {
     describe('when user submits the page after entering their name', () => {
 
       it('should continue to the query page', async()=> {
-        await page.fill('input#representative-name', 'John Smith');
+        await page.fill('input#representative-name', config.validName);
         await submitPage();
         expect(await page.url()).to.equal(baseURL + '/query');
       });

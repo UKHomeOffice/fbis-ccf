@@ -1,10 +1,8 @@
 'use strict';
 
-/* eslint max-nested-callbacks: off */
-
 const config = require('../ui-test-config');
 
-describe('Character count', () => {
+describe('/query - character count', () => {
 
   describe('NFR-FOR-22 (FBISCC-44) - 2000 character query count limit', () => {
 
@@ -14,10 +12,12 @@ describe('Character count', () => {
       await page.goto(baseURL + '/landing');
       await submitPage();
 
+      // select any question category and continue
       radios = await page.$$('input[type="radio"]');
       await radios[0].click();
       await submitPage();
 
+      // select 'No', not contacting us on behalf of somebody else, and continue
       const no = await page.$('input#identity-No');
       await no.click();
       await submitPage();
