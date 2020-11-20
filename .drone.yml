@@ -9,7 +9,7 @@ steps:
   pull: if-not-exists
   image: node
   environment:
-    NOTIFY_KEY: USE_MOCK
+    NOTIFY_KEY: UNIT_MOCK
   commands:
   - npm install
   - npm test
@@ -29,7 +29,7 @@ steps:
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:bionic
   environment:
-    NOTIFY_KEY: $${notprod_notify_key}
+    NOTIFY_KEY: UI_MOCK
   commands:
     - npm install -s
     - npm run test:ui:server

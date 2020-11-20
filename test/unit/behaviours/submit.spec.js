@@ -11,7 +11,7 @@ const mockConfig = {
   notify: {
     templateQuery: 'templateQuery',
     srcCaseworkEmail: 'srcCaseworkEmail',
-    submitEmailSessionName: 'submit-email',
+    submitEmailReference: 'submit-email-reference',
     statusRetryInterval: 1000
   }
 };
@@ -43,7 +43,8 @@ describe('Submit behaviour', () => {
       log: sinon.stub(),
       sessionModel: {
         get: sinon.stub(),
-        set: sinon.stub()
+        set: sinon.stub(),
+        unset: sinon.stub(),
       },
       session: {
         save: sinon.stub()
@@ -75,7 +76,7 @@ describe('Submit behaviour', () => {
     describe('on first submit', () => {
 
       beforeEach(() => {
-        req.sessionModel.get.withArgs(mockConfig.notify.submitEmailSessionName).returns(undefined);
+        req.sessionModel.get.withArgs(mockConfig.notify.submitEmailReference).returns(undefined);
       });
 
       afterEach(() => {
@@ -205,12 +206,22 @@ describe('Submit behaviour', () => {
           });
       });
 
+      it('should unset the feedback email reference on the session if there is an error', () => {
+        const testError = new Error('testError');
+        mockUtils.sendEmail.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(req.sessionModel.unset).to.have.been.calledOnceWith('submit-email-reference');
+          });
+      });
+
     });
 
     describe('on duplicate submit', () => {
 
       beforeEach(() => {
-        req.sessionModel.get.withArgs(mockConfig.notify.submitEmailSessionName).returns('mockUUID');
+        req.sessionModel.get.withArgs(mockConfig.notify.submitEmailReference).returns('mockUUID');
       });
 
       afterEach(() => {
@@ -246,18 +257,23 @@ describe('Submit behaviour', () => {
           });
       });
 
-      it('should log the error and email reference if there is an error sending the email', () => {
+      it('should not log the error as this would duplicate the original submit log', () => {
         const testError = new Error('testError');
         mockUtils.pollEmailStatus.rejects(testError);
 
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
-            expect(req.log).to.have.been.calledOnceWith(
-              'error',
-              'Error sending email to SRC casework address',
-              'reference=mockUUID',
-              testError
-            );
+            expect(req.log.notCalled).to.equal(true);
+          });
+      });
+
+      it('should unset the feedback email reference on the session if there is an error', () => {
+        const testError = new Error('testError');
+        mockUtils.pollEmailStatus.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(req.sessionModel.unset).to.have.been.calledOnceWith('submit-email-reference');
           });
       });
 

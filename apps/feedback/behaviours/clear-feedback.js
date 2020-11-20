@@ -9,7 +9,7 @@ module.exports = superclass => class ClearFeedback extends superclass {
       'feedbackRating',
       'feedbackText',
       'feedbackEmail',
-      notify.feedbackEmailSessionName
+      notify.feedbackEmailReference
     ]);
 
     return super.getValues(req, res, next);

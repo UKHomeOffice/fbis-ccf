@@ -1,0 +1,15 @@
+{
+  "header": {
+    "problem": "Sorry, there is a problem with the service",
+    "404": "Page not found"
+  },
+  "content": {
+    "problem": {
+      "p1": "Try again later."
+    },
+    "404": {
+      "p1": "If you typed the web address, check it is correct.",
+      "p2": "If you pasted the web address, check you copied the entire address."
+    }
+  }
+}
