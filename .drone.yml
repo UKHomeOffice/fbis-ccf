@@ -16,8 +16,8 @@ steps:
     event: push
 
 - name: deployment_checker
-  pull: always
-  image: quay.io/ukhomeofficedigital/alpine-with-extras:latest
+  pull: if-not-exists
+  image: alpine:latest
   commands:
     - echo "Checking deployment info"
     - drone --version
