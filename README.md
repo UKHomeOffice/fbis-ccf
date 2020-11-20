@@ -70,6 +70,12 @@ npm run dev
 npm run debug
 ```
 
+To run the app using a mock Notify client (required for automated UI testing), use this command:
+
+```bash
+npm run start:mock
+```
+
 ## Test
 
 ### Unit tests and linting
@@ -107,16 +113,16 @@ getErrorMessages()              // get an array of element handdles containing a
 To test against all browsers, use one of the following commands:
 
 ```bash
-npm run test:ui                 // requires that app is already running
+npm run test:ui                 // requires app to have been started separately with 'npm run start:mock'
 npm run test:ui:server          // starts the app, runs tests, terminates the app
 ```
 
 To test against individual browsers, use one of the following commands:
 
 ```bash
-npm run test:ui:chromium        // requires that app is already running
-npm run test:ui:firefox         // requires that app is already running
-npm run test:ui:webkit          // requires that app is already running
+npm run test:ui:chromium        // requires app to have been started separately with 'npm run start:mock'
+npm run test:ui:firefox         // requires app to have been started separately with 'npm run start:mock'
+npm run test:ui:webkit          // requires app to have been started separately with 'npm run start:mock'
 ```
 
 All automated UI test scripts require that redis is already running.

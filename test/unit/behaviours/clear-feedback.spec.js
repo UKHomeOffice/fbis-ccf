@@ -4,7 +4,7 @@ const proxyquire = require('proxyquire');
 
 const mockConfig = {
   notify: {
-    feedbackEmailSessionName: 'feedback-email'
+    feedbackEmailReference: 'feedback-email-reference'
   }
 };
 
@@ -52,7 +52,7 @@ describe('Clear feedback behaviour', () => {
         'feedbackRating',
         'feedbackText',
         'feedbackEmail',
-        mockConfig.notify.feedbackEmailSessionName]);
+        mockConfig.notify.feedbackEmailReference]);
     });
 
   });

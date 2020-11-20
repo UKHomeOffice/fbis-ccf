@@ -19,16 +19,16 @@ module.exports = superclass => class Feedback extends superclass {
   }
 
   saveValues(req, res, next) {
-    let reference = req.sessionModel.get(notify.feedbackEmailSessionName);
+    let reference = req.sessionModel.get(notify.feedbackEmailReference);
 
     if (reference) {
       return utils.pollEmailStatus(reference, 0, notify.statusRetryInterval)
         .then(() => Feedback.handleSuccess(req, next, reference, false))
-        .catch(err => Feedback.handleError(req, next, reference, err));
+        .catch(err => Feedback.handleError(req, next, reference, err, false));
     }
 
     reference = uuidv4();
-    req.sessionModel.set(notify.feedbackEmailSessionName, reference);
+    req.sessionModel.set(notify.feedbackEmailReference, reference);
     req.session.save();
 
     const emailData = {
@@ -39,7 +39,7 @@ module.exports = superclass => class Feedback extends superclass {
 
     return utils.sendEmail(notify.templateFeedback, notify.feedbackEmail, reference, emailData)
       .then(() => Feedback.handleSuccess(req, next, reference, true))
-      .catch(err => Feedback.handleError(req, next, reference, err));
+      .catch(err => Feedback.handleError(req, next, reference, err, true));
   }
 
   static handleSuccess(req, next, reference, shouldLog) {
@@ -49,8 +49,11 @@ module.exports = superclass => class Feedback extends superclass {
     return next();
   }
 
-  static handleError(req, next, reference, err) {
-    req.log('error', 'Error sending feedback email to feedback address', `reference=${reference}`, err);
+  static handleError(req, next, reference, err, shouldLog) {
+    if (shouldLog) {
+      req.log('error', 'Error sending feedback email to feedback address', `reference=${reference}`, err);
+    }
+    req.sessionModel.unset(notify.feedbackEmailReference);
     return next(err);
   }
 
