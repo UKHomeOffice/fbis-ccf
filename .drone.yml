@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: always
-  image: quay.io/ukhomeofficedigital/amazonlinux-with-extras:latest
+  image: quay.io/ukhomeofficedigital/alpine-with-extras:latest
   commands:
     - echo "Checking deployment info"
     - drone --version
