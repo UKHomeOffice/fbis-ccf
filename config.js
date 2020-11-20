@@ -7,10 +7,11 @@ module.exports = {
     apiKey: process.env.NOTIFY_KEY,
     feedbackEmailReference: 'feedback-email-reference',
     feedbackEmail: process.env.FEEDBACK_EMAIL,
+    mockApiKey: process.env.MOCK_NOTIFY_KEY,
     srcCaseworkEmail: process.env.SRC_CASEWORK_EMAIL,
-    statusRetryLimit: 5,
+    statusRetryLimit: 30,
     statusRetryInterval: 1000,
-    submitEmailSessionName: 'submit-email-reference',
+    submitEmailReference: 'submit-email-reference',
     templateFeedback: process.env.TEMPLATE_FEEDBACK,
     templateQuery: process.env.TEMPLATE_QUERY,
   }

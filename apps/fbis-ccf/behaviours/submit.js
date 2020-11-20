@@ -8,7 +8,7 @@ const uuidv4 = require('uuid').v4;
 module.exports = superclass => class Submit extends superclass {
 
   saveValues(req, res, next) {
-    let reference = req.sessionModel.get(notify.submitEmailSessionName);
+    let reference = req.sessionModel.get(notify.submitEmailReference);
 
     /*
       If there is already an email reference on the session (i.e. this is not the first submit attempt because
@@ -17,7 +17,7 @@ module.exports = superclass => class Submit extends superclass {
     if (reference) {
       return utils.pollEmailStatus(reference, 0, notify.statusRetryInterval)
         .then(() => Submit.handleSuccess(req, next, reference, false))
-        .catch(err => Submit.handleError(req, next, reference, err));
+        .catch(err => Submit.handleError(req, next, reference, err, false));
     }
 
     /*
@@ -25,7 +25,7 @@ module.exports = superclass => class Submit extends superclass {
       create a reference, add it to the session, and send the email with the same reference.
      */
     reference = uuidv4();
-    req.sessionModel.set(notify.submitEmailSessionName, reference);
+    req.sessionModel.set(notify.submitEmailReference, reference);
     req.session.save();
 
     let emailData = Object.keys(fields).reduce((data, field) => {
@@ -37,7 +37,7 @@ module.exports = superclass => class Submit extends superclass {
 
     return utils.sendEmail(notify.templateQuery, notify.srcCaseworkEmail, reference, emailData)
       .then(() => Submit.handleSuccess(req, next, reference, true))
-      .catch(err => Submit.handleError(req, next, reference, err));
+      .catch(err => Submit.handleError(req, next, reference, err, true));
   }
 
   static handleSuccess(req, next, reference, shouldLog) {
@@ -47,8 +47,11 @@ module.exports = superclass => class Submit extends superclass {
     return next();
   }
 
-  static handleError(req, next, reference, err) {
-    req.log('error', 'Error sending email to SRC casework address', `reference=${reference}`, err);
+  static handleError(req, next, reference, err, shouldLog) {
+    if (shouldLog) {
+      req.log('error', 'Error sending email to SRC casework address', `reference=${reference}`, err);
+    }
+    req.sessionModel.unset(notify.submitEmailReference);
     return next(err);
   }
 

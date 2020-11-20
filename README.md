@@ -8,7 +8,7 @@ A [Home Office Forms (HOF)](https://ukhomeofficeforms.github.io/hof-guide/docume
 
 To run the app using the notprod Notify test service, you will need to:
 
-1. Get the notprod API key securely from a colleague
+1. Get the notprod and mock API keys securely from a colleague
 2. Ask a colleague to add you to the `Future Border and Immigration System Customer Contact Form - notprod` Notify service
 3. Get the test SRC casework email. This is the email address for `FBIS CCF Developers` on the [Notify service team](https://www.notifications.service.gov.uk/services/7c8d0248-51b8-4795-b920-3ff84efb7faf/users)
 4. Get the template ids from the [template page](https://www.notifications.service.gov.uk/services/7c8d0248-51b8-4795-b920-3ff84efb7faf/templates/837dc8ac-6abf-4f6a-9f0c-57a28ea7f43c)
@@ -17,6 +17,7 @@ Then add the values retrieved above to your environment variables:
 
 ```.env
 export NOTIFY_KEY=[API_KEY]
+export MOCK_NOTIFY_KEY=[MOCK_API_KEY]
 export SRC_CASEWORK_EMAIL=[FBIS_CCF_DEVELOPERS_EMAIL]
 export TEMPLATE_QUERY=[QUERY_TEMPLATE_ID]
 export FEEBACK_EMAIL=[FBIS_CCF_DEVELOPERS_EMAIL]
@@ -70,6 +71,12 @@ npm run dev
 npm run debug
 ```
 
+To run the app using a mock notify service (required for automated UI testing), use this command:
+
+```bash
+npm run start:mock
+```
+
 ## Test
 
 ### Unit tests and linting
@@ -107,16 +114,16 @@ getErrorMessages()              // get an array of element handdles containing a
 To test against all browsers, use one of the following commands:
 
 ```bash
-npm run test:ui                 // requires that app is already running
+npm run test:ui                 // requires app to have been started separately with 'npm run start:mock'
 npm run test:ui:server          // starts the app, runs tests, terminates the app
 ```
 
 To test against individual browsers, use one of the following commands:
 
 ```bash
-npm run test:ui:chromium        // requires that app is already running
-npm run test:ui:firefox         // requires that app is already running
-npm run test:ui:webkit          // requires that app is already running
+npm run test:ui:chromium        // requires app to have been started separately with 'npm run start:mock'
+npm run test:ui:firefox         // requires app to have been started separately with 'npm run start:mock'
+npm run test:ui:webkit          // requires app to have been started separately with 'npm run start:mock'
 ```
 
 All automated UI test scripts require that redis is already running.

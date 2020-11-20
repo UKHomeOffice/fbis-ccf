@@ -1,4 +1,9 @@
 {
+  "build": {
+    "translate": {
+      "shared": "./apps/common/translations/src"
+    }
+  },
   "theme": "govuk",
   "routes": [
     "./apps/fbis-ccf",

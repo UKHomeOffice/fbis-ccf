@@ -14,6 +14,9 @@ const mockNotifyModule = {
 const utils = proxyquire('../../../lib/utils', { 'notifications-node-client': mockNotifyModule });
 const config = require('../../../config');
 
+// remove time delay between notify email status checks for test purposes
+config.notify.statusRetryInterval = 0;
+
 afterEach(() => {
   mockNotifyClient.sendEmail.reset();
   mockNotifyClient.getNotifications.reset();
@@ -23,14 +26,31 @@ describe('Utils', () => {
 
   describe('sendEmail', () => {
 
+    beforeEach(() => {
+      mockNotifyClient.sendEmail.resolves(true);
+    });
+
     it('should call notify client \'send email\' with template id, test address, and formatted options', () => {
-      const expectedOptions = {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'delivered' }] } });
+
+      const expected = {
        personalisation: 'testData', reference: 'testReference'
       };
 
-      utils.sendEmail('testTemplate', 'testAddress', 'testReference', 'testData');
+      return utils.sendEmail('testTemplate', 'testAddress', 'testReference', 'testData')
+        .then(() => {
+          expect(mockNotifyClient.sendEmail).to.have.been.calledOnceWith('testTemplate', 'testAddress', expected);
+        });
+    });
 
-      expect(mockNotifyClient.sendEmail).to.have.been.calledOnceWith('testTemplate', 'testAddress', expectedOptions);
+    it('throw an error if polling returns failure status', () => {
+      const testError = new Error('testError');
+      mockNotifyClient.getNotifications.rejects(testError);
+
+      return utils.sendEmail('testTemplate', 'testAddress', 'testReference', 'testData')
+        .catch(err => {
+          expect(err).to.equal(testError);
+        });
     });
 
   });
@@ -56,12 +76,13 @@ describe('Utils', () => {
         });
     });
 
-    it('should return undefined if there is an error', () => {
-      mockNotifyClient.getNotifications.rejects(new Error('testError'));
+    it('throw an error if there is an error', () => {
+      const testError = new Error('testError');
+      mockNotifyClient.getNotifications.rejects(testError);
 
       return utils.getEmail('testRef')
-        .then(res => {
-          expect(res).to.equal(undefined);
+        .catch(err=> {
+          expect(err).to.equal(testError);
         });
     });
 
@@ -79,8 +100,8 @@ describe('Utils', () => {
       pollEmailStatusSpy.restore();
     });
 
-    it('should return true if email is found', () => {
-      mockNotifyClient.getNotifications.resolves({ data: { notifications: ['testEmailData'] } });
+    it('should return true if email is delivered', () => {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'delivered' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
       return promise.then((res) => {
@@ -88,14 +109,42 @@ describe('Utils', () => {
       });
     });
 
-    it('should recurse until email is found', () => {
+    it('should throw an error with explanatory message if the email has \'permanent-failure\' status', () => {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'permanent-failure' }] } });
+
+      return utils.pollEmailStatus('testRef', 0, 0)
+        .catch(err => {
+          expect(err.message).to.equal('Failure between Notify and their email provider');
+        });
+    });
+
+    it('should throw an error with explanatory message if the email has \'temporary-failure\' status', () => {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'temporary-failure' }] } });
+
+      return utils.pollEmailStatus('testRef', 0, 0)
+        .catch(err => {
+          expect(err.message).to.equal('Failure between Notify and their email provider');
+        });
+    });
+
+    it('should throw an error with explanatory message if the email has \'permanent-failure\' status', () => {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'technical-failure' }] } });
+
+      return utils.pollEmailStatus('testRef', 0, 0)
+        .catch(err => {
+          expect(err.message).to.equal('Failure between Notify and their email provider');
+        });
+    });
+
+    it('should recurse if email is undefined, \'created\', or \'sending\'', () => {
       mockNotifyClient.getNotifications.onCall(0).resolves({ data: { notifications: [] } });
-      mockNotifyClient.getNotifications.onCall(1).resolves({ data: { notifications: [] } });
-      mockNotifyClient.getNotifications.onCall(2).resolves({ data: { notifications: ['testEmailData'] } });
+      mockNotifyClient.getNotifications.onCall(1).resolves({ data: { notifications: [{ status: 'created' }] } });
+      mockNotifyClient.getNotifications.onCall(2).resolves({ data: { notifications: [{ status: 'sending' }] } });
+      mockNotifyClient.getNotifications.onCall(3).resolves({ data: { notifications: [{ status: 'delivered' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
       return promise.then((res) => {
-        expect(pollEmailStatusSpy.getCalls().length).to.equal(3);
+        expect(pollEmailStatusSpy.getCalls().length).to.equal(4);
         expect(res).to.equal(true);
       });
     });
@@ -109,6 +158,30 @@ describe('Utils', () => {
           expect(pollEmailStatusSpy.getCalls().length).to.equal(config.notify.statusRetryLimit + 1);
           expect(err.message).to.equal('Exceeded email status check retry limit');
         });
+    });
+
+  });
+
+  describe('Get email address', () => {
+
+    it('should return passed in email address if not using mock', () => {
+      expect(utils.getEmailAddress('expected@mail.com', {}, false)).to.equal('expected@mail.com');
+    });
+
+    describe('if using mock', () => {
+
+      it('should return email on the passed in data if present', () => {
+        expect(utils.getEmailAddress('', { email: 'expected@mail.com'}, true)).to.equal('expected@mail.com');
+      });
+
+      it('should return feedback email on the passed in data if email is not present', () => {
+        expect(utils.getEmailAddress('', { feedbackEmail: 'expected@mail.com' }, true)).to.equal('expected@mail.com');
+      });
+
+      it('should default to mock notify success email if neither email nor feedback email are passed in', () => {
+        expect(utils.getEmailAddress('', {}, true)).to.equal('success@simulator.notify');
+      });
+
     });
 
   });

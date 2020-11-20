@@ -1,0 +1,13 @@
+{{<partials-page}}
+  {{$header}}
+    {{#t}}error.header.problem{{/t}}
+  {{/header}}
+  {{$content}}
+    <p>{{#t}}error.content.problem.p1{{/t}}</p>
+    {{#showStack}}
+      <pre>
+        {{error.stack}}
+      </pre>
+    {{/showStack}}
+  {{/content}}
+{{/partials-page}}
