@@ -17,10 +17,11 @@ steps:
 
 - name: deployment_checker
   pull: always
-  image: quay.io/ukhomeofficedigital/alpine-with-extras:9e6a15c2901e9aa7a33b78f45844f9543e050865
+  image: quay.io/ukhomeofficedigital/alpine-with-extras:f617f1757bda14ff8c8a3f3aa979bbd740f7023c
   commands:
     - echo "Checking deployment info latest 3"
     - aws --version
+    - ls -l
     - drone build info UKHomeOffice/fbis-ccf 228
     - echo "Done"
   environment:
