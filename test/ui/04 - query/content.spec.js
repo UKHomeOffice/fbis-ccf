@@ -147,7 +147,7 @@ describe('/query - content', () => {
 
   });
 
-  describe('FR-REP-4 (FBISCC-33) - Collecting Representative\'s details', () => {
+  describe('FR-REP-4 (FBISCC-33) - Collecting representative\'s details', () => {
 
     describe('when user selects \'Yes\' on the identity page', () => {
 
