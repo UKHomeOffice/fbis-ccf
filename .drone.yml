@@ -19,7 +19,7 @@ steps:
   pull: always
   image: quay.io/ukhomeofficedigital/alpine-with-extras:latest
   commands:
-    - echo "Checking deployment info latest"
+    - echo "Checking deployment info latest 2"
     - drone --version
     - drone build info UKHomeOffice/fbis-ccf 228
     - echo "Done"
