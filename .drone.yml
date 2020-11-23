@@ -21,7 +21,7 @@ steps:
   commands:
     - echo "Checking deployment info latest 3"
     - aws --version
-    - ls -l
+    - export DRONE_SERVER=https://$${DRONE_SYSTEM_HOSTNAME}
     - drone build info UKHomeOffice/fbis-ccf 228
     - echo "Done"
   environment:
