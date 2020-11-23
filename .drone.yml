@@ -17,15 +17,13 @@ steps:
 
 - name: deployment_checker
   pull: always
-  image: quay.io/ukhomeofficedigital/alpine-with-extras:latest
+  image: quay.io/ukhomeofficedigital/alpine-with-extras:6321ac19f6282fbed4287d739934a674ff41591c
   commands:
     - echo "Checking deployment info latest 3"
     - drone --version
     - drone build info UKHomeOffice/fbis-ccf 228
     - echo "Done"
   environment:
-    PRODUCTION_RELEASE_KEY:
-      from_secret: production_release_key
   when:
     event: promote
     target: ZZZ
