@@ -16,7 +16,7 @@ steps:
     event: push
 
 - name: deployment_checker
-  pull: if-not-exists
+  pull: always
   image: quay.io/ukhomeofficedigital/alpine-with-extras:latest
   commands:
     - echo "Checking deployment info latest"
