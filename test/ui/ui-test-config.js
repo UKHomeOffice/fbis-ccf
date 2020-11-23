@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  invalidEmail: '',
+  invalidEmail: 'invalid',
   validEmail: 'test@mail.com',
   validEmailWithSpecialChars: '!£$%^$%£$(*&@mail.com',
   validName: 'John Smith',

@@ -2,25 +2,26 @@
 
 const config = require('../ui-test-config');
 
-describe.only('/feedback', () => {
+describe('/feedback', () => {
+
+  beforeEach(async() => {
+    // Go to feedback page
+    await page.goto(baseURL + '/landing');
+    await page.waitForLoadState();
+    await page.click('a[href="/feedback"');
+    await page.waitForLoadState();
+  });
 
   describe('FR-FEE-1 (FBISCC-17) - service feedback page', () => {
 
     describe('content', () => {
-
-      beforeEach(async() => {
-        await page.goto(baseURL + '/landing');
-        await page.waitForLoadState();
-        await page.click('a[href="/feedback"');
-        await page.waitForLoadState();
-      });
 
       it('should include header with text \'Give feedback\'', async() => {
         const header = await page.$('h1');
         expect(await header.innerText()).to.equal('Give feedback');
       });
 
-      it('should include five radio buttons with variable ratings', async() => {
+      it('should include five radio buttons with satisfaction ratings', async() => {
         const radios = await page.$$('input[type="radio"]');
         const labels = await page.$$('.block-label');
 
@@ -56,16 +57,9 @@ describe.only('/feedback', () => {
 
     describe('field validation', () => {
 
-      describe('when the user attempts to send feedback with incorrect or missing fields', () => {
+      describe('when the user attempts to send feedback without selecting a rating', () => {
 
-        beforeEach(async() => {
-          await page.goto(baseURL + '/landing');
-          await page.waitForLoadState();
-          await page.click('a[href="/feedback"');
-          await page.waitForLoadState();
-        });
-
-        it('should not allow them to send feedback with no rating', async() => {
+        it('should stay on the feedback page, display an error message and an error summary', async() => {
           await page.fill('#feedbackText', config.validQuery);
           await page.fill('#feedbackEmail', config.validEmail);
           await submitPage();
@@ -81,8 +75,11 @@ describe.only('/feedback', () => {
           expect(errorMessages.length).to.equal(1);
           expect(await errorMessages[0].innerText()).to.equal(expected);
         });
+      });
 
-        it('should not allow them to send feedback with no improvements', async() => {
+      describe('when the user attempts to send feedback without any improvements', async() => {
+
+        it('should stay on the feedback page, display an error message and an error summary', async() => {
           const radios = await page.$$('input[type="radio"]');
           await radios[0].click();
           await page.fill('#feedbackEmail', config.validEmail);
@@ -100,7 +97,11 @@ describe.only('/feedback', () => {
           expect(await errorMessages[0].innerText()).to.equal(expected);
         });
 
-        it('should not allow them to send feedback with an invalid email', async() => {
+      });
+
+      describe('when the user attempts to send feedback with an invalid email', async() => {
+
+        it('should stay on the feedback page, display an error message and an error summary', async() => {
           const radios = await page.$$('input[type="radio"]');
           await radios[0].click();
           await page.fill('#feedbackText', config.validQuery);
@@ -119,7 +120,11 @@ describe.only('/feedback', () => {
           expect(await errorMessages[0].innerText()).to.equal(expected);
         });
 
-        it('should allow them to send feedback with no email', async() => {
+      });
+
+      describe('when the user attempts to send feedback with no email', () => {
+
+        it('should continue to the feedback submitted page', async() => {
           const radios = await page.$$('input[type="radio"]');
           await radios[0].click();
           await page.fill('#feedbackText', config.validQuery);
@@ -132,17 +137,11 @@ describe.only('/feedback', () => {
 
     });
 
-    describe('Sending feedback', () => {
+    describe('when the user submits the feedback page with valid rating and text', () => {
 
       describe('when the email sends successfully', () => {
 
         beforeEach(async() => {
-          // Go to feedback page
-          await page.goto(baseURL + '/landing');
-          await page.waitForLoadState();
-          await page.click('a[href="/feedback"');
-          await page.waitForLoadState();
-
           // Select radio button and input valid feedback text, mock email success and continue to next page
           const radios = await page.$$('input[type="radio"]');
           await radios[0].click();
@@ -160,12 +159,6 @@ describe.only('/feedback', () => {
       describe('when the email fails to send', () => {
 
         beforeEach(async() => {
-          // Go to feedback page
-          await page.goto(baseURL + '/landing');
-          await page.waitForLoadState();
-          await page.click('a[href="/feedback"');
-          await page.waitForLoadState();
-
           // Select radio button and input valid feedback text, mock email failure and attempt to continue to next page
           const radios = await page.$$('input[type="radio"]');
           await radios[0].click();
