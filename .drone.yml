@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: if-not-exists
-  image: alpine:latest
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
     - echo "Checking deployment info"
     - drone --version
