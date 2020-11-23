@@ -67,3 +67,12 @@ spec:
             limits:
               cpu: "400m"
               memory: "400Mi"
+          volumeMounts:
+            - mountPath: /public
+              name: public
+      volumes:
+        - name: public
+          emptyDir: {}
+        - name: configmap
+          configMap:
+            name: configmap

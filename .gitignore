@@ -6,3 +6,4 @@ apps/*/translations/*
 .DS_Store
 apps/.DS_Store
 .nyc_output
+.env
