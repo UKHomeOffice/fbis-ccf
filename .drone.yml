@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: always
-  image: quay.io/ukhomeofficedigital/alpine-with-extras:7eaf72342d8269bb88622ab8e3ec7f35df56af4f
+  image: quay.io/ukhomeofficedigital/alpine-with-extras:1f130caf37f702323f29cdbd4f421bd39407a9b9
   commands:
     - echo "Checking deployment info latest 3"
     - drone --version
