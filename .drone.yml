@@ -25,6 +25,8 @@ steps:
     - drone build info UKHomeOffice/fbis-ccf 228
     - echo "Done"
   environment:
+    DRONE_TOKEN:
+      from_secret: docker_password
   when:
     event: promote
     target: ZZZ
