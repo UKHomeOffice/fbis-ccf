@@ -6,14 +6,12 @@ describe('/query - character count', () => {
 
   describe('NFR-FOR-22 (FBISCC-44) - 2000 character query count limit', () => {
 
-    let radios;
-
     beforeEach(async() => {
       await page.goto(baseURL + '/landing');
       await submitPage();
 
       // select any question category and continue
-      radios = await page.$$('input[type="radio"]');
+      const radios = await page.$$('input[type="radio"]');
       await radios[0].click();
       await submitPage();
 

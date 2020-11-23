@@ -7,14 +7,29 @@
     "maxlength": "Summary must be 2000 characters or fewer"
   },
   "applicant-name": {
-    "required": "Enter your full name"
+    "required": {
+      "identity": {
+        "Yes": "Enter the applicant's full name",
+        "No": "Enter your full name"
+      }
+    }
   },
   "email": {
-    "required": "Enter your email address",
+    "required": {
+      "identity": {
+        "Yes": "Enter the applicant's email address",
+        "No": "Enter your email address"
+      }
+    },
     "email": "Enter a valid email address"
   },
   "application-number": {
-    "required": "Enter your unique application number (UAN)",
+    "required": {
+      "identity": {
+        "Yes": "Enter the applicant's unique application number (UAN)",
+        "No": "Enter your unique application number (UAN)"
+      }
+    },
     "uan": "Enter a valid unique application number (UAN)"
   },
   "question": {
