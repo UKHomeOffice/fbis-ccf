@@ -17,7 +17,7 @@ steps:
 
 - name: deployment_checker
   pull: always
-  image: quay.io/ukhomeofficedigital/alpine-with-extras:e0cf70b6462c6bddd090cb3031c5c2801a18cf7e
+  image: quay.io/ukhomeofficedigital/alpine-with-extras:3328a0bac3500b978372a882e3cbd0564701365e
   commands:
     - echo "Checking deployment info latest 3"
     - aws --version
