@@ -4,47 +4,34 @@
 
 const config = require('../ui-test-config');
 
-const setupIdentityNo = async() => {
+const setUp = async(question, identity) => {
   await page.goto(baseURL + '/landing');
   await submitPage();
 
-  // select a question category that requires a UAN
-  const statusRadio = await page.$('input#question-status');
-  await statusRadio.click();
+  // select a question category
+  const questionRadio = await page.$(`input#question-${question}`);
+  await questionRadio.click();
   await submitPage();
 
-  // select 'No', not contacting us on behalf of somebody else, and continue
-  const no = await page.$('input#identity-No');
-  await no.click();
+  // select identity
+  const identityRadio = await page.$(`input#identity-${identity}`);
+  await identityRadio.click();
   await submitPage();
+
+  // complete details page if applicable
+  if (identity === 'Yes') {
+    await page.fill('#representative-name', config.validName);
+    await submitPage();
+  }
 };
 
-const setUpIdentityYes = async() => {
-  await page.goto(baseURL + '/landing');
-  await submitPage();
-
-  // select a question category that requires a UAN
-  const statusRadio = await page.$('input#question-status');
-  await statusRadio.click();
-  await submitPage();
-
-  // select 'Yes', contacting us on behalf of somebody else, and continue
-  const yes = await page.$('input#identity-Yes');
-  await yes.click();
-  await submitPage();
-
-  // complete the details page
-  await page.fill('#representative-name', config.validName);
-  await submitPage();
-};
-
-describe('query - validation', () => {
+describe('/query - validation', () => {
 
   describe('FR-FOR-21 - Mandatory responses', () => {
 
     describe('when user selects \'No\' on the identity page', () => {
 
-      beforeEach(async() => await setupIdentityNo());
+      beforeEach(async() => await setUp('status', 'No'));
 
       describe('when user submits the query page without entering a query', () => {
 
@@ -133,7 +120,7 @@ describe('query - validation', () => {
 
     describe('when user selects \'Yes\' on the identity page', () => {
 
-      beforeEach(async() => await setUpIdentityYes());
+      beforeEach(async() => await setUp('status', 'Yes'));
 
       describe('when user submits the query page without entering a query', () => {
 
@@ -224,7 +211,7 @@ describe('query - validation', () => {
 
   describe('FR-VAL-8 (FBISCC-32) - Email address validation', () => {
 
-    beforeEach(async() => await setupIdentityNo());
+    beforeEach(async() => await setUp('status', 'No'));
 
     describe('when user submits an email address with special characters in the user section', () => {
 
@@ -270,7 +257,7 @@ describe('query - validation', () => {
 
   describe('FR-VAL-9 (FBISCC-31) - UAN validation', () => {
 
-    beforeEach(async() => await setupIdentityNo());
+    beforeEach(async() => await setUp('status', 'No'));
 
     describe('when user submits an invalid UAN', () => {
 
