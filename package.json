@@ -9,7 +9,7 @@
     "test:lint": "eslint .",
     "test:unit": "nyc mocha \"test/unit/**/*.spec.js\" --require test/test-helpers.js",
     "test:ui": "npm run test:ui:firefox && npm run test:ui:webkit && npm run test:ui:chromium",
-    "test:ui:browser": "mocha \"test/ui/**/*.spec.js\" --require test/test-helpers.js test/ui/ui-test-helpers.js --timeout 5000",
+    "test:ui:browser": "mocha \"test/ui/**/*.spec.js\" --require test/test-helpers.js test/ui/ui-test-helpers.js --timeout 10000",
     "test:ui:chromium": "npm run test:ui:browser -- --browser-engine=chromium",
     "test:ui:firefox": "npm run test:ui:browser -- --browser-engine=firefox",
     "test:ui:webkit": "npm run test:ui:browser -- --browser-engine=webkit",
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "hof": "^17.3.1",
-    "hof-behaviour-summary-page": "^2.0.0",
     "hof-build": "^1.3.4",
     "hof-theme-govuk": "^5.0.0",
     "jquery": "^3.5.1",

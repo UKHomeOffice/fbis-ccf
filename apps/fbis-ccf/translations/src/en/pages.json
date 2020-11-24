@@ -22,6 +22,41 @@
     }
   },
   "confirm": {
-    "header": "Check your answers"
+    "header": "Check your answers",
+    "reason": {
+      "header": "Reason for contacting UK Visas and Immigration",
+      "label": "What is your problem about?",
+      "value": {
+        "question": {
+          "id-check": "The 'ID check' app",
+          "status": "Viewing or proving your immigration status",
+          "account": "Updating your immigration account details"
+        }
+      }
+    },
+    "representative": {
+      "header": "Your details",
+      "name": "Name of person filling in the form",
+      "phone": "Phone number of person filling in the form",
+      "organisation": "Organisation of person filling in the form"
+    },
+    "applicant": {
+      "header": {
+        "identity": {
+          "Yes": "Applicant's details",
+          "No": "Your details"
+        }
+      },
+      "phone": {
+        "identity": {
+          "Yes": "Applicant's phone number",
+          "No": "Phone number"
+        }
+      }
+    },
+    "problem": {
+      "header": "Details of the problem"
+    },
+    "check-text": "Check the information you have entered is correct, and send your form."
   }
 }
