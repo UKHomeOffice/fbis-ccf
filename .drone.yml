@@ -5,18 +5,6 @@ type: kubernetes
 
 steps:
 
-- name: unit-test
-  pull: if-not-exists
-  image: node
-  environment:
-    NOTIFY_KEY: UNIT_MOCK
-  commands:
-  - npm install
-  - npm test
-  when:
-    branch: [ master, development ]
-    event: push
-
 - name: redis-test-service
   pull: if-not-exists
   image: redis
@@ -25,13 +13,14 @@ steps:
     branch: [ master, development ]
     event: push
 
-- name: ui-test
+- name: test
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:bionic
   environment:
-    NOTIFY_KEY: UI_MOCK
+    NOTIFY_KEY: USE_MOCK
   commands:
-    - npm install -s
+    - npm i -s && npm run build
+    - npm test
     - npm run test:ui:server
   when:
     branch: [ master, development ]

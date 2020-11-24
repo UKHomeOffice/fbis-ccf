@@ -1,5 +1,8 @@
 {
   "license": "MIT",
+  "config": {
+    "reporter":"--reporter=@danmasta/mocha-sonar --reporter-options=reporter=spec,delimiter=--,output=executions"
+  },
   "scripts": {
     "start": "node app.js",
     "start:mock": "node app.js silent mock-notify",
@@ -7,12 +10,12 @@
     "debug": "node --inspect app.js",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:unit": "nyc mocha \"test/unit/**/*.spec.js\" --require test/test-helpers.js",
+    "test:unit": "nyc --reporter=lcov mocha \"test/unit/**/*.spec.js\" --require test/test-helpers.js -- $npm_package_config_reporter/unit.xml",
     "test:ui": "npm run test:ui:firefox && npm run test:ui:webkit && npm run test:ui:chromium",
     "test:ui:browser": "mocha \"test/ui/**/*.spec.js\" --require test/test-helpers.js test/ui/ui-test-helpers.js --timeout 10000",
-    "test:ui:chromium": "npm run test:ui:browser -- --browser-engine=chromium",
-    "test:ui:firefox": "npm run test:ui:browser -- --browser-engine=firefox",
-    "test:ui:webkit": "npm run test:ui:browser -- --browser-engine=webkit",
+    "test:ui:chromium": "npm run test:ui:browser -- --browser-engine=chromium $npm_package_config_reporter/chromium.xml",
+    "test:ui:firefox": "npm run test:ui:browser -- --browser-engine=firefox $npm_package_config_reporter/firefox.xml",
+    "test:ui:webkit": "npm run test:ui:browser -- --browser-engine=webkit $npm_package_config_reporter/webkit.xml",
     "test:ui:server": "start-server-and-test start:mock http://localhost:8080/landing?automation-test test:ui",
     "build": "hof-build",
     "postinstall": "npm run build"
@@ -26,6 +29,7 @@
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "@danmasta/mocha-sonar": "^1.0.0",
     "@types/chai": "^4.2.13",
     "@types/mocha": "^8.0.3",
     "@types/sinon": "^9.0.8",
