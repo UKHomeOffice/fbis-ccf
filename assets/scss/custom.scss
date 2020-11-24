@@ -1,7 +1,14 @@
 // Custom styling for overriding HOF defaults as required by designs
 
-tr {
-  vertical-align: top;
+// Styles for form pages
+#identity-group {
+  .multiple-choice {
+    clear: right;
+    margin-right: 2em;
+  }
+  legend {
+    margin-bottom: 1em;
+  }
 }
 
 #query, #feedbackText {
@@ -13,20 +20,49 @@ tr {
   margin-bottom: 1em;
 }
 
-#identity-group {
-  .multiple-choice {
-    clear: right;
-    margin-right: 2em;
-  }
-  legend {
-    margin-bottom: 1em;
-  }
-}
-
+// Check your answers page styles
 .confirm-label {
   font-weight: bold;
 }
 
+tr {
+  vertical-align: top;
+}
+
+// Confirmation styles (complete & feedback submitted pages)
+#complete-column {
+  .alert-complete {
+    background-color: #00703C;
+    border-left: 0;
+    padding: 2em 30px;
+  }
+}
+
+#confirm-email {
+  margin: 0.2em 0 0 0;
+  word-wrap: break-word;
+}
+
+#confirm-heading {
+  margin: 0;
+}
+
+#confirm-text {
+  margin: 0.5em 0 0 0;
+}
+
+input[type="submit"].link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+#next-heading {
+  margin-top: 0;
+}
+
+// Wide display styles
 @media (min-width: 641px) {
   #query {
     height: 150px; // 6x default line-height for this screen width
@@ -38,5 +74,11 @@ tr {
 
   #applicant-phone, #organisation, #application-number {
     width: 67%;
+  }
+
+  #complete-column {
+    .alert-complete {
+      padding: 2em 40px;
+    }
   }
 }

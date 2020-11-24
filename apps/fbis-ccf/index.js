@@ -44,8 +44,7 @@ module.exports = {
       next: '/complete'
     },
     '/complete': {
-      behaviours: [clearSession],
-      template: 'confirmation'
+      behaviours: [clearSession]
     }
   }
 };

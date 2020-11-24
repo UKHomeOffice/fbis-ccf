@@ -3,7 +3,7 @@
     "header": "Give feedback"
   },
   "feedback-submitted": {
-    "header": "Feedback submitted",
-    "confirmed": "Thank you"
+    "confirmation": "Feedback sent",
+    "return": "Return to form."
   }
 }

@@ -58,5 +58,16 @@
       "header": "Details of the problem"
     },
     "check-text": "Check the information you have entered is correct, and send your form."
+  },
+  "complete": {
+    "confirmation": "Form sent",
+    "message": "We have sent a confirmation email to",
+    "what-happens-next": {
+      "header": "What happens next",
+      "p1": "We've sent your enquiry to the online help team.",
+      "p2": "They will contact you within 5 working days with an answer to your problem, or to ask for more information.",
+      "a": "What did you think of this service?",
+      "hint": "(takes 30 seconds)"
+    }
   }
 }

@@ -1,9 +1,7 @@
 {{<partials-page}}
+    {{$pageTitle}}{{#t}}pages.feedback-submitted{{/t}} - GOV.UK{{/pageTitle}}
     {{$page-content}}
-        <h1 class="govuk-panel__title">
-            {{#t}}pages.feedback-submitted.confirmed{{/t}}
-        </h1>
-
-        {{#input-submit}}close{{/input-submit}}
+        <div id="complete-column">{{>partials-confirmation-alert}}</div>
+        <input  type="submit" value="{{#t}}pages.feedback-submitted.return{{/t}}" class="link">
     {{/page-content}}
 {{/partials-page}}
