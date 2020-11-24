@@ -7,6 +7,11 @@ services:
       - IGNORE_TLS=true
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - NOTIFY_KEY
+      - SRC_CASEWORK_EMAIL
+      - FEEDBACK_EMAIL
+      - TEMPLATE_QUERY
+      - TEMPLATE_FEEDBACK
     links:
       - redis
     ports:
