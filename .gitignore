@@ -7,3 +7,5 @@ apps/*/translations/*
 apps/.DS_Store
 .nyc_output
 .env
+executions
+coverage
