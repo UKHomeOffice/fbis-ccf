@@ -3,6 +3,7 @@
 const notify = require('../../../config').notify;
 const utils = require('../../../lib/utils');
 const fields = require('../fields/index');
+const questionOptions = require('../translations/src/en/fields').question.options;
 const uuidv4 = require('uuid').v4;
 
 module.exports = superclass => class Submit extends superclass {
@@ -29,6 +30,12 @@ module.exports = superclass => class Submit extends superclass {
     req.session.save();
 
     let emailData = Object.keys(fields).reduce((data, field) => {
+      if (field === 'question') {
+        const question = req.form.historicalValues.question;
+        data.question = Submit.getDescriptiveQuestionString(question);
+        return data;
+      }
+
       data[field] = req.form.historicalValues[field] || 'n/a';
       return data;
     }, {});
@@ -40,9 +47,19 @@ module.exports = superclass => class Submit extends superclass {
       .catch(err => Submit.handleError(req, next, reference, err, true));
   }
 
+  static getDescriptiveQuestionString(question) {
+    const descriptiveQuestion = questionOptions[question].label;
+    return descriptiveQuestion[0].toLowerCase() + descriptiveQuestion.slice(1);
+  }
+
   static handleSuccess(req, next, reference, shouldLog) {
     if (shouldLog) {
       req.log('info', 'Email sent to SRC casework address', `reference=${reference}`);
+
+      utils.sendEmail(notify.templateConfirmation, req.form.historicalValues.email, uuidv4(), {
+        'applicant-name': req.form.historicalValues['applicant-name'],
+        question: this.getDescriptiveQuestionString(req.form.historicalValues.question)
+      });
     }
     return next();
   }
