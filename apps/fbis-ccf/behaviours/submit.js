@@ -2,7 +2,6 @@
 
 const notify = require('../../../config').notify;
 const utils = require('../../../lib/utils');
-const fields = require('../fields/index');
 const questionOptions = require('../translations/src/en/fields').question.options;
 const uuidv4 = require('uuid').v4;
 
@@ -29,27 +28,44 @@ module.exports = superclass => class Submit extends superclass {
     req.sessionModel.set(notify.submitEmailReference, reference);
     req.session.save();
 
-    let emailData = Object.keys(fields).reduce((data, field) => {
-      if (field === 'question') {
-        const question = req.form.historicalValues.question;
-        data.question = Submit.getDescriptiveQuestionString(question);
-        return data;
-      }
-
-      data[field] = req.form.historicalValues[field] || 'n/a';
-      return data;
-    }, {});
-
-    emailData.location = ((req.form.historicalValues['in-UK'] === true) ? 'Inside UK' : 'Outside UK');
+    const emailData = Submit.formatEmailData(req.form.historicalValues);
 
     return utils.sendEmail(notify.templateQuery, notify.srcCaseworkEmail, reference, emailData)
       .then(() => Submit.handleSuccess(req, next, reference, true))
       .catch(err => Submit.handleError(req, next, reference, err, true));
   }
 
-  static getDescriptiveQuestionString(question) {
+  static formatEmailData(values) {
+    return {
+      'applicant-name': `Name: ${values['applicant-name']}`,
+      email: `Email address: ${values.email}`,
+      identity: values.identity,
+      location: values['in-UK'] === true ? 'Inside UK' : 'Outside UK',
+      query: values.query,
+      question: Submit.getDescriptiveQuestionString(values.question, true),
+      'applicant-phone': values['applicant-phone']
+        ? `Phone number: ${values['applicant-phone']}`
+        : '',
+      'application-number': values['application-number']
+        ? `Unique application number (UAN): ${values['application-number']}`
+        : '',
+      organisation: values.organisation
+        ? `Organisation: ${values.organisation}`
+        : '',
+      'representative-name': values['representative-name']
+        ? `Name: ${values['representative-name']}`
+        : '',
+      'representative-phone': values['representative-phone']
+        ? `Phone number: ${values['representative-phone']}`
+        : '',
+    };
+  }
+
+  static getDescriptiveQuestionString(question, capitalised) {
     const descriptiveQuestion = questionOptions[question].label;
-    return descriptiveQuestion[0].toLowerCase() + descriptiveQuestion.slice(1);
+    return capitalised
+      ? descriptiveQuestion
+      : descriptiveQuestion[0].toLowerCase() + descriptiveQuestion.slice(1);
   }
 
   static handleSuccess(req, next, reference, shouldLog) {
