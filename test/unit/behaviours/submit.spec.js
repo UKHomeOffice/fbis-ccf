@@ -10,6 +10,7 @@ const mockUtils = {
 const mockConfig = {
   notify: {
     templateQuery: 'templateQuery',
+    templateConfirmation: 'templateConfirmation',
     srcCaseworkEmail: 'srcCaseworkEmail',
     submitEmailReference: 'submit-email-reference',
     statusRetryInterval: 1000
@@ -38,7 +39,9 @@ describe('Submit behaviour', () => {
   beforeEach(() => {
     req = {
       form: {
-        historicalValues: {}
+        historicalValues: {
+          question: 'status'
+        }
       },
       log: sinon.stub(),
       sessionModel: {
@@ -86,7 +89,7 @@ describe('Submit behaviour', () => {
       it('should call utils \'sendEmail\' with template query, SRC casework email, and a UUID', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
-            expect(mockUtils.sendEmail).to.have.been.calledOnceWith('templateQuery', 'srcCaseworkEmail', 'mockUUID');
+            expect(mockUtils.sendEmail).to.have.been.calledWith('templateQuery', 'srcCaseworkEmail', 'mockUUID');
           });
       });
 
@@ -115,7 +118,7 @@ describe('Submit behaviour', () => {
           location: 'Outside UK',
           organisation: 'Charity',
           query: 'I am having an issue',
-          question: 'account',
+          question: 'updating your immigration account details',
           'representative-name': 'Mary Sue',
           'representative-phone': '07111111111'
         };
@@ -123,7 +126,7 @@ describe('Submit behaviour', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(mockUtils.sendEmail).to.have.been
-              .calledOnceWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
+              .calledWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
           });
       });
 
@@ -151,7 +154,7 @@ describe('Submit behaviour', () => {
           location: 'Inside UK',
           organisation: 'n/a',
           query: 'I am having an issue',
-          question: 'account',
+          question: 'updating your immigration account details',
           'representative-name': 'n/a',
           'representative-phone': 'n/a'
         };
@@ -159,14 +162,7 @@ describe('Submit behaviour', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(mockUtils.sendEmail).to.have.been
-              .calledOnceWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
-          });
-      });
-
-      it('should call the next middleware step if the email sends successfully', () => {
-        return testInstance.saveValues(req, res, nextStub)
-          .then(() => {
-            expect(nextStub.calledOnce).to.equal(true);
+              .calledWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
           });
       });
 
@@ -178,6 +174,32 @@ describe('Submit behaviour', () => {
               'Email sent to SRC casework address',
               'reference=mockUUID'
             );
+          });
+      });
+
+      it('should send a confirmation email if the first email sends successfully', () => {
+        req.form.historicalValues = {
+          email: 'mail@test.com',
+          'applicant-name': 'John Smith',
+          question: 'account'
+        };
+
+        const expected = {
+          'applicant-name': 'John Smith',
+          question: 'updating your immigration account details'
+        };
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(mockUtils.sendEmail).to.have.been
+              .calledWith('templateConfirmation', 'mail@test.com', 'mockUUID', expected);
+          });
+      });
+
+      it('should call the next middleware step if the email sends successfully', () => {
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(nextStub.calledOnce).to.equal(true);
           });
       });
 
@@ -244,6 +266,15 @@ describe('Submit behaviour', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(req.log.notCalled).to.equal(true);
+          });
+      });
+
+      it('should not send a confirmation email as this would duplicate the original confirmation email', () => {
+        mockUtils.pollEmailStatus.resolves();
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(mockUtils.sendEmail.notCalled).to.equal(true);
           });
       });
 
