@@ -110,17 +110,17 @@ describe('Submit behaviour', () => {
         };
 
         const expected = {
-          'applicant-name': 'John Smith',
-          'applicant-phone': '07000000000',
-          'application-number': '3434-0000-0000-0001',
-          email: 'john.smith@mail.com',
+          'applicant-name': 'Name: John Smith',
+          'applicant-phone': 'Phone number: 07000000000',
+          'application-number': 'Unique application number (UAN): 3434-0000-0000-0001',
+          email: 'Email address: john.smith@mail.com',
           identity: 'yes',
           location: 'Outside UK',
-          organisation: 'Charity',
+          organisation: 'Organisation: Charity',
           query: 'I am having an issue',
-          question: 'updating your immigration account details',
-          'representative-name': 'Mary Sue',
-          'representative-phone': '07111111111'
+          question: 'Updating your immigration account details',
+          'representative-name': 'Name: Mary Sue',
+          'representative-phone': 'Phone number: 07111111111',
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -130,33 +130,33 @@ describe('Submit behaviour', () => {
           });
       });
 
-      it('should call substitute falsy form fields with \'n/a\'', () => {
+      it('should replace falsy optional fields with empty strings', () => {
         req.form.historicalValues = {
           'applicant-name': 'John Smith',
-          'applicant-phone': '',
+          'applicant-phone': '07000000000',
           'application-number': null,
           email: 'john.smith@mail.com',
           identity: 'no',
           'in-UK': true,
           organisation: undefined,
           query: 'I am having an issue',
-          question: 'account',
+          question: 'id-check',
           'representative-name': false,
           'representative-phone': false
         };
 
         const expected = {
-          'applicant-name': 'John Smith',
-          'applicant-phone': 'n/a',
-          'application-number': 'n/a',
-          email: 'john.smith@mail.com',
+          'applicant-name': 'Name: John Smith',
+          'applicant-phone': 'Phone number: 07000000000',
+          'application-number': '',
+          email: 'Email address: john.smith@mail.com',
           identity: 'no',
           location: 'Inside UK',
-          organisation: 'n/a',
+          organisation: '',
           query: 'I am having an issue',
-          question: 'updating your immigration account details',
-          'representative-name': 'n/a',
-          'representative-phone': 'n/a'
+          question: 'The \'ID check\' app',
+          'representative-name': '',
+          'representative-phone': '',
         };
 
         return testInstance.saveValues(req, res, nextStub)
