@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('../ui-test-config');
+const config = require('../../ui-test-config');
 
 describe('/query - character count', () => {
 

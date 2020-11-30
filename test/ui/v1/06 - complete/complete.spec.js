@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('../ui-test-config');
+const config = require('../../ui-test-config');
 
 const setUp = async(question, identity, useOptionalFields, shouldSucceed) => {
   await page.goto(baseURL + '/landing');

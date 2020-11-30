@@ -10,28 +10,34 @@ const submit = require('./behaviours/submit');
 module.exports = {
   name: 'fbis-ccf',
   steps: {
-    '/landing': {
-      behaviours: [setLocationOnSession],
-      next: '/question'
-    },
     '/question': {
-      behaviours: [addLocationToBacklink],
+      behaviours: [setLocationOnSession],
       fields: ['question'],
-      next: '/identity'
+      next: '/context'
+    },
+    '/context': {
+      behaviours: [addLocationToBacklink],
+      next: '/identity',
     },
     '/identity': {
       fields: ['identity'],
-      next: '/query',
+      next: '/applicant-details'
+    },
+    '/applicant-details': {
+      next: '/contact-details',
       forks: [{
-        target: '/details',
+        target: '/representative-details',
         condition: {
           field: 'identity',
           value: 'Yes'
         }
       }],
     },
-    '/details': {
+    '/representative-details': {
       fields: ['representative-name', 'representative-phone', 'organisation'],
+      next: '/contact-details'
+    },
+    '/contact-details': {
       next: '/query'
     },
     '/query': {
