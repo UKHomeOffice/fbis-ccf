@@ -1,13 +1,9 @@
 {{<partials-page}}
     {{$header}}
-        {{#values.in-UK}}
-            {{#t}}pages.context.header.in{{/t}}
-        {{/values.in-UK}}
-        {{^values.in-UK}}
-            {{#t}}pages.context.header.out{{/t}}
-        {{/values.in-UK}}
+        {{#t}}pages.context.header{{/t}}
     {{/header}}
     {{$page-content}}
-        {{#input-submit}}start{{/input-submit}}
+        {{>partials-context-info}}
+        {{#input-submit}}continue{{/input-submit}}
     {{/page-content}}
 {{/partials-page}}
