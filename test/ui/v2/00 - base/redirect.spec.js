@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Base url', () => {
+describe('base url', () => {
 
   describe('DEV (FBISCC-46) - Base url page redirect', () => {
 

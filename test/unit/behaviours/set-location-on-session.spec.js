@@ -8,6 +8,9 @@ describe('Set location behaviour', () => {
   let res;
   let SetLocationOnSession;
   let testInstance;
+  let superErr;
+  let superValues;
+  let nextStub;
 
   beforeEach(() => {
     req = {
@@ -18,12 +21,16 @@ describe('Set location behaviour', () => {
     };
 
     res = {};
+
+    nextStub = sinon.stub();
   });
 
   describe('getValues', () => {
 
     class Base {
-      getValues() {}
+      getValues(request, response, callback) {
+        callback(superErr, superValues);
+      }
     }
 
     beforeEach(() => {
@@ -31,15 +38,23 @@ describe('Set location behaviour', () => {
       testInstance = new SetLocationOnSession();
     });
 
-    it('should set `in-UK` flag true if using base route (fbis.gov.uk/landing)', () => {
-      testInstance.getValues(req, res, {});
+    it('should set `in-UK` flag true if using base route (fbis.gov.uk/question)', () => {
+      superValues = {};
+      superErr = null;
+
+      testInstance.getValues(req, res, nextStub);
       expect(req.sessionModel.set).to.have.been.calledOnceWith('in-UK', true);
+      expect(nextStub).to.have.been.calledOnceWith(null, { 'in-UK': true });
     });
 
-    it('should set `in-UK` flag false if query contains outside-UK (fbis.gov.uk/landing?outside-UK)', () => {
+    it('should set `in-UK` flag false if query contains outside-UK (fbis.gov.uk/question?outside-UK)', () => {
+      superValues = {};
+      superErr = null;
+
       req.query['outside-UK'] = '';
-      testInstance.getValues(req, res, {});
+      testInstance.getValues(req, res, nextStub);
       expect(req.sessionModel.set).to.have.been.calledOnceWith('in-UK', false);
+      expect(nextStub).to.have.been.calledOnceWith(null, { 'in-UK': false });
     });
 
   });
