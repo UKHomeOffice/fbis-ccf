@@ -30,9 +30,9 @@ describe('/context', () => {
 
       it('should include list items for name, contact details and problem details', async() => {
         const list = await page.$$('#context-requirements > li');
-        expect(await list[0].innerText()).to.equal('your name');
-        expect(await list[1].innerText()).to.equal('contact details where we can send our response');
-        expect(await list[2].innerText()).to.equal('details about the problem');
+        expect((await list[0].innerText()).includes('your name')).to.equal(true);
+        expect((await list[1].innerText()).includes('contact details where we can send our response')).to.equal(true);
+        expect((await list[2].innerText()).includes('details about the problem')).to.equal(true);
       });
 
       it('should include a message about filling out the form on another person\'s behalf', async() => {
