@@ -16,7 +16,7 @@ module.exports = {
       next: '/context'
     },
     '/context': {
-      behaviours: [addLocationToBacklink],
+      behaviours: [addLocationToBacklink, setQuestionFlagsOnValues],
       next: '/identity',
     },
     '/identity': {
