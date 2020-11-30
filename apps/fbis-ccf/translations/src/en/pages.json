@@ -8,6 +8,20 @@
   "identity": {
     "header": "Are you contacting us on behalf of someone else?"
   },
+  "applicant-details": {
+    "header": {
+      "identity": {
+        "Yes": "Applicant's details",
+        "No":  {
+          "question": {
+            "id-check": "Your name",
+            "status": "Your details",
+            "account": "Your details"
+          }
+        }
+      }
+    }
+  },
   "details": {
     "header": "Your details"
   },

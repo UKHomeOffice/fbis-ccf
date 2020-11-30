@@ -24,6 +24,8 @@ module.exports = {
       next: '/applicant-details'
     },
     '/applicant-details': {
+      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired],
+      fields: ['applicant-first-names', 'applicant-last-names', 'application-number'],
       next: '/contact-details',
       forks: [{
         target: '/representative-details',

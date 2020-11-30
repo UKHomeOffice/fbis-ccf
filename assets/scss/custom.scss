@@ -88,6 +88,10 @@ input[type="submit"].link {
     height: 150px; // 6x default line-height for this screen width
   }
 
+  #applicant-first-names, #applicant-last-names {
+    width: 100%;
+  }
+
   #applicant-name, #representative-name, #representative-phone, #email {
     width: 80%;
   }

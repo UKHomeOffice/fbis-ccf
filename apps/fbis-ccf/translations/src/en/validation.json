@@ -1,4 +1,43 @@
 {
+  "applicant-first-names": {
+    "required": {
+      "in-UK": {
+        "true": {
+          "identity": {
+            "Yes": "Enter the applicant's first names",
+            "No": "Enter your first names"
+          }
+        },
+        "false": {
+          "identity": {
+            "Yes": "Enter the applicant's given names",
+            "No": "Enter your given names"
+          }
+        }
+      }
+    }
+  },
+  "applicant-last-names": {
+    "required": {
+      "in-UK": {
+        "true": {
+          "identity": {
+            "Yes": "Enter the applicant's last names",
+            "No": "Enter your last names"
+          }
+        },
+        "false": {
+          "identity": {
+            "Yes": "Enter the applicant's family names",
+            "No": "Enter your family names"
+          }
+        }
+      }
+    }
+  },
+  "application-number": {
+    "uan": "Enter a unique application number (UAN)"
+  },
   "representative-name": {
     "required": "Enter your full name"
   },
@@ -22,15 +61,6 @@
       }
     },
     "email": "Enter a valid email address"
-  },
-  "application-number": {
-    "required": {
-      "identity": {
-        "Yes": "Enter the applicant's unique application number (UAN)",
-        "No": "Enter your unique application number (UAN)"
-      }
-    },
-    "uan": "Enter a valid unique application number (UAN)"
   },
   "question": {
     "required": "Select what your problem is about"

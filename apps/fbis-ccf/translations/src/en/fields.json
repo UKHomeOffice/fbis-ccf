@@ -1,4 +1,24 @@
 {
+  "applicant-first-names": {
+    "label": {
+      "in-UK": {
+        "true": "First names",
+        "false": "Given names"
+      }
+    }
+  },
+  "applicant-last-names": {
+    "label": {
+      "in-UK": {
+        "true": "Last names",
+        "false": "Family names"
+      }
+    }
+  },
+  "application-number": {
+    "label": "Unique application number - UAN (optional)",
+    "hint": "For example, 3434-0000-0000-0001"
+  },
   "details": {
     "hint": "Details of the person filling out this form"
   },
@@ -38,15 +58,6 @@
         "Yes": "Applicant's phone number (optional)"
       }
     }
-  },
-  "application-number": {
-    "label": {
-      "identity": {
-        "Yes": "Applicant's unique application number (UAN)",
-        "No" : "Unique application number (UAN)"
-      }
-    },
-    "hint": "For example, 3434-0000-0000-0001"
   },
   "question": {
     "legend": "What is your problem about?",
