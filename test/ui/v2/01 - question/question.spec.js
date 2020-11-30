@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint max-len: off */
+
 describe('/question', () => {
 
   describe('FR-CAT-3 (FBISCC-7), FR-CAT-19 (FBISCC-41) - In- and out-country query categorisation', () => {
@@ -21,7 +23,7 @@ describe('/question', () => {
       expect(labels.length).to.equal(3);
 
       expect(await labels[0].innerText()).to.equal('The \'ID check\' app');
-      expect(await labels[1].innerText()).to.equal('Viewing or proving your immigration status');
+      expect(await labels[1].innerText()).to.equal('Viewing or proving your immigration status, right to work or right to rent');
       expect(await labels[2].innerText()).to.equal('Updating your immigration account details');
     });
 
