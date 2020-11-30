@@ -49,7 +49,7 @@
     "hint": "For example, 3434-0000-0000-0001"
   },
   "question": {
-    "legend": "What is your technical problem about?",
+    "legend": "What is your problem about?",
     "options": {
       "id-check": {
         "label": "The 'ID check' app"

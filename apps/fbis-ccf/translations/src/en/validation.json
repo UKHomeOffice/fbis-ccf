@@ -33,7 +33,7 @@
     "uan": "Enter a valid unique application number (UAN)"
   },
   "question": {
-    "required": "Select what your technical problem is about"
+    "required": "Select what your problem is about"
   },
   "identity": {
     "required": "Select if you are contacting us on behalf of someone else"
