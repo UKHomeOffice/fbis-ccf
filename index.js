@@ -22,7 +22,7 @@ const app = hof(settings);
  During automation test setup, we ping the app with '?automation-test' query to check it is ready before running tests.
  Put a cookie on this request so it doesn't fail HOF-middleware cookie check.
 */
-app.use('/landing', (req, res, next) => {
+app.use('/question', (req, res, next) => {
   if (req.query['automation-test'] !== undefined) {
     req.cookies.testCookie = 'test';
   }

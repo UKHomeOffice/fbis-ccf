@@ -3,12 +3,13 @@
 describe('/identity', () => {
 
   beforeEach(async() => {
-    await page.goto(baseURL + '/landing');
-    await submitPage();
-
+    await page.goto(baseURL + '/question');
     // select any question category and continue
     const radio = await page.$('input[type="radio"]');
     await radio.check();
+    await submitPage();
+
+    // submit the context page, which requires no input
     await submitPage();
   });
 
@@ -64,8 +65,8 @@ describe('/identity', () => {
         await submitPage();
       });
 
-      it('should continue to the details page', async() => {
-        expect(await page.url()).to.equal(baseURL + '/details');
+      it('should continue to the applicant details page', async() => {
+        expect(await page.url()).to.equal(baseURL + '/applicant-details');
       });
 
     });
@@ -78,8 +79,8 @@ describe('/identity', () => {
         await submitPage();
       });
 
-      it('should continue to the query page', async() => {
-        expect(await page.url()).to.equal(baseURL + '/query');
+      it('should continue to the applicant details page', async() => {
+        expect(await page.url()).to.equal(baseURL + '/applicant-details');
       });
 
     });

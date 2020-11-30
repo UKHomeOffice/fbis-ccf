@@ -16,7 +16,7 @@ module.exports = superclass => class ClearFeedback extends superclass {
   }
 
   successHandler(req, res) {
-    const referer = req.sessionModel.get('feedbackReturnTo') || `${req.get('origin')}/landing`;
+    const referer = req.sessionModel.get('feedbackReturnTo') || `${req.get('origin')}/question`;
     req.sessionModel.unset('feedbackReturnTo');
     return res.redirect(referer);
   }

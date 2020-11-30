@@ -1,0 +1,15 @@
+{{<step}}
+  {{$header}}
+    {{#t}}pages.applicant-details.header{{/t}}
+  {{/header}}
+
+  {{$page-content}}
+    {{#input-text}}applicant-first-names{{/input-text}}
+    {{#input-text}}applicant-last-names{{/input-text}}
+    {{^values.is-id-check}}
+      {{#input-text}}application-number{{/input-text}}
+    {{/values.is-id-check}}
+    {{#input-submit}}continue{{/input-submit}}
+  {{/page-content}}
+
+{{/step}}

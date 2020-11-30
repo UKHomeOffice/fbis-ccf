@@ -8,7 +8,7 @@ module.exports = superclass => class AddUANValidatorIfRequired extends superclas
     const isUANRequired = req.sessionModel.get('question') !== 'id-check';
 
     if (isUANRequired) {
-      req.form.options.fields['application-number'].validate = ['required', customValidators.uan];
+      req.form.options.fields['application-number'].validate = [customValidators.uan];
     }
 
     return super.process(req, res, next);

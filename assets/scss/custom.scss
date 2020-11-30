@@ -1,5 +1,25 @@
 // Custom styling for overriding HOF defaults as required by designs
 
+// Styles for context page
+#context {
+  > p {
+    margin: 1.3em 0 .75em 0;
+  }
+  ul {
+    list-style-type: disc;
+    margin: 0 0 1em 1em;
+    li p {
+      margin-bottom: 0.2em;
+    }
+  }
+  .notice {
+    margin: 1.5em 0 2em 0;
+    .icon {
+      margin-top: -20px;
+    }
+  }
+}
+
 // Styles for form pages
 #identity-group {
   .multiple-choice {
@@ -16,8 +36,9 @@
   width: 100%;
 }
 
-#representative-name-hint {
+#representative-details-hint {
   margin-bottom: 1em;
+  color: black;
 }
 
 // Check your answers page styles
@@ -68,11 +89,11 @@ input[type="submit"].link {
     height: 150px; // 6x default line-height for this screen width
   }
 
-  #applicant-name, #representative-name, #representative-phone, #email {
-    width: 80%;
+  #applicant-first-names, #applicant-last-names, #email, #representative-first-names, #representative-last-names {
+    width: 100%;
   }
 
-  #applicant-phone, #organisation, #application-number {
+  #organisation, #application-number, #phone {
     width: 67%;
   }
 

@@ -96,31 +96,33 @@ describe('Submit behaviour', () => {
       it('should call utils \'sendEmail\' with emailData containing only necessary fields from the form', () => {
         req.form.historicalValues = {
           'some-unwanted-field': 'unwanted value',
-          'applicant-name': 'John Smith',
-          'applicant-phone': '07000000000',
+          'applicant-first-names': 'John',
+          'applicant-last-names': 'Smith',
+          'phone': '07000000000',
           'application-number': '3434-0000-0000-0001',
           email: 'john.smith@mail.com',
           identity: 'yes',
-          'in-UK': false,
+          'in-UK': true,
           organisation: 'Charity',
           query: 'I am having an issue',
           question: 'account',
-          'representative-name': 'Mary Sue',
-          'representative-phone': '07111111111'
+          'representative-first-names': 'Mary',
+          'representative-last-names': 'Sue',
         };
 
         const expected = {
-          'applicant-name': 'Name: John Smith',
-          'applicant-phone': 'Phone number: 07000000000',
+          'applicant-first-names': 'First names: John',
+          'applicant-last-names': 'Last names: Smith',
+          'phone': 'Phone number: 07000000000',
           'application-number': 'Unique application number (UAN): 3434-0000-0000-0001',
           email: 'Email address: john.smith@mail.com',
           identity: 'yes',
-          location: 'Outside UK',
+          location: 'Inside UK',
           organisation: 'Organisation: Charity',
           query: 'I am having an issue',
           question: 'Updating your immigration account details',
-          'representative-name': 'Name: Mary Sue',
-          'representative-phone': 'Phone number: 07111111111',
+          'representative-first-names': 'First names: Mary',
+          'representative-last-names': 'Last names: Sue',
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -132,8 +134,9 @@ describe('Submit behaviour', () => {
 
       it('should replace falsy optional fields with empty strings', () => {
         req.form.historicalValues = {
-          'applicant-name': 'John Smith',
-          'applicant-phone': '07000000000',
+          'applicant-first-names': 'John',
+          'applicant-last-names': 'Smith',
+          'phone': '07000000000',
           'application-number': null,
           email: 'john.smith@mail.com',
           identity: 'no',
@@ -141,13 +144,14 @@ describe('Submit behaviour', () => {
           organisation: undefined,
           query: 'I am having an issue',
           question: 'id-check',
-          'representative-name': false,
-          'representative-phone': false
+          'representative-first-names': false,
+          'representative-last-names': '',
         };
 
         const expected = {
-          'applicant-name': 'Name: John Smith',
-          'applicant-phone': 'Phone number: 07000000000',
+          'applicant-first-names': 'First names: John',
+          'applicant-last-names': 'Last names: Smith',
+          'phone': 'Phone number: 07000000000',
           'application-number': '',
           email: 'Email address: john.smith@mail.com',
           identity: 'no',
@@ -155,8 +159,47 @@ describe('Submit behaviour', () => {
           organisation: '',
           query: 'I am having an issue',
           question: 'The \'ID check\' app',
-          'representative-name': '',
-          'representative-phone': '',
+          'representative-first-names': '',
+          'representative-last-names': '',
+        };
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(mockUtils.sendEmail).to.have.been
+              .calledWith('templateQuery', 'srcCaseworkEmail', 'mockUUID', expected);
+          });
+      });
+
+      it('should format name fields as \'Given names\' and \'Family names\' if session is outside UK', () => {
+        req.form.historicalValues = {
+          'some-unwanted-field': 'unwanted value',
+          'applicant-first-names': 'John',
+          'applicant-last-names': 'Smith',
+          'phone': '07000000000',
+          'application-number': '3434-0000-0000-0001',
+          email: 'john.smith@mail.com',
+          identity: 'yes',
+          'in-UK': false,
+          organisation: 'Charity',
+          query: 'I am having an issue',
+          question: 'account',
+          'representative-first-names': 'Mary',
+          'representative-last-names': 'Sue',
+        };
+
+        const expected = {
+          'applicant-first-names': 'Given names: John',
+          'applicant-last-names': 'Family names: Smith',
+          'phone': 'Phone number: 07000000000',
+          'application-number': 'Unique application number (UAN): 3434-0000-0000-0001',
+          email: 'Email address: john.smith@mail.com',
+          identity: 'yes',
+          location: 'Outside UK',
+          organisation: 'Organisation: Charity',
+          query: 'I am having an issue',
+          question: 'Updating your immigration account details',
+          'representative-first-names': 'Given names: Mary',
+          'representative-last-names': 'Family names: Sue',
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -180,7 +223,8 @@ describe('Submit behaviour', () => {
       it('should send a confirmation email if the first email sends successfully', () => {
         req.form.historicalValues = {
           email: 'mail@test.com',
-          'applicant-name': 'John Smith',
+          'applicant-first-names': 'John',
+          'applicant-last-names': 'Smith',
           question: 'account'
         };
 

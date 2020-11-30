@@ -6,6 +6,10 @@ describe('Custom validators', () => {
 
   describe('uan', () => {
 
+    it('should approve an empty string', () => {
+      expect(validators.uan('')).to.equal(true);
+    });
+
     it('should approve a string of 16 digits, hyphen-split into 4 groups of 4, beginning with 1212', () => {
       expect(validators.uan('1212-1230-5896-8432')).to.equal(true);
     });

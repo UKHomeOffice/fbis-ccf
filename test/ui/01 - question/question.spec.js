@@ -1,17 +1,18 @@
 'use strict';
 
+/* eslint max-len: off */
+
 describe('/question', () => {
 
   describe('FR-CAT-3 (FBISCC-7), FR-CAT-19 (FBISCC-41) - In- and out-country query categorisation', () => {
 
     beforeEach(async() => {
-      await page.goto(baseURL + '/landing');
-      await submitPage();
+      await page.goto(baseURL + '/question');
     });
 
-    it('should include header with text \'What is your technical problem about?\'', async()=> {
+    it('should include header with text \'What is your problem about?\'', async()=> {
       const header = await page.$('h1');
-      expect(await header.innerText()).to.equal('What is your technical problem about?');
+      expect(await header.innerText()).to.equal('What is your problem about?');
     });
 
     it('should include three radio buttons with correct query categories', async()=> {
@@ -22,7 +23,7 @@ describe('/question', () => {
       expect(labels.length).to.equal(3);
 
       expect(await labels[0].innerText()).to.equal('The \'ID check\' app');
-      expect(await labels[1].innerText()).to.equal('Viewing or proving your immigration status');
+      expect(await labels[1].innerText()).to.equal('Viewing or proving your immigration status, right to work or right to rent');
       expect(await labels[2].innerText()).to.equal('Updating your immigration account details');
     });
 
@@ -46,9 +47,9 @@ describe('/question', () => {
         const errorSummaries = await getErrorSummaries();
         const errorMessages = await getErrorMessages();
 
-        const expected = 'Select what your technical problem is about';
+        const expected = 'Select what your problem is about';
 
-        expect(await page.url()).to.equal(baseURL + '/question');
+        expect(await page.url()).to.equal(baseURL + '/question?hof-cookie-check');
         expect(errorSummaries.length).to.equal(1);
         expect(await errorSummaries[0].innerText()).to.equal(expected);
         expect(errorMessages.length).to.equal(1);
@@ -68,10 +69,10 @@ describe('/question', () => {
         }
       });
 
-      it('should continue to the identity page', async()=> {
+      it('should continue to the context page', async()=> {
         await radios[0].click();
         await submitPage();
-        expect(await page.url()).to.equal(baseURL + '/identity');
+        expect(await page.url()).to.equal(baseURL + '/context');
       });
 
     });
