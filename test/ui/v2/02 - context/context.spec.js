@@ -28,11 +28,10 @@ describe('/context', () => {
         expect(await listText.innerText()).to.equal('You will need to give us:');
       });
 
-      it('should include list items for name, contact details and problem details', async() => {
+      it('should include list items for contact details and problem details', async() => {
         const list = await page.$$('#context-requirements > li');
-        expect((await list[0].innerText()).includes('your name')).to.equal(true);
-        expect((await list[1].innerText()).includes('contact details where we can send our response')).to.equal(true);
-        expect((await list[2].innerText()).includes('details about the problem')).to.equal(true);
+        expect((await list[0].innerText()).includes('contact details where we can send our response')).to.equal(true);
+        expect((await list[1].innerText()).includes('details about the problem')).to.equal(true);
       });
 
       it('should include a message about filling out the form on another person\'s behalf', async() => {
@@ -51,9 +50,9 @@ describe('/context', () => {
 
       beforeEach(async() => await setUp('id-check'));
 
-      it('should include three items in the \'You will need to give us\' section', async() => {
+      it('should include two items in the \'You will need to give us\' section', async() => {
         const items = await page.$$('#context-requirements > li');
-        expect(items.length).to.equal(3);
+        expect(items.length).to.equal(2);
       });
 
     });
@@ -62,10 +61,10 @@ describe('/context', () => {
 
       beforeEach(async() => await setUp('status'));
 
-      it('should include four items in the \'You will need to give us\' section, including UAN', async() => {
+      it('should include three items in the \'You will need to give us\' section, including UAN', async() => {
         const items = await page.$$('#context-requirements > li');
-        expect(items.length).to.equal(4);
-        expect(await items[1].innerText()).to.include('your unique application number (UAN), if you have it');
+        expect(items.length).to.equal(3);
+        expect(await items[0].innerText()).to.include('your unique application number (UAN), if you have it');
       });
 
     });
@@ -74,10 +73,10 @@ describe('/context', () => {
 
       beforeEach(async() => await setUp('account'));
 
-      it('should include four items in the \'You will need to give us\' section, including UAN', async() => {
+      it('should include three items in the \'You will need to give us\' section, including UAN', async() => {
         const items = await page.$$('#context-requirements > li');
-        expect(items.length).to.equal(4);
-        expect(await items[1].innerText()).to.include('your unique application number (UAN), if you have it');
+        expect(items.length).to.equal(3);
+        expect(await items[0].innerText()).to.include('your unique application number (UAN), if you have it');
       });
 
     });
