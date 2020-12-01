@@ -65,7 +65,7 @@
   },
   "query": {
     "label": "Give a detailed description of the problem",
-    "hint": "Describe what you were doing when the problem happened and any error messages"
+    "hint": "Describe what you were doing and any error messages"
   },
   "applicant-name": {
     "label": {

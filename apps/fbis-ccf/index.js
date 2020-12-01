@@ -44,8 +44,7 @@ module.exports = {
       next: '/query'
     },
     '/query': {
-      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired],
-      fields: ['query', 'applicant-name', 'email', 'phone', 'application-number'],
+      fields: ['query'],
       next: '/confirm'
     },
     '/confirm': {
