@@ -44,11 +44,12 @@
         }
       }
     },
+    "identity": {
+      "header": "Who is filling out this form"
+    },
     "representative": {
       "header": "Your details",
-      "name": "Name of person filling in the form",
-      "phone": "Phone number of person filling in the form",
-      "organisation": "Organisation of person filling in the form"
+      "organisation": "Organisation"
     },
     "applicant": {
       "header": {
@@ -57,12 +58,12 @@
           "No": "Your details"
         }
       },
-      "phone": {
-        "identity": {
-          "Yes": "Applicant's phone number",
-          "No": "Phone number"
-        }
-      }
+      "application-number": "Unique application number - UAN"
+    },
+    "contact": {
+      "header": "Contact details",
+      "email": "Email address",
+      "phone": "Phone number"
     },
     "problem": {
       "header": "Details of the problem"
