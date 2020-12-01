@@ -36,7 +36,7 @@ module.exports = {
       }],
     },
     '/representative-details': {
-      fields: ['representative-name', 'representative-phone', 'organisation'],
+      fields: ['representative-first-names', 'representative-last-names', 'organisation'],
       next: '/contact-details'
     },
     '/contact-details': {

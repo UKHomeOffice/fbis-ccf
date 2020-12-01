@@ -21,10 +21,12 @@ module.exports = {
     validate: ['required']
   },
   'application-number': {},
-  'representative-name': {
+  'representative-first-names': {
     validate: ['required']
   },
-  'representative-phone': {},
+  'representative-last-names': {
+    validate: ['required']
+  },
   organisation: {},
   email: {
     validate: ['required', 'email'],

@@ -38,8 +38,21 @@
   "application-number": {
     "uan": "Enter a unique application number (UAN)"
   },
-  "representative-name": {
-    "required": "Enter your full name"
+  "representative-first-names": {
+    "required": {
+      "in-UK": {
+        "true": "Enter your first names",
+        "false": "Enter your given names"
+      }
+    }
+  },
+  "representative-last-names": {
+    "required": {
+      "in-UK": {
+        "true": "Enter your last names",
+        "false": "Enter your family names"
+      }
+    }
   },
   "query": {
     "required": "Enter details of the problem",
