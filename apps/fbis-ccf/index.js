@@ -40,11 +40,12 @@ module.exports = {
       next: '/contact-details'
     },
     '/contact-details': {
+      fields: ['email', 'phone'],
       next: '/query'
     },
     '/query': {
       behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired],
-      fields: ['query', 'applicant-name', 'email', 'applicant-phone', 'application-number'],
+      fields: ['query', 'applicant-name', 'email', 'phone', 'application-number'],
       next: '/confirm'
     },
     '/confirm': {

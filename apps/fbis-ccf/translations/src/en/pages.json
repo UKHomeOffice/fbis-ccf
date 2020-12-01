@@ -25,6 +25,9 @@
   "details": {
     "header": "Your details"
   },
+  "contact-details": {
+    "header": "Where should we send our response?"
+  },
   "query": {
     "header": {
       "status": "Tell us about a problem viewing or proving your immigration status",

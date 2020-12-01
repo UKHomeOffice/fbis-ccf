@@ -97,7 +97,7 @@ describe('Submit behaviour', () => {
         req.form.historicalValues = {
           'some-unwanted-field': 'unwanted value',
           'applicant-name': 'John Smith',
-          'applicant-phone': '07000000000',
+          'phone': '07000000000',
           'application-number': '3434-0000-0000-0001',
           email: 'john.smith@mail.com',
           identity: 'yes',
@@ -111,7 +111,7 @@ describe('Submit behaviour', () => {
 
         const expected = {
           'applicant-name': 'Name: John Smith',
-          'applicant-phone': 'Phone number: 07000000000',
+          'phone': 'Phone number: 07000000000',
           'application-number': 'Unique application number (UAN): 3434-0000-0000-0001',
           email: 'Email address: john.smith@mail.com',
           identity: 'yes',
@@ -133,7 +133,7 @@ describe('Submit behaviour', () => {
       it('should replace falsy optional fields with empty strings', () => {
         req.form.historicalValues = {
           'applicant-name': 'John Smith',
-          'applicant-phone': '07000000000',
+          'phone': '07000000000',
           'application-number': null,
           email: 'john.smith@mail.com',
           identity: 'no',
@@ -147,7 +147,7 @@ describe('Submit behaviour', () => {
 
         const expected = {
           'applicant-name': 'Name: John Smith',
-          'applicant-phone': 'Phone number: 07000000000',
+          'phone': 'Phone number: 07000000000',
           'application-number': '',
           email: 'Email address: john.smith@mail.com',
           identity: 'no',
