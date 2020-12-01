@@ -214,7 +214,7 @@ describe('/applicant-details - validation', () => {
 
     beforeEach(async() => await setUp(true, 'status', 'No'));
 
-    describe('when user submits an empty UAN', () => {
+    describe('when user submits the page without entering a UAN', () => {
 
       it('should not show an error', async() => {
         // populate other fields with valid inputs

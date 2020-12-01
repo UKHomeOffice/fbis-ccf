@@ -43,8 +43,8 @@ module.exports = superclass => class Submit extends superclass {
       location: values['in-UK'] === true ? 'Inside UK' : 'Outside UK',
       query: values.query,
       question: Submit.getDescriptiveQuestionString(values.question, true),
-      'applicant-phone': values['applicant-phone']
-        ? `Phone number: ${values['applicant-phone']}`
+      'phone': values.phone
+        ? `Phone number: ${values.phone}`
         : '',
       'application-number': values['application-number']
         ? `Unique application number (UAN): ${values['application-number']}`

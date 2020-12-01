@@ -26,15 +26,15 @@ module.exports = {
   },
   'representative-phone': {},
   organisation: {},
+  email: {
+    validate: ['required', 'email'],
+  },
+  'phone': {},
   query: {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 2000 }],
   },
   'applicant-name': {
     validate: ['required'],
-  },
-  email: {
-    validate: ['required', 'email'],
-  },
-  'applicant-phone': {}
+  }
 };

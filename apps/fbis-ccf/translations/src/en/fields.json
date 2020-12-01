@@ -1,4 +1,29 @@
 {
+  "question": {
+    "legend": "What is your problem about?",
+    "options": {
+      "id-check": {
+        "label": "The 'ID check' app"
+      },
+      "status" : {
+        "label" : "Viewing or proving your immigration status, right to work or right to rent"
+      },
+      "account" : {
+        "label": "Updating your immigration account details"
+      }
+    }
+  },
+  "identity" : {
+    "legend": "Select 'Yes' if you are the applicant's friend, family member, employer, a community group or a supporting organisation",
+    "options": {
+      "No": {
+        "label": "No"
+      },
+      "Yes": {
+        "label": "Yes"
+      }
+    }
+  },
   "applicant-first-names": {
     "label": {
       "in-UK": {
@@ -31,6 +56,13 @@
   "organisation": {
     "label": "Your organisation's name (optional)"
   },
+  "email": {
+    "label": "Email address"
+  },
+  "phone": {
+    "label": "Phone number (optional)",
+    "hint": "Include the country code if this is not a UK number"
+  },
   "query": {
     "label": "Give a detailed description of the problem",
     "hint": "Describe what you were doing when the problem happened and any error messages"
@@ -40,47 +72,6 @@
       "identity": {
         "No" : "Full name",
         "Yes": "Applicant's full name"
-      }
-    }
-  },
-  "email": {
-    "label": {
-      "identity": {
-        "No" : "Email address",
-        "Yes": "Applicant's email address"
-      }
-    }
-  },
-  "applicant-phone": {
-    "label": {
-      "identity": {
-        "No" : "Phone number (optional)",
-        "Yes": "Applicant's phone number (optional)"
-      }
-    }
-  },
-  "question": {
-    "legend": "What is your problem about?",
-    "options": {
-      "id-check": {
-        "label": "The 'ID check' app"
-      },
-      "status" : {
-        "label" : "Viewing or proving your immigration status, right to work or right to rent"
-      },
-      "account" : {
-        "label": "Updating your immigration account details"
-      }
-    }
-  },
-  "identity" : {
-    "legend": "Select 'Yes' if you are the applicant's friend, family member, employer, a community group or a supporting organisation",
-    "options": {
-      "No": {
-        "label": "No"
-      },
-      "Yes": {
-        "label": "Yes"
       }
     }
   }
