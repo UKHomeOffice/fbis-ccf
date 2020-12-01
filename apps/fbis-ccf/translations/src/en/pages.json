@@ -29,11 +29,7 @@
     "header": "Where should we send our response?"
   },
   "query": {
-    "header": {
-      "status": "Tell us about a problem viewing or proving your immigration status",
-      "account": "Tell us about a problem updating your immigration account details",
-      "id-check": "Tell us about a problem with the 'ID check' app"
-    }
+    "header": "Tell us about the problem"
   },
   "confirm": {
     "header": "Check your answers",
