@@ -38,6 +38,7 @@
 
 #representative-name-hint {
   margin-bottom: 1em;
+  color: black;
 }
 
 // Check your answers page styles
@@ -88,12 +89,8 @@ input[type="submit"].link {
     height: 150px; // 6x default line-height for this screen width
   }
 
-  #applicant-first-names, #applicant-last-names, #email {
+  #applicant-first-names, #applicant-last-names, #email, #representative-first-names, #representative-last-names {
     width: 100%;
-  }
-
-  #representative-name, #representative-phone {
-    width: 80%;
   }
 
   #organisation, #application-number, #phone {

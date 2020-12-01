@@ -44,17 +44,27 @@
     "label": "Unique application number - UAN (optional)",
     "hint": "For example, 3434-0000-0000-0001"
   },
-  "details": {
+  "representative-details": {
     "hint": "Details of the person filling out this form"
   },
-  "representative-name": {
-    "label": "Your full name"
+  "representative-first-names": {
+    "label": {
+      "in-UK": {
+        "true": "First names",
+        "false": "Given names"
+      }
+    }
   },
-  "representative-phone": {
-    "label": "Your phone number (optional)"
+  "representative-last-names": {
+    "label": {
+      "in-UK": {
+        "true": "Last names",
+        "false": "Family names"
+      }
+    }
   },
   "organisation": {
-    "label": "Your organisation's name (optional)"
+    "label": "Organisation name (optional)"
   },
   "email": {
     "label": "Email address"
