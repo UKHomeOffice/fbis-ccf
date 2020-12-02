@@ -35,8 +35,5 @@ module.exports = {
   query: {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 2000 }],
-  },
-  'applicant-name': {
-    validate: ['required'],
   }
 };

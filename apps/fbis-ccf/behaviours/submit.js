@@ -37,7 +37,8 @@ module.exports = superclass => class Submit extends superclass {
 
   static formatEmailData(values) {
     return {
-      'applicant-name': `Name: ${values['applicant-name']}`,
+      'applicant-first-names': `First names: ${values['applicant-first-names']}`,
+      'applicant-last-names': `Last names: ${values['applicant-last-names']}`,
       email: `Email address: ${values.email}`,
       identity: values.identity,
       location: values['in-UK'] === true ? 'Inside UK' : 'Outside UK',
@@ -52,12 +53,12 @@ module.exports = superclass => class Submit extends superclass {
       organisation: values.organisation
         ? `Organisation: ${values.organisation}`
         : '',
-      'representative-name': values['representative-name']
-        ? `Name: ${values['representative-name']}`
+      'representative-first-names': values['representative-first-names']
+        ? `First names: ${values['representative-first-names']}`
         : '',
-      'representative-phone': values['representative-phone']
-        ? `Phone number: ${values['representative-phone']}`
-        : '',
+      'representative-last-names': values['representative-last-names']
+        ? `Last names: ${values['representative-last-names']}`
+        : ''
     };
   }
 
@@ -72,8 +73,11 @@ module.exports = superclass => class Submit extends superclass {
     if (shouldLog) {
       req.log('info', 'Email sent to SRC casework address', `reference=${reference}`);
 
+      const firstNames = req.form.historicalValues['applicant-first-names'];
+      const lastNames = req.form.historicalValues['applicant-last-names'];
+
       utils.sendEmail(notify.templateConfirmation, req.form.historicalValues.email, uuidv4(), {
-        'applicant-name': req.form.historicalValues['applicant-name'],
+        'applicant-name': `${firstNames} ${lastNames}`,
         question: this.getDescriptiveQuestionString(req.form.historicalValues.question)
       });
     }

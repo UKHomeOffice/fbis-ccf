@@ -76,13 +76,5 @@
   "query": {
     "label": "Give a detailed description of the problem",
     "hint": "Describe what you were doing and any error messages"
-  },
-  "applicant-name": {
-    "label": {
-      "identity": {
-        "No" : "Full name",
-        "Yes": "Applicant's full name"
-      }
-    }
   }
 }

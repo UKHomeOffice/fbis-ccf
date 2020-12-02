@@ -41,7 +41,7 @@ describe('/representative-details - content', () => {
         });
 
         it('should include a hint with text \'Details of person filling out this form\'', async() => {
-          const hint = await page.$('#representative-name-hint');
+          const hint = await page.$('#representative-details-hint');
           expect(await hint.innerText()).to.equal('Details of the person filling out this form');
         });
 

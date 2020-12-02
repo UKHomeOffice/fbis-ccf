@@ -58,14 +58,6 @@
     "required": "Enter details of the problem",
     "maxlength": "Summary must be 2000 characters or fewer"
   },
-  "applicant-name": {
-    "required": {
-      "identity": {
-        "Yes": "Enter the applicant's full name",
-        "No": "Enter your full name"
-      }
-    }
-  },
   "email": {
     "required": {
       "identity": {
