@@ -2,7 +2,7 @@
 
 /* eslint max-len: off */
 
-const config = require('../../ui-test-config');
+const config = require('../ui-test-config');
 
 const setUp = async(inUK, question, identity, useOptionalFields, shouldSucceed) => {
   await page.goto(baseURL + '/question' + (inUK ? '' : '?outside-UK'));
@@ -159,7 +159,7 @@ describe('/confirm', () => {
 
     });
 
-    describe('when the user access the service with the outside-UK link', () => {
+    describe('when the user accesses the service with the outside-UK link', () => {
 
       beforeEach(async() => await setUp(false, 'status', 'No', false, true));
 

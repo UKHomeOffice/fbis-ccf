@@ -2,7 +2,7 @@
 
 /* eslint max-len: off */
 
-const config = require('../../ui-test-config');
+const config = require('../ui-test-config');
 
 const setUp = async(inUK, question, identity) => {
   await page.goto(baseURL + '/question' + (inUK ? '' : '?outside-UK'));

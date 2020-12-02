@@ -2,7 +2,7 @@
 
 /* eslint max-len: off */
 
-const config = require('../../ui-test-config');
+const config = require('../ui-test-config');
 
 describe('/contact-details', () => {
 
