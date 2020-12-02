@@ -36,15 +36,19 @@ module.exports = superclass => class Submit extends superclass {
   }
 
   static formatEmailData(values) {
+    const firstNames = values['in-UK'] ? 'First names: ' : 'Given names: ';
+    const lastNames = values['in-UK'] ? 'Last names: ' : 'Family names: ';
+
     return {
-      'applicant-name': `Name: ${values['applicant-name']}`,
+      'applicant-first-names': `${firstNames}${values['applicant-first-names']}`,
+      'applicant-last-names': `${lastNames}${values['applicant-last-names']}`,
       email: `Email address: ${values.email}`,
       identity: values.identity,
-      location: values['in-UK'] === true ? 'Inside UK' : 'Outside UK',
+      location: values['in-UK'] ? 'Inside UK' : 'Outside UK',
       query: values.query,
       question: Submit.getDescriptiveQuestionString(values.question, true),
-      'applicant-phone': values['applicant-phone']
-        ? `Phone number: ${values['applicant-phone']}`
+      'phone': values.phone
+        ? `Phone number: ${values.phone}`
         : '',
       'application-number': values['application-number']
         ? `Unique application number (UAN): ${values['application-number']}`
@@ -52,12 +56,12 @@ module.exports = superclass => class Submit extends superclass {
       organisation: values.organisation
         ? `Organisation: ${values.organisation}`
         : '',
-      'representative-name': values['representative-name']
-        ? `Name: ${values['representative-name']}`
+      'representative-first-names': values['representative-first-names']
+        ? `${firstNames}${values['representative-first-names']}`
         : '',
-      'representative-phone': values['representative-phone']
-        ? `Phone number: ${values['representative-phone']}`
-        : '',
+      'representative-last-names': values['representative-last-names']
+        ? `${lastNames}${values['representative-last-names']}`
+        : ''
     };
   }
 
@@ -72,8 +76,11 @@ module.exports = superclass => class Submit extends superclass {
     if (shouldLog) {
       req.log('info', 'Email sent to SRC casework address', `reference=${reference}`);
 
+      const firstNames = req.form.historicalValues['applicant-first-names'];
+      const lastNames = req.form.historicalValues['applicant-last-names'];
+
       utils.sendEmail(notify.templateConfirmation, req.form.historicalValues.email, uuidv4(), {
-        'applicant-name': req.form.historicalValues['applicant-name'],
+        'applicant-name': `${firstNames} ${lastNames}`,
         question: this.getDescriptiveQuestionString(req.form.historicalValues.question)
       });
     }

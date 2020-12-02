@@ -2,13 +2,15 @@
 
 const config = require('../ui-test-config');
 
-const setUp = async(question, identity, useOptionalFields, shouldSucceed) => {
-  await page.goto(baseURL + '/landing');
-  await submitPage();
+const setUp = async(inUK, question, identity, useOptionalFields) => {
+  await page.goto(baseURL + '/question' + (inUK ? '' : '?outside-UK'));
 
   // select a question category
   const questionRadio = await page.$(`input#question-${question}`);
   await questionRadio.click();
+  await submitPage();
+
+  // submit the context page, which requires no input
   await submitPage();
 
   // select identity
@@ -16,36 +18,36 @@ const setUp = async(question, identity, useOptionalFields, shouldSucceed) => {
   await identityRadio.click();
   await submitPage();
 
-  // complete details page if applicable
-  if (identity === 'Yes') {
-    await page.fill('#representative-name', config.validName);
-
-    // complete optional details fields if required
-    if (useOptionalFields) {
-      await page.fill('#representative-phone', '07000000000');
-      await page.fill('#organisation', 'Charity');
-    }
-
-    await submitPage();
-  }
-
-  // complete mandatory query fields
-  await page.fill('#query', config.validQuery);
-  await page.fill('#applicant-name', config.validName);
-  await page.fill('#email', shouldSucceed ? config.notifySuccessEmail : config.notifyFailureEmail);
-
-  // add UAN if required
-  if (question !== 'id-check') {
+  // fill applicant details
+  await page.fill('#applicant-first-names', config.validFirstNames);
+  await page.fill('#applicant-last-names', config.validLastNames);
+  if (useOptionalFields && question !== 'id-check') {
     await page.fill('#application-number', config.validUAN);
   }
-
-  // complete optional query fields if required
-  if (useOptionalFields) {
-    await page.fill('#applicant-phone', '07111111111');
-  }
-
   await submitPage();
-  // submit query from 'check your answers' page
+
+  // fill representative details page if applicable
+  if (identity === 'Yes') {
+    await page.fill('#representative-first-names', config.validFirstNames);
+    await page.fill('#representative-last-names', config.validLastNames);
+    if (useOptionalFields) {
+      await page.fill('#organisation', 'Charity');
+    }
+  }
+  await submitPage();
+
+  // fill contact details
+  await page.fill('#email', config.validEmail);
+  if (useOptionalFields) {
+    await page.fill('#phone', '07000000000');
+  }
+  await submitPage();
+
+  // enter query
+  await page.fill('#query', config.validQuery);
+  await submitPage();
+
+  // confirm responses and send email
   await submitPage();
 };
 
@@ -55,7 +57,7 @@ describe('/complete', () => {
 
     describe('when the user has successfully submitted their query and is viewing confirmation', () => {
 
-      beforeEach(async() => await setUp('id-check', 'No', false, true));
+      beforeEach(async() => await setUp(true, 'id-check', 'No', false));
 
       it('should include a header with text \'Form sent\'', async() => {
         const header = await page.$('#confirm-heading');
@@ -68,7 +70,7 @@ describe('/complete', () => {
         const email = await page.$('#confirm-email');
 
         expect(await text.innerText()).to.equal('We have sent a confirmation email to');
-        expect(await email.innerText()).to.equal(config.notifySuccessEmail);
+        expect(await email.innerText()).to.equal(config.validEmail);
       });
 
       it('should include a section titled \'What happens next\'', async() => {
@@ -87,3 +89,4 @@ describe('/complete', () => {
   });
 
 });
+

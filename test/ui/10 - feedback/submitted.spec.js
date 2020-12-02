@@ -1,7 +1,5 @@
 'use strict';
 
-// const config = require('../ui-test-config');
-
 describe('/feedback-submitted', () => {
 
   beforeEach(async() => {

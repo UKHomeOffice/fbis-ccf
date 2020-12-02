@@ -16,7 +16,7 @@
     "test:ui:chromium": "npm run test:ui:browser -- --browser-engine=chromium $npm_package_config_reporter/chromium.json",
     "test:ui:firefox": "npm run test:ui:browser -- --browser-engine=firefox $npm_package_config_reporter/firefox.json",
     "test:ui:webkit": "npm run test:ui:browser -- --browser-engine=webkit $npm_package_config_reporter/webkit.json",
-    "test:ui:server": "start-server-and-test start:mock http://localhost:8080/landing?automation-test test:ui",
+    "test:ui:server": "start-server-and-test start:mock http://localhost:8080/question?automation-test test:ui",
     "build": "hof-build",
     "postinstall": "npm run build"
   },

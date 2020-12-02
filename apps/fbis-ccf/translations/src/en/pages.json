@@ -1,25 +1,43 @@
 {
-  "landing": {
-    "header": {
-      "in": "FBIS technical advice",
-      "out": "Advice on your application"
-    }
-  },
   "question": {
-    "header": "What is your technical problem about?"
+    "header": "What is your problem about?"
+  },
+  "context": {
+    "p1": "You will need to give us:",
+    "header": "What you will need",
+    "l1": "your name",
+    "l2": "your unique application number (UAN), if you have it",
+    "l3": "contact details where we can send our response",
+    "l4": "details about the problem",
+    "representative-info": "If you are filling this form out on behalf of someone else, we will also need your name.",
+    "warning": "Warning",
+    "timeout": "If you do not do anything for 30 minutes, the service will time out and you will need to start again."
   },
   "identity": {
     "header": "Are you contacting us on behalf of someone else?"
   },
-  "details": {
+  "applicant-details": {
+    "header": {
+      "identity": {
+        "Yes": "Applicant's details",
+        "No":  {
+          "question": {
+            "id-check": "Your name",
+            "status": "Your details",
+            "account": "Your details"
+          }
+        }
+      }
+    }
+  },
+  "representative-details": {
     "header": "Your details"
   },
+  "contact-details": {
+    "header": "Where should we send our response?"
+  },
   "query": {
-    "header": {
-      "status": "Tell us about a problem viewing or proving your immigration status",
-      "account": "Tell us about a problem updating your immigration account details",
-      "id-check": "Tell us about a problem with the 'ID check' app"
-    }
+    "header": "Tell us about the problem"
   },
   "confirm": {
     "header": "Check your answers",
@@ -29,16 +47,17 @@
       "value": {
         "question": {
           "id-check": "The 'ID check' app",
-          "status": "Viewing or proving your immigration status",
+          "status": "Viewing or proving your immigration status, right to work or right to rent",
           "account": "Updating your immigration account details"
         }
       }
     },
+    "identity": {
+      "header": "Who is filling out this form"
+    },
     "representative": {
       "header": "Your details",
-      "name": "Name of person filling in the form",
-      "phone": "Phone number of person filling in the form",
-      "organisation": "Organisation of person filling in the form"
+      "organisation": "Organisation"
     },
     "applicant": {
       "header": {
@@ -47,12 +66,12 @@
           "No": "Your details"
         }
       },
-      "phone": {
-        "identity": {
-          "Yes": "Applicant's phone number",
-          "No": "Phone number"
-        }
-      }
+      "application-number": "Unique application number - UAN"
+    },
+    "contact": {
+      "header": "Contact details",
+      "email": "Email address",
+      "phone": "Phone number"
     },
     "problem": {
       "header": "Details of the problem"

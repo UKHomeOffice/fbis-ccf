@@ -1,61 +1,12 @@
 {
-  "details": {
-    "hint": "Details of the person filling out this form"
-  },
-  "representative-name": {
-    "label": "Your full name"
-  },
-  "representative-phone": {
-    "label": "Your phone number (optional)"
-  },
-  "organisation": {
-    "label": "Your organisation's name (optional)"
-  },
-  "query": {
-    "label": "Give a detailed description of the problem",
-    "hint": "Describe what you were doing when the problem happened and any error messages"
-  },
-  "applicant-name": {
-    "label": {
-      "identity": {
-        "No" : "Full name",
-        "Yes": "Applicant's full name"
-      }
-    }
-  },
-  "email": {
-    "label": {
-      "identity": {
-        "No" : "Email address",
-        "Yes": "Applicant's email address"
-      }
-    }
-  },
-  "applicant-phone": {
-    "label": {
-      "identity": {
-        "No" : "Phone number (optional)",
-        "Yes": "Applicant's phone number (optional)"
-      }
-    }
-  },
-  "application-number": {
-    "label": {
-      "identity": {
-        "Yes": "Applicant's unique application number (UAN)",
-        "No" : "Unique application number (UAN)"
-      }
-    },
-    "hint": "For example, 3434-0000-0000-0001"
-  },
   "question": {
-    "legend": "What is your technical problem about?",
+    "legend": "What is your problem about?",
     "options": {
       "id-check": {
         "label": "The 'ID check' app"
       },
       "status" : {
-        "label" : "Viewing or proving your immigration status"
+        "label" : "Viewing or proving your immigration status, right to work or right to rent"
       },
       "account" : {
         "label": "Updating your immigration account details"
@@ -63,7 +14,7 @@
     }
   },
   "identity" : {
-    "legend": "Select 'Yes' if you are the applicant's friend, family member, employer, a community group or a supporting organisation",
+    "legend": "Select 'yes' if you are the applicant's friend, family member, employer, a community group or a supporting organisation",
     "options": {
       "No": {
         "label": "No"
@@ -72,5 +23,58 @@
         "label": "Yes"
       }
     }
+  },
+  "applicant-first-names": {
+    "label": {
+      "in-UK": {
+        "true": "First names",
+        "false": "Given names"
+      }
+    }
+  },
+  "applicant-last-names": {
+    "label": {
+      "in-UK": {
+        "true": "Last names",
+        "false": "Family names"
+      }
+    }
+  },
+  "application-number": {
+    "label": "Unique application number - UAN (optional)",
+    "hint": "For example, 3434-0000-0000-0001"
+  },
+  "representative-details": {
+    "hint": "Details of the person filling out this form"
+  },
+  "representative-first-names": {
+    "label": {
+      "in-UK": {
+        "true": "First names",
+        "false": "Given names"
+      }
+    }
+  },
+  "representative-last-names": {
+    "label": {
+      "in-UK": {
+        "true": "Last names",
+        "false": "Family names"
+      }
+    }
+  },
+  "organisation": {
+    "label": "Organisation name (optional)"
+  },
+  "email": {
+    "label": "Email address"
+  },
+  "phone": {
+    "label": "Phone number (optional)",
+    "hint": "Include the country code if this is not a UK number"
+  },
+  "query": {
+    "label": "Give a detailed description of the problem",
+    "hint": "Describe what you were doing and any error messages"
   }
 }

@@ -1,18 +1,62 @@
 {
-  "representative-name": {
-    "required": "Enter your full name"
+  "applicant-first-names": {
+    "required": {
+      "in-UK": {
+        "true": {
+          "identity": {
+            "Yes": "Enter the applicant's first names",
+            "No": "Enter your first names"
+          }
+        },
+        "false": {
+          "identity": {
+            "Yes": "Enter the applicant's given names",
+            "No": "Enter your given names"
+          }
+        }
+      }
+    }
+  },
+  "applicant-last-names": {
+    "required": {
+      "in-UK": {
+        "true": {
+          "identity": {
+            "Yes": "Enter the applicant's last names",
+            "No": "Enter your last names"
+          }
+        },
+        "false": {
+          "identity": {
+            "Yes": "Enter the applicant's family names",
+            "No": "Enter your family names"
+          }
+        }
+      }
+    }
+  },
+  "application-number": {
+    "uan": "Enter a unique application number (UAN)"
+  },
+  "representative-first-names": {
+    "required": {
+      "in-UK": {
+        "true": "Enter your first names",
+        "false": "Enter your given names"
+      }
+    }
+  },
+  "representative-last-names": {
+    "required": {
+      "in-UK": {
+        "true": "Enter your last names",
+        "false": "Enter your family names"
+      }
+    }
   },
   "query": {
     "required": "Enter details of the problem",
     "maxlength": "Summary must be 2000 characters or fewer"
-  },
-  "applicant-name": {
-    "required": {
-      "identity": {
-        "Yes": "Enter the applicant's full name",
-        "No": "Enter your full name"
-      }
-    }
   },
   "email": {
     "required": {
@@ -23,17 +67,8 @@
     },
     "email": "Enter a valid email address"
   },
-  "application-number": {
-    "required": {
-      "identity": {
-        "Yes": "Enter the applicant's unique application number (UAN)",
-        "No": "Enter your unique application number (UAN)"
-      }
-    },
-    "uan": "Enter a valid unique application number (UAN)"
-  },
   "question": {
-    "required": "Select what your technical problem is about"
+    "required": "Select what your problem is about"
   },
   "identity": {
     "required": "Select if you are contacting us on behalf of someone else"

@@ -3,6 +3,8 @@
 const addLocationToBacklink = require('./behaviours/add-location-to-backlink');
 const addUANValidatorIfRequired = require('./behaviours/add-uan-validator-if-required');
 const clearSession = require('./behaviours/clear-session');
+const handleIdentityChange = require('./behaviours/handle-identity-change');
+const handleQuestionChange = require('./behaviours/handle-question-change');
 const setLocationOnSession = require('./behaviours/set-location-on-session');
 const setQuestionFlagsOnValues = require('./behaviours/set-question-flags-on-values');
 const submit = require('./behaviours/submit');
@@ -10,33 +12,42 @@ const submit = require('./behaviours/submit');
 module.exports = {
   name: 'fbis-ccf',
   steps: {
-    '/landing': {
-      behaviours: [setLocationOnSession],
-      next: '/question'
-    },
     '/question': {
-      behaviours: [addLocationToBacklink],
+      behaviours: [setLocationOnSession, handleQuestionChange],
       fields: ['question'],
-      next: '/identity'
+      next: '/context'
+    },
+    '/context': {
+      behaviours: [addLocationToBacklink, setQuestionFlagsOnValues],
+      next: '/identity',
     },
     '/identity': {
+      behaviours: [handleIdentityChange],
       fields: ['identity'],
-      next: '/query',
+      next: '/applicant-details'
+    },
+    '/applicant-details': {
+      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired],
+      fields: ['applicant-first-names', 'applicant-last-names', 'application-number'],
+      next: '/contact-details',
       forks: [{
-        target: '/details',
+        target: '/representative-details',
         condition: {
           field: 'identity',
           value: 'Yes'
         }
       }],
     },
-    '/details': {
-      fields: ['representative-name', 'representative-phone', 'organisation'],
+    '/representative-details': {
+      fields: ['representative-first-names', 'representative-last-names', 'organisation'],
+      next: '/contact-details'
+    },
+    '/contact-details': {
+      fields: ['email', 'phone'],
       next: '/query'
     },
     '/query': {
-      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired],
-      fields: ['query', 'applicant-name', 'email', 'applicant-phone', 'application-number'],
+      fields: ['query'],
       next: '/confirm'
     },
     '/confirm': {

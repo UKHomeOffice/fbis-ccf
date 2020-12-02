@@ -72,7 +72,7 @@ describe('Clear feedback behaviour', () => {
       req.sessionModel.get.withArgs('feedbackReturnTo').returns(undefined);
       req.get.withArgs('origin').returns('example-link.com');
       testInstance.successHandler(req, res);
-      expect(res.redirect).to.be.calledOnceWith('example-link.com/landing');
+      expect(res.redirect).to.be.calledOnceWith('example-link.com/question');
     });
 
     it('should unset the feedbackReturnTo link on the session', () => {
