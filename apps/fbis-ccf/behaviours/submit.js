@@ -36,12 +36,15 @@ module.exports = superclass => class Submit extends superclass {
   }
 
   static formatEmailData(values) {
+    const firstNames = values['in-UK'] ? 'First names: ' : 'Given names: ';
+    const lastNames = values['in-UK'] ? 'Last names: ' : 'Family names: ';
+
     return {
-      'applicant-first-names': `First names: ${values['applicant-first-names']}`,
-      'applicant-last-names': `Last names: ${values['applicant-last-names']}`,
+      'applicant-first-names': `${firstNames}${values['applicant-first-names']}`,
+      'applicant-last-names': `${lastNames}${values['applicant-last-names']}`,
       email: `Email address: ${values.email}`,
       identity: values.identity,
-      location: values['in-UK'] === true ? 'Inside UK' : 'Outside UK',
+      location: values['in-UK'] ? 'Inside UK' : 'Outside UK',
       query: values.query,
       question: Submit.getDescriptiveQuestionString(values.question, true),
       'phone': values.phone
@@ -54,10 +57,10 @@ module.exports = superclass => class Submit extends superclass {
         ? `Organisation: ${values.organisation}`
         : '',
       'representative-first-names': values['representative-first-names']
-        ? `First names: ${values['representative-first-names']}`
+        ? `${firstNames}${values['representative-first-names']}`
         : '',
       'representative-last-names': values['representative-last-names']
-        ? `Last names: ${values['representative-last-names']}`
+        ? `${lastNames}${values['representative-last-names']}`
         : ''
     };
   }
