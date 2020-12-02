@@ -50,7 +50,7 @@ const setUp = async(inUK, question, identity, useOptionalFields) => {
   await submitPage();
 };
 
-describe.only('/confirm', () => {
+describe('/confirm', () => {
 
   describe('FR-RES-10 (FBISCC-75) - Response confirmation and edit', () => {
 
@@ -75,7 +75,7 @@ describe.only('/confirm', () => {
 
       beforeEach(async() => await setUp(true, 'id-check', 'Yes', false));
 
-      it('should display the representative details section as well as with the applicants details section', async() => {
+      it('should display the representative details section as well as the applicant details section', async() => {
         const h2s = await page.$$('h2');
 
         expect(h2s.length).to.equal(6);
