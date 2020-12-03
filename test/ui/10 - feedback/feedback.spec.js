@@ -6,7 +6,7 @@ describe('/feedback', () => {
 
   beforeEach(async() => {
     // Go to feedback page
-    await page.goto(baseURL + '/landing');
+    await page.goto(baseURL + '/question');
     await page.waitForLoadState();
     await page.click('a[href="/feedback"');
     await page.waitForLoadState();
@@ -173,7 +173,7 @@ describe('/feedback', () => {
 
         it('should display the \'error\' template', async() => {
           const h1 = await page.$('h1');
-          expect(await h1.innerText()).to.equal('Sorry, there is a problem with the service');
+          expect(await h1.innerText()).to.equal('Sorry, there is a problem with this service');
         });
 
       });

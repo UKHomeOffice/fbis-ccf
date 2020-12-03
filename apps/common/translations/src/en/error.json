@@ -1,11 +1,11 @@
 {
   "header": {
-    "problem": "Sorry, there is a problem with the service",
+    "problem": "Sorry, there is a problem with this service",
     "404": "Page not found"
   },
   "content": {
     "problem": {
-      "p1": "Try again later."
+      "p1": "Try again later or get help by phone on:"
     },
     "404": {
       "p1": "If you typed the web address, check it is correct.",
