@@ -1,16 +1,19 @@
 // Custom styling for overriding HOF defaults as required by designs
 
+// Shared styles
+
+.info-list {
+  list-style-type: disc;
+  margin: 0 0 1em 1em;
+  li p {
+    margin-bottom: 0.2em;
+  }
+}
+
 // Styles for context page
 #context {
   > p {
     margin: 1.3em 0 .75em 0;
-  }
-  ul {
-    list-style-type: disc;
-    margin: 0 0 1em 1em;
-    li p {
-      margin-bottom: 0.2em;
-    }
   }
   .notice {
     margin: 1.5em 0 2em 0;
@@ -86,6 +89,14 @@ input[type="submit"].link {
 #next-heading {
   margin-top: 0;
 }
+
+// Error page styles
+.error {
+  .call-info {
+    margin: 0;
+  }
+}
+
 
 // Wide display styles
 @media (min-width: 641px) {

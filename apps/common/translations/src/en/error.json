@@ -9,7 +9,14 @@
     },
     "404": {
       "p1": "If you typed the web address, check it is correct.",
-      "p2": "If you pasted the web address, check you copied the entire address."
+      "p2": "If you pasted the web address, check you copied the entire address.",
+      "p3": "If the web address is correct or you selected a link or button, get help with your problem by phone on:",
+      "number1":"0300 790 6268 - if you are in the UK",
+      "number2": "+44 (0)300 790 6268 - if you are outside the UK",
+      "p4": "If you cannot contact UK 0300 numbers, use +44 (0)203 481 1736.",
+      "p5": "Monday to Friday (excluding bank holidays), 8am to 8pm UK local time",
+      "p6": "Saturday and Sunday, 9:30am to 4:30pm UK local time",
+      "link": "Find out about call charges"
     }
   }
 }

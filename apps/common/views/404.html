@@ -3,7 +3,11 @@
     {{#t}}error.header.404{{/t}}
   {{/header}}
   {{$content}}
-    <p>{{#t}}error.content.404.p1{{/t}}</p>
-    <p>{{#t}}error.content.404.p2{{/t}}</p>
+    <div class="error">
+      <p>{{#t}}error.content.404.p1{{/t}}</p>
+      <p>{{#t}}error.content.404.p2{{/t}}</p>
+      <p id="help-by-phone">{{#t}}error.content.404.p3{{/t}}</p>
+      {{>partials-phone-info}}
+    </div>
   {{/content}}
 {{/partials-page}}
