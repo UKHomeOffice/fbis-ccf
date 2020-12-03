@@ -3,11 +3,15 @@
     {{#t}}error.header.problem{{/t}}
   {{/header}}
   {{$content}}
-    <p>{{#t}}error.content.problem.p1{{/t}}</p>
-    {{#showStack}}
+    <div class="error">
+      <p id="help-by-phone">{{#t}}error.content.problem.p1{{/t}}</p>
+      {{>partials-phone-info}}
+      {{#showStack}}
+      <br>
       <pre>
         {{error.stack}}
       </pre>
-    {{/showStack}}
+      {{/showStack}}
+    </div>
   {{/content}}
 {{/partials-page}}
