@@ -59,12 +59,7 @@
     "maxlength": "Summary must be 2000 characters or fewer"
   },
   "email": {
-    "required": {
-      "identity": {
-        "Yes": "Enter the applicant's email address",
-        "No": "Enter your email address"
-      }
-    },
+    "required": "Enter your email address",
     "email": "Enter a valid email address"
   },
   "question": {
