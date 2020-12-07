@@ -30,6 +30,7 @@ app.use('/question', (req, res, next) => {
 });
 
 app.use((req, res, next) => {
+  res.locals.htmlLang = 'en';
   res.locals.feedbackUrl = '/feedback';
   next();
 });
