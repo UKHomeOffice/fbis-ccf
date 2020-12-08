@@ -272,6 +272,16 @@ describe('Submit behaviour', () => {
           });
       });
 
+      it('should add formNotSubmitted flag to the error', () => {
+        const testError = new Error('testError');
+        mockUtils.sendEmail.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(testError.formNotSubmitted).to.equal(true);
+          });
+      });
+
       it('should unset the feedback email reference on the session if there is an error', () => {
         const testError = new Error('testError');
         mockUtils.sendEmail.rejects(testError);
@@ -339,6 +349,16 @@ describe('Submit behaviour', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(req.log.notCalled).to.equal(true);
+          });
+      });
+
+      it('should add formNotSubmitted flag to the error', () => {
+        const testError = new Error('testError');
+        mockUtils.pollEmailStatus.rejects(testError);
+
+        return testInstance.saveValues(req, res, nextStub)
+          .then(() => {
+            expect(testError.formNotSubmitted).to.equal(true);
           });
       });
 

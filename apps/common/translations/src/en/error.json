@@ -1,7 +1,8 @@
 {
   "header": {
     "problem": "Sorry, there is a problem with this service",
-    "404": "Page not found"
+    "404": "Page not found",
+    "not-sent": "Sorry, your form has not been sent"
   },
   "content": {
     "problem": {
@@ -17,6 +18,10 @@
       "p5": "Monday to Friday (excluding bank holidays), 8am to 8pm UK local time",
       "p6": "Saturday and Sunday, 9:30am to 4:30pm UK local time",
       "link": "Find out about call charges"
+    },
+    "not-sent": {
+      "link": "Try again using the online form",
+      "p1": "or get help by phone on:"
     }
   }
 }
