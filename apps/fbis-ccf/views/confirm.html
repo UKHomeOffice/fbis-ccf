@@ -1,105 +1,110 @@
 {{<step}}
   {{$page-content}}
-    <h2>{{#t}}pages.confirm.reason.header{{/t}}</h2>
-    <table class="table-details">
-      <tbody>
-        <tr>
-          <td class="confirm-label">{{#t}}pages.confirm.reason.label{{/t}}</td>
-          <td class="confirm-value">{{#t}}pages.confirm.reason.value{{/t}}</td>
-          <td><a href="/question/edit#question" class="link">Change</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="pre-submit">
+      <h2>{{#t}}pages.confirm.reason.header{{/t}}</h2>
+      <table class="table-details">
+        <tbody>
+          <tr>
+            <td class="confirm-label">{{#t}}pages.confirm.reason.label{{/t}}</td>
+            <td class="confirm-value">{{#t}}pages.confirm.reason.value{{/t}}</td>
+            <td><a href="/question/edit#question" class="link">Change</a></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <h2>{{#t}}pages.confirm.identity.header{{/t}}</h2>
-    <table class="table-details">
-      <tbody>
-      <tr>
-        <td class="confirm-label">{{#t}}pages.identity.header{{/t}}</td>
-        <td class="confirm-value">{{values.identity}}</td>
-        <td><a href="/identity/edit#identity" class="link">Change</a></td>
-      </tr>
-      </tbody>
-    </table>
-
-    <h2>{{#t}}pages.confirm.applicant.header{{/t}}</h2>
-    <table class="table-details">
-      <tbody>
-      <tr>
-        <td class="confirm-label">{{#t}}fields.applicant-first-names.label{{/t}}</td>
-        <td class="confirm-value">{{values.applicant-first-names}}</td>
-        <td><a href="/applicant-details/edit#applicant-first-names" class="link">Change</a></td>
-      </tr>
-      <tr>
-        <td class="confirm-label">{{#t}}fields.applicant-last-names.label{{/t}}</td>
-        <td class="confirm-value">{{values.applicant-last-names}}</td>
-        <td><a href="/applicant-details/edit#applicant-last-names" class="link">Change</a></td>
-      </tr>
-      {{#values.application-number}}
-      <tr>
-        <td class="confirm-label">{{#t}}pages.confirm.applicant.application-number{{/t}}</td>
-        <td class="confirm-value">{{values.application-number}}</td>
-        <td><a href="/applicant-details/edit#application-number" class="link">Change</a></td>
-      </tr>
-      {{/values.application-number}}
-      </tbody>
-    </table>
-
-    {{#values.representative-first-names}}
-      <h2>{{#t}}pages.confirm.representative.header{{/t}}</h2>
+      <h2>{{#t}}pages.confirm.identity.header{{/t}}</h2>
       <table class="table-details">
         <tbody>
         <tr>
-          <td class="confirm-label">{{#t}}fields.representative-first-names.label{{/t}}</td>
-          <td class="confirm-value">{{values.representative-first-names}}</td>
-          <td><a href="/representative-details/edit#representative-first-names" class="link">Change</a></td>
+          <td class="confirm-label">{{#t}}pages.identity.header{{/t}}</td>
+          <td class="confirm-value">{{values.identity}}</td>
+          <td><a href="/identity/edit#identity" class="link">Change</a></td>
         </tr>
-        <tr>
-          <td class="confirm-label">{{#t}}fields.representative-last-names.label{{/t}}</td>
-          <td class="confirm-value">{{values.representative-last-names}}</td>
-          <td><a href="/representative-details/edit#representative-last-names" class="link">Change</a></td>
-        </tr>
-        {{#values.organisation}}
-          <tr>
-            <td class="confirm-label">{{#t}}pages.confirm.representative.organisation{{/t}}</td>
-            <td class="confirm-value">{{values.organisation}}</td>
-            <td><a href="/representative-details/edit#organisation" class="link">Change</a></td>
-          </tr>
-        {{/values.organisation}}
         </tbody>
       </table>
-    {{/values.representative-first-names}}
 
-    <h2>{{#t}}pages.confirm.contact.header{{/t}}</h2>
-    <table class="table-details">
-      <tbody>
-      <tr>
-        <td class="confirm-label">{{#t}}pages.confirm.contact.email{{/t}}</td>
-        <td class="confirm-value">{{values.email}}</td>
-        <td><a href="/contact-details/edit#email" class="link">Change</a></td>
-      </tr>
-      {{#values.phone}}
+      <h2>{{#t}}pages.confirm.applicant.header{{/t}}</h2>
+      <table class="table-details">
+        <tbody>
         <tr>
-          <td class="confirm-label">{{#t}}pages.confirm.contact.phone{{/t}}</td>
-          <td class="confirm-value">{{values.phone}}</td>
-          <td><a href="/contact-details/edit#phone" class="link">Change</a></td>
+          <td class="confirm-label">{{#t}}fields.applicant-first-names.label{{/t}}</td>
+          <td class="confirm-value">{{values.applicant-first-names}}</td>
+          <td><a href="/applicant-details/edit#applicant-first-names" class="link">Change</a></td>
         </tr>
-      {{/values.phone}}
-      </tbody>
-    </table>
+        <tr>
+          <td class="confirm-label">{{#t}}fields.applicant-last-names.label{{/t}}</td>
+          <td class="confirm-value">{{values.applicant-last-names}}</td>
+          <td><a href="/applicant-details/edit#applicant-last-names" class="link">Change</a></td>
+        </tr>
+        {{#values.application-number}}
+        <tr>
+          <td class="confirm-label">{{#t}}pages.confirm.applicant.application-number{{/t}}</td>
+          <td class="confirm-value">{{values.application-number}}</td>
+          <td><a href="/applicant-details/edit#application-number" class="link">Change</a></td>
+        </tr>
+        {{/values.application-number}}
+        </tbody>
+      </table>
 
-    <h2>{{#t}}pages.confirm.problem.header{{/t}}</h2>
-    <table class="table-details">
-      <tbody>
-      <tr>
-        <td class="confirm-label">{{#t}}pages.confirm.problem.header{{/t}}</td>
-        <td class="confirm-value">{{values.query}}</td>
-        <td><a href="/query/edit#query" class="link">Change</a></td>
-      </tr>
-      </tbody>
-    </table>
+      {{#values.representative-first-names}}
+        <h2>{{#t}}pages.confirm.representative.header{{/t}}</h2>
+        <table class="table-details">
+          <tbody>
+          <tr>
+            <td class="confirm-label">{{#t}}fields.representative-first-names.label{{/t}}</td>
+            <td class="confirm-value">{{values.representative-first-names}}</td>
+            <td><a href="/representative-details/edit#representative-first-names" class="link">Change</a></td>
+          </tr>
+          <tr>
+            <td class="confirm-label">{{#t}}fields.representative-last-names.label{{/t}}</td>
+            <td class="confirm-value">{{values.representative-last-names}}</td>
+            <td><a href="/representative-details/edit#representative-last-names" class="link">Change</a></td>
+          </tr>
+          {{#values.organisation}}
+            <tr>
+              <td class="confirm-label">{{#t}}pages.confirm.representative.organisation{{/t}}</td>
+              <td class="confirm-value">{{values.organisation}}</td>
+              <td><a href="/representative-details/edit#organisation" class="link">Change</a></td>
+            </tr>
+          {{/values.organisation}}
+          </tbody>
+        </table>
+      {{/values.representative-first-names}}
 
-    <p>{{#t}}pages.confirm.check-text{{/t}}</p>
-    {{#input-submit}}accept-and-send{{/input-submit}}
+      <h2>{{#t}}pages.confirm.contact.header{{/t}}</h2>
+      <table class="table-details">
+        <tbody>
+        <tr>
+          <td class="confirm-label">{{#t}}pages.confirm.contact.email{{/t}}</td>
+          <td class="confirm-value">{{values.email}}</td>
+          <td><a href="/contact-details/edit#email" class="link">Change</a></td>
+        </tr>
+        {{#values.phone}}
+          <tr>
+            <td class="confirm-label">{{#t}}pages.confirm.contact.phone{{/t}}</td>
+            <td class="confirm-value">{{values.phone}}</td>
+            <td><a href="/contact-details/edit#phone" class="link">Change</a></td>
+          </tr>
+        {{/values.phone}}
+        </tbody>
+      </table>
+
+      <h2>{{#t}}pages.confirm.problem.header{{/t}}</h2>
+      <table class="table-details">
+        <tbody>
+        <tr>
+          <td class="confirm-label">{{#t}}pages.confirm.problem.header{{/t}}</td>
+          <td class="confirm-value">{{values.query}}</td>
+          <td><a href="/query/edit#query" class="link">Change</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <p>{{#t}}pages.confirm.check-text{{/t}}</p>
+      {{#input-submit}}accept-and-send{{/input-submit}}
+    </div>
+    <div id="post-submit" class="hidden">
+      {{>partials-submission-pending}}
+    </div>
   {{/page-content}}
 {{/step}}

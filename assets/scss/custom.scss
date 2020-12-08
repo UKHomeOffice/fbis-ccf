@@ -53,6 +53,42 @@ tr {
   vertical-align: top;
 }
 
+// Pending submission styles
+
+#post-submit {
+  p, .ccms-loader {
+    text-align: center;
+  }
+}
+
+.ccms-loader::after {
+  content: "Loading..."
+}
+
+@media not all and (prefers-reduced-motion) {
+  .ccms-loader::after {
+    content: ""
+  }
+  .ccms-loader {
+    animation: spin 2s linear infinite;
+    border: 12px solid $grey-2;
+    border-radius: 50%;
+    border-top-color: $govuk-blue;
+    height: 80px;
+    margin: auto;
+    width: 80px;
+    -webkit-animation: spin 2s linear infinite;
+  }
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
 // Confirmation styles (complete & feedback submitted pages)
 #complete-column {
   .alert-complete {
