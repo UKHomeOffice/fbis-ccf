@@ -92,6 +92,7 @@ module.exports = superclass => class Submit extends superclass {
       req.log('error', 'Error sending email to SRC casework address', `reference=${reference}`, err);
     }
     req.sessionModel.unset(notify.submitEmailReference);
+    err.formNotSubmitted = true;
     return next(err);
   }
 

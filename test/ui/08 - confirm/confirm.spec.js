@@ -364,7 +364,7 @@ describe('/confirm', () => {
 
       it('should display the \'error\' template', async() => {
         const h1 = await page.$('h1');
-        expect(await h1.innerText()).to.equal('Sorry, there is a problem with this service');
+        expect(await h1.innerText()).to.equal('Sorry, your form has not been sent');
       });
 
     });

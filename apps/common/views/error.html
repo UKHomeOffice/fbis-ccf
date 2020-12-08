@@ -1,10 +1,20 @@
 {{<partials-page}}
   {{$header}}
-    {{#t}}error.header.problem{{/t}}
+    {{#error.formNotSubmitted}}
+      {{#t}}error.header.not-sent{{/t}}
+    {{/error.formNotSubmitted}}
+    {{^error.formNotSubmitted}}
+      {{#t}}error.header.problem{{/t}}
+    {{/error.formNotSubmitted}}
   {{/header}}
   {{$content}}
     <div class="error">
-      <p id="help-by-phone">{{#t}}error.content.problem.p1{{/t}}</p>
+      {{#error.formNotSubmitted}}
+        <p><a href="/question">{{#t}}error.content.not-sent.link{{/t}}</a> {{#t}}error.content.not-sent.p1{{/t}}</p>
+      {{/error.formNotSubmitted}}
+      {{^error.formNotSubmitted}}
+        <p id="help-by-phone">{{#t}}error.content.problem.p1{{/t}}</p>
+      {{/error.formNotSubmitted}}
       {{>partials-phone-info}}
       {{#showStack}}
       <br>
