@@ -10,9 +10,11 @@ $(document).ready(function submissionPending() {
   }
 
   $('form').submit(function showPostSubmit() {
-    $('.link-back, header, #pre-submit').each(function hide() {
+    // hide back link, check your answers header, and check your answers content
+    $('.link-back, #confirm-column header, #pre-submit').each(function hide() {
       $(this).addClass('hidden');
     });
+    // reveal submission pending message and spinner
     $(document).find('#post-submit').removeClass('hidden');
   });
 
