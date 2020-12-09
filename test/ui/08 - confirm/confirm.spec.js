@@ -180,8 +180,8 @@ describe('/confirm', () => {
         await setUp(true, 'status', 'Yes', true, true);
 
         expectedHrefs = [
-          '/question/edit#question',
-          '/identity/edit#identity',
+          '/question/edit#question-status',
+          '/identity/edit#identity-Yes',
           '/applicant-details/edit#applicant-first-names',
           '/applicant-details/edit#applicant-last-names',
           '/applicant-details/edit#application-number',
@@ -241,7 +241,7 @@ describe('/confirm', () => {
 
       it('should not show representative details', async() => {
         // find and click identity link
-        const identityLink = await page.$('a[href="/identity/edit#identity"]');
+        const identityLink = await page.$('a[href="/identity/edit#identity-Yes"]');
         await identityLink.click();
         await page.waitForLoadState();
 
@@ -250,7 +250,7 @@ describe('/confirm', () => {
         await noRadio.click();
         await submitPage();
 
-        expect(await page.url()).to.equal(baseURL + '/confirm#identity');
+        expect(await page.url()).to.equal(baseURL + '/confirm#identity-Yes');
 
         const h2s = await page.$$('h2');
 
@@ -270,7 +270,7 @@ describe('/confirm', () => {
 
       it('should collect the representative details and display them on the confirmation page', async() => {
         // find and click identity link
-        const identityLink = await page.$('a[href="/identity/edit#identity"]');
+        const identityLink = await page.$('a[href="/identity/edit#identity-No"]');
         await identityLink.click();
         await page.waitForLoadState();
 
@@ -284,7 +284,7 @@ describe('/confirm', () => {
         await page.fill('#representative-last-names', config.validLastNames);
         await submitPage();
 
-        expect(await page.url()).to.equal(baseURL + '/confirm#identity');
+        expect(await page.url()).to.equal(baseURL + '/confirm#identity-No');
 
         const h2s = await page.$$('h2');
 
@@ -310,7 +310,7 @@ describe('/confirm', () => {
         expect(await fields[4].innerText()).to.equal('Unique application number - UAN');
 
         // find and click question link
-        const questionLink = await page.$('a[href="/question/edit#question"]');
+        const questionLink = await page.$('a[href="/question/edit#question-status"]');
         await questionLink.click();
         await page.waitForLoadState();
 
@@ -319,7 +319,7 @@ describe('/confirm', () => {
         await idCheckRadio.click();
         await submitPage();
 
-        expect(await page.url()).to.equal(baseURL + '/confirm#question');
+        expect(await page.url()).to.equal(baseURL + '/confirm#question-status');
 
         fields = await page.$$('.confirm-label');
         expect(fields.length).to.equal(7);

@@ -2,6 +2,11 @@
 
 // Shared styles
 
+.form-hint {
+  // Design system $govuk-secondary-text-colour
+  color: #505a5f;
+}
+
 .info-list {
   list-style-type: disc;
   margin: 0 0 1em 1em;
@@ -47,6 +52,27 @@
 // Check your answers page styles
 .confirm-label {
   font-weight: bold;
+  width: 40%;
+}
+
+.confirm-value {
+  width: 60%;
+  word-break: break-word;
+}
+
+.confirm-row {
+  display: table-row;
+  > * {
+    border-bottom: 1px solid $grey-2;
+    display: table-cell;
+  }
+  .confirm-label, .confirm-value {
+    padding: 10px 20px 10px 0;
+  }
+}
+
+dl {
+  margin-bottom: 40px;
 }
 
 tr {
@@ -111,10 +137,6 @@ tr {
   margin: 0.5em 0 0 0;
 }
 
-.confirm-value {
-  word-break: break-word;
-}
-
 input[type="submit"].link {
   background: none;
   border: none;
@@ -136,6 +158,10 @@ input[type="submit"].link {
 
 // Wide display styles
 @media (min-width: 641px) {
+  dl {
+    margin-bottom: 60px;
+  }
+
   #query {
     height: 150px; // 6x default line-height for this screen width
   }
