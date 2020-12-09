@@ -14,8 +14,9 @@ $(document).ready(function submissionPending() {
     $('.link-back, #confirm-column header, #pre-submit').each(function hide() {
       $(this).addClass('hidden');
     });
-    // reveal submission pending message and spinner
+    // reveal submission pending message and spinner, and update page title to reflect new state
     $(document).find('#post-submit').removeClass('hidden');
+    document.title = $(document).find('#post-submit-message').text() + ' - GOV.UK';
   });
 
 });
