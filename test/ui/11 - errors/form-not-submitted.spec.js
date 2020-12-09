@@ -47,7 +47,7 @@ describe('Error - Form not submitted', () => {
     });
 
     it('should include a link to try again', async() => {
-      const link = await page.$('.error a[href="/question"]');
+      const link = await page.$('.error a[href="/confirm"]');
       expect(await link.innerText()).to.equal('Try again using the online form');
     });
 
