@@ -7,7 +7,7 @@
           <tr>
             <td class="confirm-label">{{#t}}pages.confirm.reason.label{{/t}}</td>
             <td class="confirm-value">{{#t}}pages.confirm.reason.value{{/t}}</td>
-            <td><a href="/question/edit#question" class="link" aria-label="Change your answer to {{#t}}pages.confirm.reason.label{{/t}}">Change</a></td>
+            <td><a href="/question/edit#question-{{values.question}}" class="link" aria-label="Change your answer to {{#t}}pages.confirm.reason.label{{/t}}">Change</a></td>
           </tr>
         </tbody>
       </table>
@@ -18,7 +18,7 @@
         <tr>
           <td class="confirm-label">{{#t}}pages.identity.header{{/t}}</td>
           <td class="confirm-value">{{values.identity}}</td>
-          <td><a href="/identity/edit#identity" class="link" aria-label="Change your answer to {{#t}}pages.identity.header{{/t}}">Change</a></td>
+          <td><a href="/identity/edit#identity-{{values.identity}}" class="link" aria-label="Change your answer to {{#t}}pages.identity.header{{/t}}">Change</a></td>
         </tr>
         </tbody>
       </table>
