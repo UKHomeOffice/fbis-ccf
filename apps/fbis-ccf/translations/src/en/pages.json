@@ -80,6 +80,67 @@
     "pending": {
       "text": "Please wait while we send your form",
       "aria-label": "Loading. Once your form is sent, we will take you to a confirmation screen."
+    },
+    "change": {
+      "plain": "Change",
+      "aria-labels": {
+        "question": "Change what your problem is about",
+        "identity": "Change who is filling out this form",
+        "applicant-first-names": {
+          "in-UK": {
+            "true": {
+              "identity": {
+                "Yes": "Change applicant's first names",
+                "No": "Change your first names"
+              }
+            },
+            "false": {
+              "identity": {
+                "Yes": "Change applicant's given names",
+                "No": "Change your given names"
+              }
+            }
+          }
+        },
+        "applicant-last-names": {
+          "in-UK": {
+            "true": {
+              "identity": {
+                "Yes": "Change applicant's last names",
+                "No": "Change your last names"
+              }
+            },
+            "false": {
+              "identity": {
+                "Yes": "Change applicant's family names",
+                "No": "Change your family names"
+              }
+            }
+          }
+        },
+        "application-number": {
+          "identity": {
+            "Yes": "Change applicant's unique application number (UAN)",
+            "No": "Change your unique application number (UAN)"
+          }
+        },
+        "representative-first-names": {
+          "in-UK": {
+            "true": "Change your first names",
+            "false": "Change your given names"
+          }
+        },
+        "representative-last-names": {
+          "in-UK": {
+            "true": "Change your last names",
+            "false": "Change your family names"
+          }
+        },
+        "organisation": "Change your organisation's name",
+        "email": "Change contact email address",
+        "phone": "Change contact phone number",
+        "query": "Change details of the problem"
+      }
     }
   },
   "complete": {

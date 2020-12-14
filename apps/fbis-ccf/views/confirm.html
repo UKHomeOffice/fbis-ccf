@@ -6,7 +6,7 @@
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}pages.confirm.reason.label{{/t}}</dt>
           <dd class="confirm-value">{{#t}}pages.confirm.reason.value{{/t}}</dd>
-          <dd class="confirm-link"><a href="/question/edit#question-{{values.question}}" class="link" aria-label="Change your answer to {{#t}}pages.confirm.reason.label{{/t}}">Change</a></dd>
+          <dd class="confirm-link"><a href="/question/edit#question-{{values.question}}" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.question{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
       </dl>
 
@@ -15,7 +15,7 @@
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}pages.identity.header{{/t}}</dt>
           <dd class="confirm-value">{{values.identity}}</dd>
-          <dd><a href="/identity/edit#identity-{{values.identity}}" class="link" aria-label="Change your answer to {{#t}}pages.identity.header{{/t}}">Change</a></dd>
+          <dd><a href="/identity/edit#identity-{{values.identity}}" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.identity{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
       </dl>
 
@@ -24,18 +24,18 @@
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}fields.applicant-first-names.label{{/t}}</dt>
           <dd class="confirm-value">{{values.applicant-first-names}}</dd>
-          <dd><a href="/applicant-details/edit#applicant-first-names" class="link" aria-label="Change your answer to {{#t}}pages.confirm.applicant.header{{/t}} - {{#t}}fields.applicant-first-names.label{{/t}}">Change</a></dd>
+          <dd><a href="/applicant-details/edit#applicant-first-names" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.applicant-first-names{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}fields.applicant-last-names.label{{/t}}</dt>
           <dd class="confirm-value">{{values.applicant-last-names}}</dd>
-          <dd><a href="/applicant-details/edit#applicant-last-names" class="link" aria-label="Change your answer to {{#t}}pages.confirm.applicant.header{{/t}} - {{#t}}fields.applicant-last-names.label{{/t}}">Change</a></dd>
+          <dd><a href="/applicant-details/edit#applicant-last-names" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.applicant-last-names{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
         {{#values.application-number}}
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}pages.confirm.applicant.application-number{{/t}}</dt>
           <dd class="confirm-value">{{values.application-number}}</dd>
-          <dd><a href="/applicant-details/edit#application-number" class="link" aria-label="Change your answer to {{#t}}pages.confirm.applicant.application-number{{/t}}">Change</a></dd>
+          <dd><a href="/applicant-details/edit#application-number" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.application-number{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
         {{/values.application-number}}
       </dl>
@@ -46,18 +46,18 @@
           <div class="confirm-row">
             <dt class="confirm-label">{{#t}}fields.representative-first-names.label{{/t}}</dt>
             <dd class="confirm-value">{{values.representative-first-names}}</dd>
-            <dd><a href="/representative-details/edit#representative-first-names" class="link" aria-label="Change your answer to {{#t}}pages.confirm.representative.header{{/t}} - {{#t}}fields.representative-first-names.label{{/t}}">Change</a></dd>
+            <dd><a href="/representative-details/edit#representative-first-names" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.representative-first-names{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
           </div>
           <div class="confirm-row">
             <dt class="confirm-label">{{#t}}fields.representative-last-names.label{{/t}}</dt>
             <dd class="confirm-value">{{values.representative-last-names}}</dd>
-            <dd><a href="/representative-details/edit#representative-last-names" class="link" aria-label="Change your answer to {{#t}}pages.confirm.representative.header{{/t}} - {{#t}}fields.representative-last-names.label{{/t}}">Change</a></dd>
+            <dd><a href="/representative-details/edit#representative-last-names" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.representative-last-names{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
           </div>
           {{#values.organisation}}
             <div class="confirm-row">
               <dt class="confirm-label">{{#t}}pages.confirm.representative.organisation{{/t}}</dt>
               <dd class="confirm-value">{{values.organisation}}</dd>
-              <dd><a href="/representative-details/edit#organisation" class="link" aria-label="Change your answer to {{#t}}pages.confirm.representative.organisation{{/t}}">Change</a></dd>
+              <dd><a href="/representative-details/edit#organisation" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.organisation{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
             </div>
           {{/values.organisation}}
         </dl>
@@ -68,13 +68,13 @@
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}pages.confirm.contact.email{{/t}}</dt>
           <dd class="confirm-value">{{values.email}}</dd>
-          <dd><a href="/contact-details/edit#email" class="link" aria-label="Change your answer to {{#t}}pages.confirm.contact.email{{/t}}">Change</a></dd>
+          <dd><a href="/contact-details/edit#email" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.email{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
         {{#values.phone}}
           <div class="confirm-row">
             <dt class="confirm-label">{{#t}}pages.confirm.contact.phone{{/t}}</dt>
             <dd class="confirm-value">{{values.phone}}</dd>
-            <dd><a href="/contact-details/edit#phone" class="link" aria-label="Change your answer to {{#t}}pages.confirm.contact.phone{{/t}}">Change</a></dd>
+            <dd><a href="/contact-details/edit#phone" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.phone{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
           </div>
         {{/values.phone}}
       </dl>
@@ -84,7 +84,7 @@
         <div class="confirm-row">
           <dt class="confirm-label">{{#t}}pages.confirm.problem.header{{/t}}</dt>
           <dd class="confirm-value">{{values.query}}</dd>
-          <dd><a href="/query/edit#query" class="link" aria-label="Change your answer to {{#t}}pages.confirm.problem.header{{/t}}">Change</a></dd>
+          <dd><a href="/query/edit#query" class="link" aria-label="{{#t}}pages.confirm.change.aria-labels.query{{/t}}">{{#t}}pages.confirm.change.plain{{/t}}</a></dd>
         </div>
       </dl>
 
