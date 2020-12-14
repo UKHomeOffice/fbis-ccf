@@ -7,13 +7,14 @@ const handleIdentityChange = require('./behaviours/handle-identity-change');
 const handleQuestionChange = require('./behaviours/handle-question-change');
 const setLocationOnSession = require('./behaviours/set-location-on-session');
 const setQuestionFlagsOnValues = require('./behaviours/set-question-flags-on-values');
+const setRadioButtonErrorLink = require('./behaviours/set-radio-button-error-link');
 const submit = require('./behaviours/submit');
 
 module.exports = {
   name: 'fbis-ccf',
   steps: {
     '/question': {
-      behaviours: [setLocationOnSession, handleQuestionChange],
+      behaviours: [setLocationOnSession, setRadioButtonErrorLink, handleQuestionChange],
       fields: ['question'],
       next: '/context'
     },
@@ -22,7 +23,7 @@ module.exports = {
       next: '/identity',
     },
     '/identity': {
-      behaviours: [handleIdentityChange],
+      behaviours: [setRadioButtonErrorLink, handleIdentityChange],
       fields: ['identity'],
       next: '/applicant-details'
     },
