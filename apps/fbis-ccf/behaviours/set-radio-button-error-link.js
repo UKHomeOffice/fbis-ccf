@@ -8,7 +8,7 @@ module.exports = superclass => class SetRadioButtonErrorLink extends superclass 
     const errFields = Object.keys(err);
 
     errFields.forEach(field => {
-      if (fields[field].mixin === 'radio-group') {
+      if (fields[field] && fields[field].mixin === 'radio-group') {
         err[field].radioKey = `${err[field].key}-${fields[field].options[0]}`;
       }
     });
