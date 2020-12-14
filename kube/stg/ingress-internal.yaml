@@ -13,10 +13,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - stg.internal.fbis-ccf.sas.homeoffice.gov.uk
+        - fbis-contact-form.stg.internal.sas.homeoffice.gov.uk
       secretName: fbis-ccf-internal
   rules:
-    - host: stg.internal.fbis-ccf.sas.homeoffice.gov.uk
+    - host: fbis-contact-form.stg.internal.sas.homeoffice.gov.uk
       http:
         paths:
           - path: /
