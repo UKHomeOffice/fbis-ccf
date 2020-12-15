@@ -36,6 +36,11 @@ spec:
                 secretKeyRef:
                   name: fbis-notify-key
                   key: fbis-notify-key
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: session_secret
             - name: SRC_CASEWORK_EMAIL
               valueFrom:
                 secretKeyRef:
