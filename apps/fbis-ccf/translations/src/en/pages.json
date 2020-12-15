@@ -79,21 +79,21 @@
     "check-text": "Check the information you have entered is correct, and send your form.",
     "change": {
       "plain": "Change",
-      "aria-labels": {
-        "question": "Change what your problem is about",
-        "identity": "Change who is filling out this form",
+      "hidden": {
+        "question": " what your problem is about",
+        "identity": " who is filling out this form",
         "applicant-first-names": {
           "in-UK": {
             "true": {
               "identity": {
-                "Yes": "Change applicant's first names",
-                "No": "Change your first names"
+                "Yes": " applicant's first names",
+                "No": " your first names"
               }
             },
             "false": {
               "identity": {
-                "Yes": "Change applicant's given names",
-                "No": "Change your given names"
+                "Yes": " applicant's given names",
+                "No": " your given names"
               }
             }
           }
@@ -102,40 +102,40 @@
           "in-UK": {
             "true": {
               "identity": {
-                "Yes": "Change applicant's last names",
-                "No": "Change your last names"
+                "Yes": " applicant's last names",
+                "No": " your last names"
               }
             },
             "false": {
               "identity": {
-                "Yes": "Change applicant's family names",
-                "No": "Change your family names"
+                "Yes": " applicant's family names",
+                "No": " your family names"
               }
             }
           }
         },
         "application-number": {
           "identity": {
-            "Yes": "Change applicant's unique application number (UAN)",
-            "No": "Change your unique application number (UAN)"
+            "Yes": " applicant's unique application number (UAN)",
+            "No": " your unique application number (UAN)"
           }
         },
         "representative-first-names": {
           "in-UK": {
-            "true": "Change your first names",
-            "false": "Change your given names"
+            "true": " your first names",
+            "false": " your given names"
           }
         },
         "representative-last-names": {
           "in-UK": {
-            "true": "Change your last names",
-            "false": "Change your family names"
+            "true": " your last names",
+            "false": " your family names"
           }
         },
-        "organisation": "Change your organisation's name",
-        "email": "Change contact email address",
-        "phone": "Change contact phone number",
-        "query": "Change details of the problem"
+        "organisation": " your organisation's name",
+        "email": " contact email address",
+        "phone": " contact phone number",
+        "query": " details of the problem"
       }
     }
   },
