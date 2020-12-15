@@ -27,11 +27,6 @@ describe('/question', () => {
       expect(await labels[2].innerText()).to.equal('Updating your immigration account details');
     });
 
-    it('should include a submit button with text \'Continue\'', async()=> {
-      const submit = await getSubmit();
-      expect(await submit.getAttribute('value')).to.equal('Continue');
-    });
-
     describe('when user clicks submit without choosing a question', () => {
 
       beforeEach(async() => {

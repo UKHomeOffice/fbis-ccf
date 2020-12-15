@@ -55,10 +55,8 @@ afterEach(async() => {
   }
 });
 
-global.getSubmit = async() => await page.$('input[type="submit"]');
-
 global.submitPage = async() => {
-  const submit = await getSubmit();
+  const submit = await page.$('input[type="submit"]');
   await submit.click();
   await page.waitForLoadState();
 };
