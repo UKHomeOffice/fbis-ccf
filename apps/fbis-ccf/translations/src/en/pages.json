@@ -77,10 +77,6 @@
       "header": "Details of the problem"
     },
     "check-text": "Check the information you have entered is correct, and send your form.",
-    "pending": {
-      "text": "Please wait while we send your form",
-      "aria-label": "Loading. Once your form is sent, we will take you to a confirmation screen."
-    },
     "change": {
       "plain": "Change",
       "aria-labels": {

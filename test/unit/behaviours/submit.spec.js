@@ -209,7 +209,7 @@ describe('Submit behaviour', () => {
           });
       });
 
-      it('should log a success message and the email reference if the email sends successfully', () => {
+      it('should log a success message and the email reference if the email message reaches Notify', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(req.log).to.have.been.calledOnceWith(
@@ -220,7 +220,7 @@ describe('Submit behaviour', () => {
           });
       });
 
-      it('should send a confirmation email if the first email sends successfully', () => {
+      it('should send a confirmation email if the first email message reaches Notify', () => {
         req.form.historicalValues = {
           email: 'mail@test.com',
           'applicant-first-names': 'John',
@@ -240,7 +240,7 @@ describe('Submit behaviour', () => {
           });
       });
 
-      it('should call the next middleware step if the email sends successfully', () => {
+      it('should call the next middleware step if the email message reaches Notify', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(nextStub.calledOnce).to.equal(true);
