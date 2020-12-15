@@ -2,7 +2,6 @@
 /* eslint no-process-env: 0 */
 
 module.exports = {
-  host: (process.env.HOST || 'localhost:8080'),
   notify: {
     apiKey: process.argv.some(arg => arg === 'mock-notify') ? 'UI_MOCK' : process.env.NOTIFY_KEY,
     feedbackEmailReference: 'feedback-email-reference',

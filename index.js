@@ -4,7 +4,6 @@ const hof = require('hof');
 const path = require('path');
 
 const settings = require('./hof.settings');
-const config = require('./config');
 
 settings.routes = settings.routes.map(route => require(route));
 settings.root = __dirname;
@@ -33,8 +32,6 @@ app.use('/question', (req, res, next) => {
 app.use((req, res, next) => {
   res.locals.htmlLang = 'en';
   res.locals.feedbackUrl = '/feedback';
-  res.header('Access-Control-Allow-Origin', config.host);
-  res.header('Vary', 'Origin');
   next();
 });
 
