@@ -166,14 +166,14 @@ describe('Feedback behaviour', () => {
           });
       });
 
-      it('should call the next middleware step if the email send successfully', () => {
+      it('should call the next middleware step if the email message reaches Notify', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(nextStub.calledOnce).to.equal(true);
           });
       });
 
-      it('should log a success message and the email reference if the email sends successfully', () => {
+      it('should log a success message and the email reference if the email message reaches Notify', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(req.log).to.have.been.calledOnceWith(

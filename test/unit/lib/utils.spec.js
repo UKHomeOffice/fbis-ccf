@@ -43,16 +43,6 @@ describe('Utils', () => {
         });
     });
 
-    it('throw an error if polling returns failure status', () => {
-      const testError = new Error('testError');
-      mockNotifyClient.getNotifications.rejects(testError);
-
-      return utils.sendEmail('testTemplate', 'testAddress', 'testReference', 'testData')
-        .catch(err => {
-          expect(err).to.equal(testError);
-        });
-    });
-
   });
 
 
@@ -100,7 +90,25 @@ describe('Utils', () => {
       pollEmailStatusSpy.restore();
     });
 
-    it('should return true if email is delivered', () => {
+    it('should return true if email has status \'created\'', () => {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'created' }] } });
+
+      const promise = utils.pollEmailStatus('testRef', 0, 0);
+      return promise.then((res) => {
+        expect(res).to.equal(true);
+      });
+    });
+
+    it('should return true if email has status \'sending\'', () => {
+      mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'sending' }] } });
+
+      const promise = utils.pollEmailStatus('testRef', 0, 0);
+      return promise.then((res) => {
+        expect(res).to.equal(true);
+      });
+    });
+
+    it('should return true if email has status \'delivered\'', () => {
       mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'delivered' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
@@ -136,11 +144,11 @@ describe('Utils', () => {
         });
     });
 
-    it('should recurse if email is undefined, \'created\', or \'sending\'', () => {
+    it('should recurse if email is undefined', () => {
       mockNotifyClient.getNotifications.onCall(0).resolves({ data: { notifications: [] } });
-      mockNotifyClient.getNotifications.onCall(1).resolves({ data: { notifications: [{ status: 'created' }] } });
-      mockNotifyClient.getNotifications.onCall(2).resolves({ data: { notifications: [{ status: 'sending' }] } });
-      mockNotifyClient.getNotifications.onCall(3).resolves({ data: { notifications: [{ status: 'delivered' }] } });
+      mockNotifyClient.getNotifications.onCall(1).resolves({ data: { notifications: [] } });
+      mockNotifyClient.getNotifications.onCall(2).resolves({ data: { notifications: [] } });
+      mockNotifyClient.getNotifications.onCall(3).resolves({ data: { notifications: [{ status: 'created' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
       return promise.then((res) => {
