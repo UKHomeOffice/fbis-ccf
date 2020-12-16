@@ -133,8 +133,8 @@
           }
         },
         "organisation": " your organisation's name",
-        "email": " contact email address",
-        "phone": " contact phone number",
+        "email": " email address",
+        "phone": " phone number",
         "query": " details of the problem"
       }
     }
