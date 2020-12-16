@@ -75,14 +75,6 @@ module.exports = superclass => class Submit extends superclass {
   static handleSuccess(req, next, reference, shouldLog) {
     if (shouldLog) {
       req.log('info', 'Email sent to SRC casework address', `reference=${reference}`);
-
-      const firstNames = req.form.historicalValues['applicant-first-names'];
-      const lastNames = req.form.historicalValues['applicant-last-names'];
-
-      utils.sendEmail(notify.templateConfirmation, req.form.historicalValues.email, uuidv4(), {
-        'applicant-name': `${firstNames} ${lastNames}`,
-        question: this.getDescriptiveQuestionString(req.form.historicalValues.question)
-      });
     }
     return next();
   }

@@ -10,7 +10,6 @@ module.exports = {
     statusRetryLimit: 30,
     statusRetryInterval: 1000,
     submitEmailReference: 'submit-email-reference',
-    templateConfirmation: process.env.TEMPLATE_CONFIRMATION,
     templateFeedback: process.env.TEMPLATE_FEEDBACK,
     templateQuery: process.env.TEMPLATE_QUERY,
   }

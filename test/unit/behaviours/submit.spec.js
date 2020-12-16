@@ -10,7 +10,6 @@ const mockUtils = {
 const mockConfig = {
   notify: {
     templateQuery: 'templateQuery',
-    templateConfirmation: 'templateConfirmation',
     srcCaseworkEmail: 'srcCaseworkEmail',
     submitEmailReference: 'submit-email-reference',
     statusRetryInterval: 1000
@@ -220,26 +219,6 @@ describe('Submit behaviour', () => {
           });
       });
 
-      it('should send a confirmation email if the first email message reaches Notify', () => {
-        req.form.historicalValues = {
-          email: 'mail@test.com',
-          'applicant-first-names': 'John',
-          'applicant-last-names': 'Smith',
-          question: 'account'
-        };
-
-        const expected = {
-          'applicant-name': 'John Smith',
-          question: 'updating your immigration account details'
-        };
-
-        return testInstance.saveValues(req, res, nextStub)
-          .then(() => {
-            expect(mockUtils.sendEmail).to.have.been
-              .calledWith('templateConfirmation', 'mail@test.com', 'mockUUID', expected);
-          });
-      });
-
       it('should call the next middleware step if the email message reaches Notify', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
@@ -320,15 +299,6 @@ describe('Submit behaviour', () => {
         return testInstance.saveValues(req, res, nextStub)
           .then(() => {
             expect(req.log.notCalled).to.equal(true);
-          });
-      });
-
-      it('should not send a confirmation email as this would duplicate the original confirmation email', () => {
-        mockUtils.pollEmailStatus.resolves();
-
-        return testInstance.saveValues(req, res, nextStub)
-          .then(() => {
-            expect(mockUtils.sendEmail.notCalled).to.equal(true);
           });
       });
 
