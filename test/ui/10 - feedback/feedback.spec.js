@@ -8,7 +8,7 @@ describe('/feedback', () => {
     // Go to feedback page
     await page.goto(baseURL + '/question');
     await page.waitForLoadState();
-    await page.click('a[href="/feedback"');
+    await page.click('a[href="/feedback"]');
     await page.waitForLoadState();
   });
 
