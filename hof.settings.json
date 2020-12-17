@@ -4,12 +4,18 @@
       "shared": "./apps/common/translations/src"
     }
   },
-  "theme": "govuk",
+  "getTerms": false,
+  "getCookies": false,
   "routes": [
     "./apps/fbis-ccf",
-    "./apps/feedback"
+    "./apps/feedback",
+    "./apps/common"
   ],
   "session": {
     "name": "fbis-ccf.hof.sid"
-  }
+  },
+  "start": false,
+  "theme": "govuk",
+  "translations": "./apps/common/translations",
+  "views": "./apps/common/views"
 }

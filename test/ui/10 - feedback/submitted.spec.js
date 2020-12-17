@@ -6,7 +6,7 @@ describe('/feedback-submitted', () => {
     // Get to feedback submitted page
     await page.goto(baseURL + '/question');
     await page.waitForLoadState();
-    await page.click('a[href="/feedback"');
+    await page.click('a[href="/feedback"]');
     await page.waitForLoadState();
 
     const radio = await page.$('input[type="radio"]');
