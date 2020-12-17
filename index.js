@@ -17,6 +17,11 @@ const addDynamicSettings = (settings) => {
 const addGenericLocals = (req, res, next) => {
   res.locals.htmlLang = 'en';
   res.locals.feedbackUrl = '/feedback';
+  res.locals.footerSupportLinks = [
+    { path: '/cookies', property: 'base.cookies' },
+    { path: '/terms-and-conditions', property: 'base.terms' },
+    { path: '/accessibility', property: 'base.accessibility' },
+  ];
   return next();
 };
 
@@ -35,5 +40,15 @@ const app = hof(addDynamicSettings(require('./hof.settings')));
 
 app.use((req, res, next) => addGenericLocals(req, res, next));
 app.use('/question', (req, res, next) => addAutomationTestCookie(req, res, next));
+
+app.use('/terms-and-conditions', (req, res, next) => {
+  res.locals = Object.assign({}, res.locals, req.translate('terms'));
+  next();
+});
+
+app.use('/cookies', (req, res, next) => {
+  res.locals = Object.assign({}, res.locals, req.translate('cookies'));
+  next();
+});
 
 module.exports = app;

@@ -4,9 +4,12 @@
       "shared": "./apps/common/translations/src"
     }
   },
+  "getTerms": false,
+  "getCookies": false,
   "routes": [
     "./apps/fbis-ccf",
-    "./apps/feedback"
+    "./apps/feedback",
+    "./apps/common"
   ],
   "session": {
     "name": "fbis-ccf.hof.sid"
