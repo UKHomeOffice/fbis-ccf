@@ -17,6 +17,7 @@ A [Home Office Forms (HOF)](https://ukhomeofficeforms.github.io/hof-guide/docume
     * [Unit tests and linting](#unit-tests-and-linting)
     * [Testing email failures with the mock Notify client](#testing-email-failures-with-the-mock-notify-client)
     * [Automated UI tests](#automated-ui-tests)
+    * [Test reporters](#test-reporters)
 
 ## Linux and OSX set up
 
@@ -92,6 +93,8 @@ To run the app using a mock Notify client (required for automated UI testing), u
 ```bash
 npm run start:mock
 ```
+
+To view the app with content for users outside of the UK, navigate to `localhost:8080/question?outside-UK`.
 
 ## Windows set up
 
@@ -259,3 +262,11 @@ describe('/route', () => {
 
 });
 ```
+
+### Test reporters
+
+Test reports are generated using [mocha-sonar](https://www.npmjs.com/package/@danmasta/mocha-sonar), [mochawesome](https://www.npmjs.com/package/mochawesome), and [mocha-multi-reporters](https://www.npmjs.com/package/mocha-multi-reporters). Mocha-multi-reporters is required because mocha does not natively support multiple reporters. Mocha-multi-reporters config can be found in the `test/reporter-config` directory.
+
+Mocha-sonar reports can be viewed in the project's [Sonarqube dashboard](https://sonarqube.digital.homeoffice.gov.uk/dashboard?id=fbis-ccf) after each deployment to the dev environment.
+
+Mochawesome generates user-friendly test reports that can be viewed in browser, useful for sharing with stakeholders who are not comfortable reading test reports from terminal logs. Mochawesome reports are not currently persisted as part of the build pipeline, but can be viewed locally in the `test/executions/mochawesome` directory.
