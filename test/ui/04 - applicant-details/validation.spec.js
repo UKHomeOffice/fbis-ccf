@@ -68,6 +68,44 @@ describe('/applicant-details - validation', () => {
 
         });
 
+        describe('when user submits the page with a URL in the \'first names\' field', () => {
+
+          it('should display an error message with text \'Enter your first names\'', async() => {
+            await page.fill('#applicant-first-names', 'www.test.com');
+            await page.fill('#applicant-last-names', config.validLastNames);
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter your first names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter your first names');
+          });
+
+        });
+
+        describe('when user submits the page with a URL in the \'last names\' field', () => {
+
+          it('should display an error message with text \'Enter your last names\'', async() => {
+            await page.fill('#applicant-first-names', config.validFirstNames);
+            await page.fill('#applicant-last-names', 'www.test.com');
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter your last names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter your last names');
+          });
+
+        });
+
       });
 
       describe('when user selects \'Yes\' on the identity page', () => {
@@ -98,6 +136,44 @@ describe('/applicant-details - validation', () => {
           it('should display an error message with text \'Enter the applicant\'s last names\'', async() => {
             // populate other fields with valid inputs
             await page.fill('#applicant-first-names', config.validFirstNames);
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter the applicant\'s last names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter the applicant\'s last names');
+          });
+
+        });
+
+        describe('when user submits the page with a URL in the \'first names\' field', () => {
+
+          it('should display an error message with text \'Enter the applicant\'s first names\'', async() => {
+            await page.fill('#applicant-first-names', 'www.test.com');
+            await page.fill('#applicant-last-names', config.validLastNames);
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter the applicant\'s first names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter the applicant\'s first names');
+          });
+
+        });
+
+        describe('when user submits the page with a URL in the \'last names\' field', () => {
+
+          it('should display an error message with text \'Enter the applicant\'s last names\'', async() => {
+            await page.fill('#applicant-first-names', config.validFirstNames);
+            await page.fill('#applicant-last-names', 'www.test.com');
 
             await submitPage();
 
@@ -160,13 +236,51 @@ describe('/applicant-details - validation', () => {
 
         });
 
+        describe('when user submits the page with a URL in the \'given names\' field', () => {
+
+          it('should display an error message with text \'Enter your given names\'', async() => {
+            await page.fill('#applicant-first-names', 'www.test.com');
+            await page.fill('#applicant-last-names', config.validLastNames);
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter your given names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter your given names');
+          });
+
+        });
+
+        describe('when user submits the page with a URL in the \'family names\' field', () => {
+
+          it('should display an error message with text \'Enter your family names\'', async() => {
+            await page.fill('#applicant-first-names', config.validFirstNames);
+            await page.fill('#applicant-last-names', 'www.test.com');
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter your family names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter your family names');
+          });
+
+        });
+
       });
 
       describe('when user selects \'Yes\' on the identity page', () => {
 
         beforeEach(async() => setUp(false, 'id-check', 'Yes'));
 
-        describe('when user submits the page without entering first names', () => {
+        describe('when user submits the page without entering given names', () => {
 
           it('should display an error message with text \'Enter the applicant\'s given names\'', async() => {
             // populate other fields with valid inputs
@@ -185,11 +299,49 @@ describe('/applicant-details - validation', () => {
 
         });
 
-        describe('when user submits the page without entering last names', () => {
+        describe('when user submits the page without entering family names', () => {
 
           it('should display an error message with text \'Enter the applicant\'s family names\'', async() => {
             // populate other fields with valid inputs
             await page.fill('#applicant-first-names', config.validFirstNames);
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter the applicant\'s family names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter the applicant\'s family names');
+          });
+
+        });
+
+        describe('when user submits the page with a URL in the \'given names\' field', () => {
+
+          it('should display an error message with text \'Enter the applicant\'s given names\'', async() => {
+            await page.fill('#applicant-first-names', 'www.test.com');
+            await page.fill('#applicant-last-names', config.validLastNames);
+
+            await submitPage();
+
+            const errorSummaries = await getErrorSummaries();
+            const errorMessages = await getErrorMessages();
+
+            expect(errorSummaries.length).to.equal(1);
+            expect(errorMessages.length).to.equal(1);
+            expect(await errorSummaries[0].innerText()).to.equal('Enter the applicant\'s given names');
+            expect(await errorMessages[0].innerText()).to.equal('Enter the applicant\'s given names');
+          });
+
+        });
+
+        describe('when user submits the page with a URL in the \'family names\' field', () => {
+
+          it('should display an error message with text \'Enter the applicant\'s family names\'', async() => {
+            await page.fill('#applicant-first-names', config.validFirstNames);
+            await page.fill('#applicant-last-names', 'www.test.com');
 
             await submitPage();
 
