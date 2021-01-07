@@ -87,6 +87,24 @@ describe('/contact-details', () => {
 
     });
 
+    describe('when the user submits the page with text in the phone field', () => {
+
+      it('should display an error message with text \'Enter a valid phone number\'', async() => {
+        await page.fill('#email', config.validEmail);
+        await page.fill('#phone', 'Text');
+        await submitPage();
+
+        const errorSummaries = await getErrorSummaries();
+        const errorMessages = await getErrorMessages();
+
+        expect(errorSummaries.length).to.equal(1);
+        expect(errorMessages.length).to.equal(1);
+        expect(await errorSummaries[0].innerText()).to.equal('Enter a valid phone number');
+        expect(await errorMessages[0].innerText()).to.equal('Enter a valid phone number');
+      });
+
+    });
+
   });
 
   describe('FR-VAL-8 (FBISCC-32) - Email address validation', () => {

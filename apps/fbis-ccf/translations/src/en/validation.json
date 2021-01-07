@@ -15,10 +15,42 @@
           }
         }
       }
+    },
+    "notUrl": {
+      "in-UK": {
+        "true": {
+          "identity": {
+            "Yes": "Enter the applicant's first names",
+            "No": "Enter your first names"
+          }
+        },
+        "false": {
+          "identity": {
+            "Yes": "Enter the applicant's given names",
+            "No": "Enter your given names"
+          }
+        }
+      }
     }
   },
   "applicant-last-names": {
     "required": {
+      "in-UK": {
+        "true": {
+          "identity": {
+            "Yes": "Enter the applicant's last names",
+            "No": "Enter your last names"
+          }
+        },
+        "false": {
+          "identity": {
+            "Yes": "Enter the applicant's family names",
+            "No": "Enter your family names"
+          }
+        }
+      }
+    },
+    "notUrl": {
       "in-UK": {
         "true": {
           "identity": {
@@ -44,10 +76,22 @@
         "true": "Enter your first names",
         "false": "Enter your given names"
       }
+    },
+    "notUrl": {
+      "in-UK": {
+        "true": "Enter your first names",
+        "false": "Enter your given names"
+      }
     }
   },
   "representative-last-names": {
     "required": {
+      "in-UK": {
+        "true": "Enter your last names",
+        "false": "Enter your family names"
+      }
+    },
+    "notUrl": {
       "in-UK": {
         "true": "Enter your last names",
         "false": "Enter your family names"
@@ -61,6 +105,9 @@
   "email": {
     "required": "Enter your email address",
     "email": "Enter a valid email address"
+  },
+  "phone": {
+    "numeric": "Enter a valid phone number"
   },
   "question": {
     "required": "Select what your problem is about"

@@ -15,23 +15,25 @@ module.exports = {
     options: ['Yes', 'No']
   },
   'applicant-first-names': {
-    validate: ['required']
+    validate: ['required', 'notUrl']
   },
   'applicant-last-names': {
-    validate: ['required']
+    validate: ['required', 'notUrl']
   },
   'application-number': {},
   'representative-first-names': {
-    validate: ['required']
+    validate: ['required', 'notUrl']
   },
   'representative-last-names': {
-    validate: ['required']
+    validate: ['required', 'notUrl']
   },
   organisation: {},
   email: {
     validate: ['required', 'email'],
   },
-  'phone': {},
+  'phone': {
+    validate: ['numeric']
+  },
   query: {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 2000 }],
