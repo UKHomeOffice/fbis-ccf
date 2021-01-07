@@ -65,14 +65,6 @@ describe('/complete', () => {
         expect(await header.innerText()).to.equal('Form sent');
       });
 
-      it('should include text \'We have sent a confirmation email to [provided email]\'', async() => {
-        const text = await page.$('#confirm-text');
-        const email = await page.$('#confirm-email');
-
-        expect(await text.innerText()).to.equal('We have sent a confirmation email to');
-        expect(await email.innerText()).to.equal(config.validEmail);
-      });
-
       it('should include a section titled \'What happens next\'', async() => {
         const nextSection = await page.$('#next-heading');
         expect(await nextSection.innerText()).to.equal('What happens next');

@@ -141,7 +141,6 @@
   },
   "complete": {
     "confirmation": "Form sent",
-    "message": "We have sent a confirmation email to",
     "what-happens-next": {
       "header": "What happens next",
       "p1": "We've sent your enquiry to the online help team.",

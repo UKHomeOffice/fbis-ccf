@@ -38,11 +38,6 @@ describe('Clear session behaviour', () => {
         expect(req.sessionModel.reset.calledOnce).to.equal(true);
       });
 
-      it('should set previousEmail on the sessionModel to display on the confirmation page', () => {
-        testInstance.getValues(req, res, nextStub);
-        expect(req.sessionModel.set).to.be.calledOnceWith('previousEmail', 'test@mail.com');
-      });
-
     });
 
 });
