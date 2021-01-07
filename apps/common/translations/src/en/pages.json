@@ -1,47 +1,65 @@
 {
   "accessibility": {
-    "header": "Accessibility statement for 'Get help with your online immigration account'",
-    "intro": "This accessibility statement applies to the 'Get help with your online immigration account' service.",
+    "header": "Accessibility statement Get help with your online immigration account",
+    "intro": "This accessibility statement applies to all parts of the help form completed through the domain ",
+    "intro-link": "https://immigration-account-help.homeoffice.gov.uk/",
     "intro-p1": "This website is run by the Home Office. We want as many people as possible to be able to use this website. For example, that means you should be able to:",
     "intro-p1-li1": "change colours, contrast levels and fonts",
-    "intro-p1-li2": "zoom in up to 300% without the text spilling off the screen",
+    "intro-p1-li2": "zoom in up to 400% without the text spilling off the screen",
     "intro-p1-li3": "navigate most of the website using just a keyboard",
     "intro-p1-li4": "listen to most of the website using a screen reader (including the most recent versions of NVDA and VoiceOver)",
     "intro-p2": "We have also made the website text as simple as possible to understand.",
     "intro-p3-link": "AbilityNet",
-    "intro-p3-post-link": "has advice on making your device easier to use if you have a disability.",
+    "intro-p3-post-link": " has advice on making your device easier to use if you have a disability.",
+
     "how-accessible-header": "How accessible this website is",
-    "how-accessible-p1": "We know some parts of this website are not fully accessible:",
-    "how-accessible-p1-li1": "Placeholder text for an accessibility issue",
+    "how-accessible-p1": "We know some parts of this website are not fully accessible. You can see a full list of any issues we currently know about in the Non-accessible content section of this statement.",
+
     "feedback-header": "Feedback and contact information",
-    "feedback-p1-pre-link": "If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille ",
-    "feedback-p1-link": "contact UK Visas and Immigration.",
-    "feedback-p2": "We'll consider your request and get back to you in 30 days.",
+    "feedback-p1-pre-link": "If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille email ",
+    "feedback-p1-link": "alternativeformats@homeoffice.gov.uk",
+    "feedback-p2": "We will consider your request and get back to you in 30 days.",
     "feedback-p3-pre-link": "Find out about ",
     "feedback-p3-link": "digital support",
     "feedback-p3-post-link": " with completing your online Home Office application.",
+
     "reporting-header": "Reporting accessibility problems with this website",
-    "reporting-p1-pre-link": "We're always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we're not meeting accessibility requirements, ",
+    "reporting-p1-pre-link": "We are always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we are not meeting accessibility requirements, you can report this at ",
+    "reporting-p1-link": "https://immigration-account-help.homeoffice.gov.uk/feedback",
     "reporting-p2-link": "Read tips on contacting organisations about inaccessible websites.",
+
     "enforcement-header": "Enforcement procedure",
-    "enforcement-p1-pre-link": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you're not happy with how we respond to your complaint,",
-    "enforcement-p1-link": "contact the Equality Advisory and Support Service (EASS).",
-    "enforcement-p2": "If you are in Northern Ireland and are not happy with how we respond to your complaint you can contact the Equalities Commission for Norther Ireland who are responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018(the 'accessibility regulations') in Northern Ireland.",
+    "enforcement-p1-pre-link": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you are not happy with how we respond to your complaint, ",
+    "enforcement-p1-link": "contact the Equality Advisory and Support Service (EASS)",
+    "enforcement-p2-pre-link": "If you are in Northern Ireland and are not happy with how we respond to your complaint you can contact the ",
+    "enforcement-p2-link": "Equalities Commission for Norther Ireland",
+    "enforcement-p2-post-link": " who are responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018(the 'accessibility regulations') in Northern Ireland.",
+
     "technical-info-header": "Technical information about this website's accessibility",
     "technical-info-p1": "The Home Office is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.",
+
     "compliance-header": "Compliance status",
-    "compliance-p1": "This website is partially compliant with the Web Content Accessibility Guidelines version 2.1 AA standard, due to the non-compliances listed below.",
+    "compliance-p1-pre-link": "This website is partially compliant with the ",
+    "compliance-p1-link": "Web Content Accessibility Guidelines version 2.1",
+    "compliance-p1-post-link": " AA standard, due to the non-compliances listed below.",
+
     "non-accessible-header": "Non-accessible Content",
     "non-accessible-p1": "The content listed below is non-accessible for the following reasons.",
+
     "non-compliance-header": "Non-compliance with the accessibility regulations",
-    "non-compliance-li1": "Placeholder text for an accessibility issue",
+    "non-compliance-li1-header": "Unique application number (UAN)",
+    "non-compliance-li1-text": "The example of a unique application number (UAN) used in the service includes hyphens. These hyphens are not read by all screen readers. This might make it difficult for some users to enter their UAN in the correct format. This fails WCAG 2.1 success criterion 3.3.2 (labels and instructions).\nWe plan to fix this by July 2021.",
+    "non-compliance-warning": "We may discover more non-compliant content in future testing. We have not yet tested with JAWS or speech to text software. Additional testing is needed with NVDA.",
+
     "disproportionate-burden-header": "Disproportionate burden",
     "disproportionate-burden-p1": "At this time, we have not made any disproportionate burden claims.",
-    "outside-scope-header": "Content that's not within the scope of the accessibility regulations",
-    "outside-scope-p1": "At this time, this service does not contain any content that is exempt from the regulations.",
+
+    "outside-scope-header": "Content that is not within the scope of the accessibility regulations",
+    "outside-scope-p1": "At this time, we have not identified any content that is not within scope of the accessibility regulations.",
+
     "preparation-header": "Preparation of this accessibility statement",
-    "preparation-p1": "This statement was prepared on XX December 2020. It was last reviewed on XX December 2020.",
-    "preparation-p2": "This website was last tested on XX December 2020. The test was carried out internally by the Home Office.",
-    "preparation-p3": "We tested the service based on a user's ability to complete key journeys. All parts of the chosen journeys were tested, including documents. Journeys were chosen on a number of factors including usage statistics, risk assessments and subject matter."
+    "preparation-p1": "This statement was prepared on 7 January 2021. It was last reviewed on 7 January 2021.",
+    "preparation-p2": "This website was last tested on 16 December 2020. Testing was carried out internally by the Home Office.",
+    "preparation-p3": "We tested the service based on a user's ability to complete key journeys. All parts of the chosen journeys were tested."
   }
 }
