@@ -32,7 +32,7 @@ module.exports = {
     validate: ['required', 'email'],
   },
   'phone': {
-    validate: ['numeric']
+    validate: ['internationalPhoneNumber']
   },
   query: {
     mixin: 'textarea',
