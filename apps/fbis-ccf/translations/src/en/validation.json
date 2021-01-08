@@ -107,7 +107,7 @@
     "email": "Enter a valid email address"
   },
   "phone": {
-    "numeric": "Enter a valid phone number"
+    "internationalPhoneNumber": "Enter a valid phone number"
   },
   "question": {
     "required": "Select what your problem is about"
