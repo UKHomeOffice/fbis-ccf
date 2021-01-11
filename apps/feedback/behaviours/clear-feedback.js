@@ -1,5 +1,4 @@
 'use strict';
-
 const notify = require('../../../config').notify;
 
 module.exports = superclass => class ClearFeedback extends superclass {
@@ -8,8 +7,7 @@ module.exports = superclass => class ClearFeedback extends superclass {
     req.sessionModel.unset([
       'feedbackRating',
       'feedbackText',
-      'feedbackEmail',
-      notify.feedbackEmailReference
+      'feedbackEmail'
     ]);
 
     return super.getValues(req, res, next);
@@ -17,7 +15,7 @@ module.exports = superclass => class ClearFeedback extends superclass {
 
   successHandler(req, res) {
     const referer = req.sessionModel.get('feedbackReturnTo') || `${req.get('origin')}/question`;
-    req.sessionModel.unset('feedbackReturnTo');
+    req.sessionModel.unset(['feedbackReturnTo', notify.feedbackEmailReference]);
     return res.redirect(referer);
   }
 
