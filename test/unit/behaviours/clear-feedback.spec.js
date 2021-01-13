@@ -51,8 +51,7 @@ describe('Clear feedback behaviour', () => {
       expect(req.sessionModel.unset).to.have.been.calledOnceWith([
         'feedbackRating',
         'feedbackText',
-        'feedbackEmail',
-        mockConfig.notify.feedbackEmailReference]);
+        'feedbackEmail']);
     });
 
   });
@@ -75,9 +74,12 @@ describe('Clear feedback behaviour', () => {
       expect(res.redirect).to.be.calledOnceWith('example-link.com/question');
     });
 
-    it('should unset the feedbackReturnTo link on the session', () => {
+    it('should unset the feedbackReturnTo link and feedbackEmailReference on the session', () => {
       testInstance.successHandler(req, res);
-      expect(req.sessionModel.unset).to.be.calledOnceWith('feedbackReturnTo');
+      expect(req.sessionModel.unset).to.be.calledOnceWith([
+        'feedbackReturnTo',
+        mockConfig.notify.feedbackEmailReference
+      ]);
     });
 
     it('should redirect the user to the link they came from', () => {
