@@ -70,12 +70,6 @@ describe('/complete', () => {
         expect(await nextSection.innerText()).to.equal('What happens next');
       });
 
-      it('should include a link to the feedback page with text \'What did you think of this service?\'', async() => {
-        const whatHappensNextPs = await page.$$('#what-happens-next > p');
-        const expected = '<a href="/feedback">What did you think of this service?</a>';
-        expect(await whatHappensNextPs[2].innerHTML()).to.include(expected);
-      });
-
     });
 
   });

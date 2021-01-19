@@ -8,7 +8,6 @@
   "getCookies": false,
   "routes": [
     "./apps/fbis-ccf",
-    "./apps/feedback",
     "./apps/common"
   ],
   "session": {
