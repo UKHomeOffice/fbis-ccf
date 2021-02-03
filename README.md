@@ -280,8 +280,8 @@ Pa11y CI is a CI-centric accessibility test runner, built using [Pa11y](https://
 
 Pa11y CI runs accessibility tests against multiple URLs and reports on any issues. This used during automated testing of the application and can act as a gatekeeper to stop common WCAG a11y issues from making it to live.
 
-To run against URL's listed in the `.pa11yci.json` configuration file.   // requires app to be running
+To run against URL's listed in the `.pa11yci.json` configuration file.   
 
 ```bash
-npm run test:accessibility
+npm run test:accessibility          // requires app to be running
 ```
