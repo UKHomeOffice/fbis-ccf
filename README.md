@@ -4,20 +4,24 @@ A [Home Office Forms (HOF)](https://ukhomeofficeforms.github.io/hof-guide/docume
 
 ## Contents
 
-* [Linux and OSX set up](#linux-and-osx-set-up)
-    * [Set environment variables](#set-environment-variables)
-    * [Install pre-requisites](#install-prerequisites)
-    * [Run the app](#run-the-app)
-* [Windows set up](#windows-set-up)
-    * [Safely clone this repo](#safely-clone-this-repo)
-    * [Set environment variables](#set-environment-variables-1)
-    * [Install Docker Desktop for Windows](#install-docker-desktop-for-windows)
-    * [Run the app](#run-the-app-1)
-* [Test](#test)
-    * [Unit tests and linting](#unit-tests-and-linting)
-    * [Testing email failures with the mock Notify client](#testing-email-failures-with-the-mock-notify-client)
-    * [Automated UI tests](#automated-ui-tests)
-    * [Test reporters](#test-reporters)
+- [Future Border and Immigration System (FBIS) Customer Contact Form (CCF)](#future-border-and-immigration-system-fbis-customer-contact-form-ccf)
+  - [Contents](#contents)
+  - [Linux and OSX set up](#linux-and-osx-set-up)
+    - [Set environment variables](#set-environment-variables)
+    - [Install prerequisites](#install-prerequisites)
+    - [Run the app](#run-the-app)
+  - [Windows set up](#windows-set-up)
+    - [Safely clone this repo](#safely-clone-this-repo)
+    - [Set environment variables](#set-environment-variables-1)
+    - [Install Docker Desktop for Windows](#install-docker-desktop-for-windows)
+    - [Run the app](#run-the-app-1)
+  - [Test](#test)
+    - [Unit tests and linting](#unit-tests-and-linting)
+    - [Testing email failures with the mock Notify client](#testing-email-failures-with-the-mock-notify-client)
+    - [Automated UI tests](#automated-ui-tests)
+      - [Naming convention](#naming-convention)
+    - [Test reporters](#test-reporters)
+    - [Pa11y CI Accessibility test runner](#pa11y-ci-accessibility-test-runner)
 
 ## Linux and OSX set up
 
@@ -269,3 +273,15 @@ Test reports are generated using [mocha-sonar](https://www.npmjs.com/package/@da
 Mocha-sonar reports can be viewed in the project's [Sonarqube dashboard](https://sonarqube.digital.homeoffice.gov.uk/dashboard?id=fbis-ccf) after each deployment to the dev environment.
 
 Mochawesome generates user-friendly test reports that can be viewed in browser, useful for sharing with stakeholders who are not comfortable reading test reports from terminal logs. Mochawesome reports are not currently persisted as part of the build pipeline, but can be viewed locally in the `test/executions/mochawesome` directory.
+
+### Pa11y CI Accessibility test runner
+
+Pa11y CI is a CI-centric accessibility test runner, built using [Pa11y](https://github.com/pa11y/pa11y).
+
+Pa11y CI runs accessibility tests against multiple URLs and reports on any issues. This used during automated testing of the application and can act as a gatekeeper to stop common WCAG a11y issues from making it to live.
+
+To run against URL's listed in the `.pa11yci.json` configuration file.   
+
+```bash
+npm run test:accessibility          // requires app to be running
+```
