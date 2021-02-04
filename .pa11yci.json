@@ -7,23 +7,6 @@
   "ignore": []
 },
   "urls": [
-    "http://localhost:8080/question",
-    "http://localhost:8080/question?outside-UK",
-    "http://localhost:8080/context",
-    "http://localhost:8080/identity",
-    "http://localhost:8080/applicant-details",
-    "http://localhost:8080/representative-details",
-    "http://localhost:8080/feedback",
-    "http://localhost:8080/feedback-submitted",
-    "http://localhost:8080/cookies",
-    "http://localhost:8080/terms-and-conditions",
-    "http://localhost:8080/context",
-    "http://localhost:8080/identity",
-    "http://localhost:8080/applicant-details",
-    "http://localhost:8080/representative-details",
-    "http://localhost:8080/contact-details",
-    "http://localhost:8080/query",
-    "http://localhost:8080/confirm",
-    "http://localhost:8080/complete"
+    "http://localhost:8080/question?automation-test"
   ]
 }
