@@ -31,7 +31,6 @@ steps:
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
-    - npm run component:ci &
     - npm run wait-on
     - npm run test:accessibility
   when:
