@@ -20,7 +20,20 @@ steps:
     NOTIFY_KEY: USE_MOCK
   commands:
     - npm i -s && npm run build
-    - npm run test:accessibility:server
+    - npm run test
+  when:
+    branch: [ master, development ]
+    event: push
+
+- name: test-accessibility
+  pull: if-not-exists
+  image: mcr.microsoft.com/playwright:bionic
+  environment:
+    - NOTIFY_KEY: USE_MOCK
+  commands:
+    - npm run component:ci &
+    - npm run wait-on
+    - npm run test:accessibility
   when:
     branch: [ master, development ]
     event: push
