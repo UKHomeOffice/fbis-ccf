@@ -29,7 +29,7 @@ steps:
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:bionic
   environment:
-    - NOTIFY_KEY: USE_MOCK
+    NOTIFY_KEY: USE_MOCK
   commands:
     - npm run component:ci &
     - npm run wait-on
