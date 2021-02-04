@@ -15,7 +15,6 @@
     "http://localhost:8080/representative-details",
     "http://localhost:8080/feedback",
     "http://localhost:8080/feedback-submitted",
-    "http://localhost:8080/accessibility",
     "http://localhost:8080/cookies",
     "http://localhost:8080/terms-and-conditions",
     "http://localhost:8080/context",
