@@ -21,7 +21,7 @@ module.exports = superclass => class HandleIdentityChange extends superclass {
 
     if (previousIdentity === 'No' && newIdentity === 'Yes') {
       req.sessionModel.set('identity', newIdentity);
-      return res.redirect(`${req.get('origin')}/representative-details/edit`);
+      return res.redirect('/representative-details/edit');
     }
 
     return super.saveValues(req, res, next);

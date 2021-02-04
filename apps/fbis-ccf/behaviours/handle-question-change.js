@@ -16,6 +16,11 @@ module.exports = superclass => class HandleQuestionChange extends superclass {
       req.sessionModel.set('application-number', '');
     }
 
+    if (previousQuestion === 'id-check' && newQuestion !== 'id-check') {
+      req.sessionModel.set('question', newQuestion);
+      return res.redirect('/applicant-details/edit');
+    }
+
     return super.saveValues(req, res, next);
   }
 

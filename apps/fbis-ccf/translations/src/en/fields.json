@@ -41,7 +41,7 @@
     }
   },
   "application-number": {
-    "label": "Unique application number - UAN (optional)",
+    "label": "Unique application number - UAN",
     "hint": "For example, 3434-0000-0000-0001"
   },
   "representative-details": {

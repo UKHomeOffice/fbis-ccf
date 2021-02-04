@@ -110,7 +110,7 @@ describe('Handle identity change behaviour', () => {
 
         expect(req.sessionModel.set.callCount).to.equal(1);
         expect(req.sessionModel.set.firstCall.args).to.deep.equal(['identity', 'Yes']);
-        expect(res.redirect).to.have.been.calledOnceWith('www.baseUrl.co.uk/representative-details/edit');
+        expect(res.redirect).to.have.been.calledOnceWith('/representative-details/edit');
       });
 
     });
