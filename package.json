@@ -20,7 +20,7 @@
     "test:accessibility": "pa11y-ci --config .pa11yci.json",
     "test:pa11y": "npm run test:accessibility",
     "test:accessibility:server": "start-server-and-test start:mock http://localhost:8080/question?automation-test test:pa11y",
-    "wait-on": "wait-on http-get://localhost:8080/question?automation-test",
+    "wait-on": "wait-on http-get://localhost:3000",
     "component:ci": "npm run start:mock --hotReloading=false --watch=false",
     "build": "hof-build",
     "postinstall": "npm run build"
