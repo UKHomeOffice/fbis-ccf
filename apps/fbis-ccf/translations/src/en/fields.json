@@ -3,10 +3,10 @@
     "legend": "What is your problem about?",
     "options": {
       "id-check": {
-        "label": "The 'ID check' app"
+        "label": "The UK Immigration 'ID check' app"
       },
       "status" : {
-        "label" : "Viewing or proving your immigration status, right to work or right to rent"
+        "label" : "Viewing or proving your online immigration status, right to rent or right to work"
       },
       "account" : {
         "label": "Updating your immigration account details"

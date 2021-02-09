@@ -157,7 +157,7 @@ describe('Submit behaviour', () => {
           location: 'Inside UK',
           organisation: '',
           query: 'I am having an issue',
-          question: 'The \'ID check\' app',
+          question: 'The UK Immigration \'ID check\' app',
           'representative-first-names': '',
           'representative-last-names': '',
         };
