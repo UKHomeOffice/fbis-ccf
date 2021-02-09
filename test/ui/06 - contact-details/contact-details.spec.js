@@ -42,7 +42,8 @@ describe('/contact-details', () => {
       expect(textInputs.length).to.equal(2);
       expect(labels.length).to.equal(2);
 
-      expect(await labels[0].innerText()).to.equal('Email address');
+      expect(await labels[0].innerText()).to.include('Applicant\'s email address');
+      expect(await labels[0].innerText()).to.include('This is where we\'ll send our reply. Make sure this is the same email address used for the application');
     });
 
     it('should include a text input field for phone', async() => {
@@ -52,8 +53,8 @@ describe('/contact-details', () => {
       expect(textInputs.length).to.equal(2);
       expect(labels.length).to.equal(2);
 
-      expect((await labels[1].innerText()).includes('Phone number (optional)')).to.equal(true);
-      expect((await labels[1].innerText()).includes('Include the country code if this is not a UK number')).to.equal(true);
+      expect((await labels[1].innerText()).includes('Telephone number (optional)')).to.equal(true);
+      expect((await labels[1].innerText()).includes('We may want to contact you by telephone if we need more information to answer your question. Include the country code if this is not a UK number')).to.equal(true);
     });
 
   });

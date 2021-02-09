@@ -67,11 +67,12 @@
     "label": "Organisation name (optional)"
   },
   "email": {
-    "label": "Email address"
+    "label": "Applicant's email address",
+    "hint": "This is where we'll send our reply. Make sure this is the same email address used for the application"
   },
   "phone": {
-    "label": "Phone number (optional)",
-    "hint": "Include the country code if this is not a UK number"
+    "label": "Telephone number (optional)",
+    "hint": "We may want to contact you by telephone if we need more information to answer your question. Include the country code if this is not a UK number"
   },
   "query": {
     "label": "Give a detailed description of the problem",
