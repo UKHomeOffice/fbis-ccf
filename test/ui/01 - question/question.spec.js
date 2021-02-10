@@ -10,9 +10,9 @@ describe('/question', () => {
       await page.goto(baseURL + '/question');
     });
 
-    it('should include header with text \'What is your problem about?\'', async()=> {
+    it('should include header with text \'What is your question about?\'', async()=> {
       const header = await page.$('h1');
-      expect(await header.innerText()).to.equal('What is your problem about?');
+      expect(await header.innerText()).to.equal('What is your question about?');
     });
 
     it('should include three radio buttons with correct query categories', async()=> {
@@ -22,8 +22,8 @@ describe('/question', () => {
       expect(radios.length).to.equal(3);
       expect(labels.length).to.equal(3);
 
-      expect(await labels[0].innerText()).to.equal('The \'ID check\' app');
-      expect(await labels[1].innerText()).to.equal('Viewing or proving your immigration status, right to work or right to rent');
+      expect(await labels[0].innerText()).to.equal('The UK Immigration \'ID check\' app');
+      expect(await labels[1].innerText()).to.equal('Viewing or proving your online immigration status, right to rent or right to work');
       expect(await labels[2].innerText()).to.equal('Updating your immigration account details');
     });
 
