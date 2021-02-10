@@ -102,7 +102,7 @@ describe('/applicant-details - content', () => {
           expect(textInputs.length).to.equal(3);
           expect(labels.length).to.equal(3);
 
-          expect((await labels[2].innerText()).includes('Unique application number - UAN (optional)')).to.equal(true);
+          expect((await labels[2].innerText()).includes('Unique application number - UAN')).to.equal(true);
           expect((await labels[2].innerText()).includes('For example, 3434-0000-0000-0001')).to.equal(true);
         });
 
@@ -164,7 +164,7 @@ describe('/applicant-details - content', () => {
           expect(textInputs.length).to.equal(3);
           expect(labels.length).to.equal(3);
 
-          expect((await labels[2].innerText()).includes('Unique application number - UAN (optional)')).to.equal(true);
+          expect((await labels[2].innerText()).includes('Unique application number - UAN')).to.equal(true);
           expect((await labels[2].innerText()).includes('For example, 3434-0000-0000-0001')).to.equal(true);
         });
 

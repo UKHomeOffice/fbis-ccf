@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = superclass => class AddLocationToBacklink extends superclass {
 
   locals(req, res) {

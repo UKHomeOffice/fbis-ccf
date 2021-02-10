@@ -150,7 +150,7 @@ describe('/applicant-details - validation', () => {
 
         });
 
-        describe('when user submits the page with a URL in the \'first names\' field', () => {
+        describe('when user submits the page with a URL in the \'First names\' field', () => {
 
           it('should display an error message with text \'Enter the applicant\'s first names\'', async() => {
             await page.fill('#applicant-first-names', 'www.test.com');
@@ -169,7 +169,7 @@ describe('/applicant-details - validation', () => {
 
         });
 
-        describe('when user submits the page with a URL in the \'last names\' field', () => {
+        describe('when user submits the page with a URL in the \'Last names\' field', () => {
 
           it('should display an error message with text \'Enter the applicant\'s last names\'', async() => {
             await page.fill('#applicant-first-names', config.validFirstNames);
@@ -236,7 +236,7 @@ describe('/applicant-details - validation', () => {
 
         });
 
-        describe('when user submits the page with a URL in the \'given names\' field', () => {
+        describe('when user submits the page with a URL in the \'Given names\' field', () => {
 
           it('should display an error message with text \'Enter your given names\'', async() => {
             await page.fill('#applicant-first-names', 'www.test.com');
@@ -255,7 +255,7 @@ describe('/applicant-details - validation', () => {
 
         });
 
-        describe('when user submits the page with a URL in the \'family names\' field', () => {
+        describe('when user submits the page with a URL in the \'Family names\' field', () => {
 
           it('should display an error message with text \'Enter your family names\'', async() => {
             await page.fill('#applicant-first-names', config.validFirstNames);
@@ -368,14 +368,20 @@ describe('/applicant-details - validation', () => {
 
     describe('when user submits the page without entering a UAN', () => {
 
-      it('should not show an error', async() => {
+      it('should display an error message with text \'Enter a unique application number (UAN)\'', async() => {
         // populate other fields with valid inputs
         await page.fill('#applicant-first-names', config.validFirstNames);
         await page.fill('#applicant-last-names', config.validLastNames);
 
         await submitPage();
 
-        expect(await page.url()).to.equal(baseURL + '/contact-details');
+        const errorSummaries = await getErrorSummaries();
+        const errorMessages = await getErrorMessages();
+
+        expect(errorSummaries.length).to.equal(1);
+        expect(errorMessages.length).to.equal(1);
+        expect(await errorSummaries[0].innerText()).to.equal('Enter a unique application number (UAN)');
+        expect(await errorMessages[0].innerText()).to.equal('Enter a unique application number (UAN)');
       });
 
     });
@@ -396,8 +402,8 @@ describe('/applicant-details - validation', () => {
 
         expect(errorSummaries.length).to.equal(1);
         expect(errorMessages.length).to.equal(1);
-        expect(await errorSummaries[0].innerText()).to.equal('Enter a unique application number (UAN)');
-        expect(await errorMessages[0].innerText()).to.equal('Enter a unique application number (UAN)');
+        expect(await errorSummaries[0].innerText()).to.equal('Enter a valid unique application number (UAN)');
+        expect(await errorMessages[0].innerText()).to.equal('Enter a valid unique application number (UAN)');
       });
 
     });

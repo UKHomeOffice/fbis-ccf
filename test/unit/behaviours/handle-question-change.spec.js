@@ -21,6 +21,10 @@ describe('Handle question change behaviour', () => {
         values: {}
       }
     };
+
+    res = {
+      redirect: sinon.stub()
+    };
   });
 
   describe('saveValues', () => {
@@ -112,6 +116,22 @@ describe('Handle question change behaviour', () => {
           expect(req.sessionModel.set.notCalled).to.equal(true);
         });
 
+      });
+
+    });
+
+    describe('when user submits using the change link, new question is status, and previous question is id-check', () => {
+
+      it('should set the new question on the session and redirect to the applicant details page', () => {
+        req.url = '/question/edit';
+        req.form.values.question = 'status';
+        req.sessionModel.get.withArgs('question').returns('id-check');
+
+        testInstance.saveValues(req, res, () => {});
+
+        expect(req.sessionModel.set.callCount).to.equal(1);
+        expect(req.sessionModel.set.firstCall.args).to.deep.equal(['question', 'status']);
+        expect(res.redirect).to.have.been.calledOnceWith('/applicant-details/edit');
       });
 
     });

@@ -23,7 +23,7 @@ const setUp = async(inUK, question, identity, useOptionalFields, shouldSucceed) 
   // fill applicant details
   await page.fill('#applicant-first-names', config.validFirstNames);
   await page.fill('#applicant-last-names', config.validLastNames);
-  if (useOptionalFields && question !== 'id-check') {
+  if (question !== 'id-check') {
     await page.fill('#application-number', config.validUAN);
   }
   await submitPage();
@@ -97,26 +97,28 @@ describe('/confirm', () => {
         const labels = await page.$$('.confirm-label');
         const values = await page.$$('.confirm-value');
 
-        expect(labels.length).to.equal(8);
-        expect(values.length).to.equal(8);
+        expect(labels.length).to.equal(9);
+        expect(values.length).to.equal(9);
 
         expect(await labels[0].innerText()).to.equal('What is your problem about?');
         expect(await labels[1].innerText()).to.equal('Are you contacting us on behalf of someone else?');
         expect(await labels[2].innerText()).to.equal('First names');
         expect(await labels[3].innerText()).to.equal('Last names');
-        expect(await labels[4].innerText()).to.equal('First names');
-        expect(await labels[5].innerText()).to.equal('Last names');
-        expect(await labels[6].innerText()).to.equal('Email address');
-        expect(await labels[7].innerText()).to.equal('Details of the problem');
+        expect(await labels[4].innerText()).to.equal('Unique application number - UAN');
+        expect(await labels[5].innerText()).to.equal('First names');
+        expect(await labels[6].innerText()).to.equal('Last names');
+        expect(await labels[7].innerText()).to.equal('Email address');
+        expect(await labels[8].innerText()).to.equal('Details of the problem');
 
         expect(await values[0].innerText()).to.equal('Viewing or proving your immigration status, right to work or right to rent');
         expect(await values[1].innerText()).to.equal('Yes');
         expect(await values[2].innerText()).to.equal(config.validFirstNames);
         expect(await values[3].innerText()).to.equal(config.validLastNames);
-        expect(await values[4].innerText()).to.equal(config.validFirstNames);
-        expect(await values[5].innerText()).to.equal(config.validLastNames);
-        expect(await values[6].innerText()).to.equal(config.validEmail);
-        expect(await values[7].innerText()).to.equal(config.validQuery);
+        expect(await values[4].innerText()).to.equal(config.validUAN);
+        expect(await values[5].innerText()).to.equal(config.validFirstNames);
+        expect(await values[6].innerText()).to.equal(config.validLastNames);
+        expect(await values[7].innerText()).to.equal(config.validEmail);
+        expect(await values[8].innerText()).to.equal(config.validQuery);
       });
 
     });
@@ -230,7 +232,7 @@ describe('/confirm', () => {
         // check the update value is now on the confirm page
         expect(await page.url()).to.equal(baseURL + '/confirm#query');
         const values = await page.$$('.confirm-value');
-        expect(await values[5].innerText()).to.equal(updatedValue);
+        expect(await values[6].innerText()).to.equal(updatedValue);
       });
 
     });
@@ -330,6 +332,26 @@ describe('/confirm', () => {
         expect(await fields[4].innerText()).to.not.equal('Unique application number - UAN');
         expect(await fields[5].innerText()).to.not.equal('Unique application number - UAN');
         expect(await fields[6].innerText()).to.not.equal('Unique application number - UAN');
+      });
+
+    });
+
+    describe('when the user changes their question category from \'id check\' to \'status\'', () => {
+
+      beforeEach(async() => await setUp(true, 'id-check', 'No', true, true));
+
+      it('should collect the UAN field on the applicant details page', async() => {
+        // find and click question link
+        const questionLink = await page.$('a[href="/question/edit#question-id-check"]');
+        await questionLink.click();
+        await page.waitForLoadState();
+
+        // select status
+        const idCheckRadio = await page.$('#question-status');
+        await idCheckRadio.click();
+        await submitPage();
+
+        expect(await page.url()).to.equal(baseURL + '/applicant-details/edit#question-id-check');
       });
 
     });

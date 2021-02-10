@@ -68,7 +68,8 @@
     }
   },
   "application-number": {
-    "uan": "Enter a unique application number (UAN)"
+    "required": "Enter a unique application number (UAN)",
+    "uan": "Enter a valid unique application number (UAN)"
   },
   "representative-first-names": {
     "required": {
