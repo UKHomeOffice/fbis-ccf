@@ -69,7 +69,7 @@
   },
   "application-number": {
     "required": "Enter a unique application number (UAN)",
-    "uan": "Enter a valid unique application number (UAN)"
+    "uan": "Check that the format of your UAN matches the example"
   },
   "representative-first-names": {
     "required": {
