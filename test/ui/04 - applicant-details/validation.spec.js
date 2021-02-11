@@ -388,7 +388,7 @@ describe('/applicant-details - validation', () => {
 
     describe('when user submits an invalid UAN', () => {
 
-      it('should display an error message with text \'Enter a valid unique application number (UAN)\'', async() => {
+      it('should display an error message with text \'Check that the format of your UAN matches the example\'', async() => {
         await page.fill('#application-number', config.invalidUAN);
 
         // populate other fields with valid inputs
@@ -402,8 +402,8 @@ describe('/applicant-details - validation', () => {
 
         expect(errorSummaries.length).to.equal(1);
         expect(errorMessages.length).to.equal(1);
-        expect(await errorSummaries[0].innerText()).to.equal('Enter a valid unique application number (UAN)');
-        expect(await errorMessages[0].innerText()).to.equal('Enter a valid unique application number (UAN)');
+        expect(await errorSummaries[0].innerText()).to.equal('Check that the format of your UAN matches the example');
+        expect(await errorMessages[0].innerText()).to.equal('Check that the format of your UAN matches the example');
       });
 
     });
