@@ -5,14 +5,12 @@ const config = require('../ui-test-config');
 describe('/query', () => {
 
   beforeEach(async() => {
-    await page.goto(baseURL + '/question');
+    await page.goto(baseURL + '/start');
+    await submitPage();
 
     // select any question category and continue
     const radio = await page.$('input[type="radio"]');
     await radio.check();
-    await submitPage();
-
-    // submit the context page, which requires no input
     await submitPage();
 
     // select identity No

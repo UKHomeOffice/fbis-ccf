@@ -11,16 +11,16 @@ describe('base url', () => {
 
   describe('DEV (FBISCC-46) - Base url page redirect', () => {
 
-    it('should redirect to the question page', async() => {
-      expect(await page.url()).to.equal(baseURL + '/question');
+    it('should redirect to the start page', async() => {
+      expect(await page.url()).to.equal(baseURL + '/start');
     });
 
   });
 
   describe('DEV - header and footer navigation', () => {
 
-    it('should have a link to the question page in the header', async() => {
-      const headerLink = await page.$('header a[href="/question"]');
+    it('should have a link to the start page in the header', async() => {
+      const headerLink = await page.$('header a[href="/start"]');
       expect(await headerLink.innerText()).to.equal('Get help with your online immigration account');
     });
 

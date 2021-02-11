@@ -5,13 +5,12 @@
 const config = require('../ui-test-config');
 
 const setUp = async(inUK, question, identity) => {
-  await page.goto(baseURL + '/question' + (inUK ? '' : '?outside-UK'));
+  await page.goto(baseURL + '/start' + (inUK ? '' : '?outside-UK'));
+  await submitPage();
+
   // select a question category
   const questionRadio = await page.$(`input#question-${question}`);
   await questionRadio.click();
-  await submitPage();
-
-  // submit the context page, which requires no input
   await submitPage();
 
   // select identity

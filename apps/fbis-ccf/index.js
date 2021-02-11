@@ -14,17 +14,17 @@ const submit = require('./behaviours/submit');
 module.exports = {
   name: 'fbis-ccf',
   steps: {
-    '/question': {
-      behaviours: [setLocationOnSession, setRadioButtonErrorLink, handleQuestionChange],
-      fields: ['question'],
-      next: '/context'
+    '/start': {
+      behaviours: [setLocationOnSession],
+      next: '/question'
     },
-    '/context': {
-      behaviours: [addLocationToBacklink, setQuestionFlagsOnValues],
+    '/question': {
+      behaviours: [addLocationToBacklink, setRadioButtonErrorLink, handleQuestionChange],
+      fields: ['question'],
       next: '/identity'
     },
     '/identity': {
-      behaviours: [setRadioButtonErrorLink, handleIdentityChange],
+      behaviours: [setRadioButtonErrorLink, handleIdentityChange, setQuestionFlagsOnValues],
       fields: ['identity'],
       next: '/applicant-details'
     },

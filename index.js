@@ -39,7 +39,7 @@ const addAutomationTestCookie = (req, res, next) => {
 const app = hof(addDynamicSettings(require('./hof.settings')));
 
 app.use((req, res, next) => addGenericLocals(req, res, next));
-app.use('/question', (req, res, next) => addAutomationTestCookie(req, res, next));
+app.use('/start', (req, res, next) => addAutomationTestCookie(req, res, next));
 
 app.use('/terms-and-conditions', (req, res, next) => {
   res.locals = Object.assign({}, res.locals, req.translate('terms'));

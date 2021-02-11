@@ -67,11 +67,11 @@ describe('Clear feedback behaviour', () => {
       testInstance = new ClearFeedback();
     });
 
-    it('should default to the landing page if there is no link to redirect to on req', () => {
+    it('should default to the starting page if there is no link to redirect to on req', () => {
       req.sessionModel.get.withArgs('feedbackReturnTo').returns(undefined);
       req.get.withArgs('origin').returns('example-link.com');
       testInstance.successHandler(req, res);
-      expect(res.redirect).to.be.calledOnceWith('example-link.com/question');
+      expect(res.redirect).to.be.calledOnceWith('example-link.com/start');
     });
 
     it('should unset the feedbackReturnTo link and feedbackEmailReference on the session', () => {
