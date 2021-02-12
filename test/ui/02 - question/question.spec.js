@@ -7,7 +7,8 @@ describe('/question', () => {
   describe('FR-CAT-3 (FBISCC-7), FR-CAT-19 (FBISCC-41) - In- and out-country query categorisation', () => {
 
     beforeEach(async() => {
-      await page.goto(baseURL + '/question');
+      await page.goto(baseURL + '/start');
+      await submitPage();
     });
 
     it('should include header with text \'What is your question about?\'', async()=> {
@@ -44,7 +45,7 @@ describe('/question', () => {
 
         const expected = 'Select what your problem is about';
 
-        expect(await page.url()).to.equal(baseURL + '/question?hof-cookie-check');
+        expect(await page.url()).to.equal(baseURL + '/question');
         expect(errorSummaries.length).to.equal(1);
         expect(await errorSummaries[0].innerText()).to.equal(expected);
         expect(errorMessages.length).to.equal(1);
@@ -64,10 +65,10 @@ describe('/question', () => {
         }
       });
 
-      it('should continue to the context page', async()=> {
+      it('should continue to the identity page', async()=> {
         await radios[0].click();
         await submitPage();
-        expect(await page.url()).to.equal(baseURL + '/context');
+        expect(await page.url()).to.equal(baseURL + '/identity');
       });
 
     });

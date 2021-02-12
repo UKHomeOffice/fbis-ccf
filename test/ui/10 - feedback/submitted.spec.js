@@ -4,7 +4,7 @@ describe('/feedback-submitted', () => {
 
   beforeEach(async() => {
     // Get to feedback submitted page
-    await page.goto(baseURL + '/question');
+    await page.goto(baseURL + '/start');
     await page.waitForLoadState();
     await page.click('a[href="/feedback"]');
     await page.waitForLoadState();

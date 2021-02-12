@@ -8,7 +8,7 @@ describe('Error - 500', () => {
 
     beforeEach(async() => {
       // Go to feedback page
-      await page.goto(baseURL + '/question');
+      await page.goto(baseURL + '/start');
       await page.waitForLoadState();
       await page.click('a[href="/feedback"]');
       await page.waitForLoadState();

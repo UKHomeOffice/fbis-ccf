@@ -1,17 +1,25 @@
 {
+  "start": {
+    "header": "Help with the 'ID Check' app or your online immigration account",
+    "p1": "Use this service to get help with:",
+    "l1": "using the 'UK Immigration: ID Check' app",
+    "l2": "viewing and proving your immigration status, right to work, or right to rent online",
+    "l3": "updating your UK Visas and Immigration account details",
+    "p2": "You can only use this service if you have applied:",
+    "l4": "to work and study in the UK",
+    "l5": "for a Hong Kong BNO visa application",
+    "p3": "There's a different way to ",
+    "a": "contact us if you are applying to the EU Settlement Scheme",
+    "h": "What you'll need",
+    "p4": "You'll need to tell us:",
+    "l6": "the applicant's name",
+    "l7": "the email address that was used in the application - this is the email address that the confirmation email was sent to",
+    "l8": "the 16-digit unique application number (UAN)",
+    "l9": "your name if you are filling this form out for someone else",
+    "timeout": "This service will time out after 30 minutes if there is no activity and you will have to start again. This is to protect your personal information."
+  },
   "question": {
     "header": "What is your question about?"
-  },
-  "context": {
-    "p1": "You will need to give us:",
-    "header": "What you will need",
-    "l1": "your name",
-    "l2": "your unique application number (UAN), if you have it",
-    "l3": "contact details where we can send our response",
-    "l4": "details about the problem",
-    "representative-info": "If you are filling this form out on behalf of someone else, we will also need your name.",
-    "warning": "Warning",
-    "timeout": "If you do not do anything for 30 minutes, the service will time out and you will need to start again."
   },
   "identity": {
     "header": "Are you contacting us on behalf of someone else?"

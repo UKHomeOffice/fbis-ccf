@@ -7,14 +7,12 @@ const config = require('../ui-test-config');
 describe('Error - Form not submitted', () => {
 
   beforeEach(async() => {
-    await page.goto(baseURL + '/question');
+    await page.goto(baseURL + '/start');
+    await submitPage();
 
     // select a question category
     const questionRadio = await page.$('input#question-id-check');
     await questionRadio.click();
-    await submitPage();
-
-    // submit the context page, which requires no input
     await submitPage();
 
     // select identity

@@ -11,12 +11,12 @@
   list-style-type: disc;
   margin: 0 0 1em 1em;
   li p {
-    margin-bottom: 0.2em;
+    margin-bottom: 0.1em;
   }
 }
 
 // Styles for context page
-#context {
+#start-info, #what-you-need {
   > p {
     margin: 1.3em 0 .75em 0;
   }
@@ -25,6 +25,9 @@
     .icon {
       margin-top: -20px;
     }
+  }
+  input {
+    margin-top: 1em;
   }
 }
 
