@@ -14,7 +14,7 @@
     "p4": "You'll need to tell us:",
     "l6": "the applicant's name",
     "l7": "the email address that was used in the application - this is the email address that the confirmation email was sent to",
-    "l8": "the 16-digit unique application number (UAN) or the number of the identity document (ID card or passport) used in the application",
+    "l8": "the 16-digit unique application number (UAN)",
     "l9": "your name if you are filling this form out for someone else",
     "timeout": "This service will time out after 30 minutes if there is no activity and you will have to start again. This is to protect your personal information."
   },

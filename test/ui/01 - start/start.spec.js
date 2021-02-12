@@ -47,7 +47,7 @@ describe('/start', () => {
         const list = await page.$$('#start-requirements > li');
         expect((await list[0].innerText()).includes('the applicant\'s name')).to.equal(true);
         expect((await list[1].innerText()).includes('the email address that was used in the application - this is the email address that the confirmation email was sent to')).to.equal(true);
-        expect((await list[2].innerText()).includes('the 16-digit unique application number (UAN) or the number of the identity document (ID card or passport) used in the application')).to.equal(true);
+        expect((await list[2].innerText()).includes('the 16-digit unique application number (UAN)')).to.equal(true);
         expect((await list[3].innerText()).includes('your name if you are filling this form out for someone else')).to.equal(true);
       });
 
