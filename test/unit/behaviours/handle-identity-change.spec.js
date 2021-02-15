@@ -52,9 +52,10 @@ describe('Handle identity change behaviour', () => {
 
     describe('when user submits using the change link, new identity is Yes, and previous identity is Yes', () => {
 
-      it('should not set any values on the session model or redirect the response', () => {
+      it('should not set any values on the session model or redirect the response if the representative details exist', () => {
         req.url = '/identity/edit';
         req.form.values.identity = 'Yes';
+        req.sessionModel.get.withArgs('representative-first-names').returns('Example');
         req.sessionModel.get.withArgs('identity').returns('Yes');
 
         testInstance.saveValues(req, res, () => {});

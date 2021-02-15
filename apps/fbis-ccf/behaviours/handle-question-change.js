@@ -21,6 +21,12 @@ module.exports = superclass => class HandleQuestionChange extends superclass {
       return res.redirect('/applicant-details/edit');
     }
 
+    const uan = req.sessionModel.get('application-number');
+
+    if (newQuestion !== 'id-check' && !uan) {
+      return res.redirect('/applicant-details/edit');
+    }
+
     return super.saveValues(req, res, next);
   }
 

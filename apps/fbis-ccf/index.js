@@ -3,6 +3,7 @@
 const addLocationToBacklink = require('./behaviours/add-location-to-backlink');
 const addUANValidatorIfRequired = require('./behaviours/add-uan-validator-if-required');
 const clearSession = require('./behaviours/clear-session');
+const changeBacklinkOnEdit = require('./behaviours/change-backlink-on-edit');
 const disableBacklinkOnEdit = require('./behaviours/disable-backlink-on-edit');
 const handleIdentityChange = require('./behaviours/handle-identity-change');
 const handleQuestionChange = require('./behaviours/handle-question-change');
@@ -19,17 +20,17 @@ module.exports = {
       next: '/question'
     },
     '/question': {
-      behaviours: [addLocationToBacklink, setRadioButtonErrorLink, handleQuestionChange],
+      behaviours: [addLocationToBacklink, setRadioButtonErrorLink, handleQuestionChange, disableBacklinkOnEdit],
       fields: ['question'],
       next: '/identity'
     },
     '/identity': {
-      behaviours: [setRadioButtonErrorLink, handleIdentityChange, setQuestionFlagsOnValues],
+      behaviours: [setRadioButtonErrorLink, handleIdentityChange, setQuestionFlagsOnValues, disableBacklinkOnEdit],
       fields: ['identity'],
       next: '/applicant-details'
     },
     '/applicant-details': {
-      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired, disableBacklinkOnEdit],
+      behaviours: [setQuestionFlagsOnValues, addUANValidatorIfRequired, changeBacklinkOnEdit],
       fields: ['applicant-first-names', 'applicant-last-names', 'application-number'],
       next: '/contact-details',
       forks: [{
@@ -41,7 +42,7 @@ module.exports = {
       }],
     },
     '/representative-details': {
-      behaviours: [disableBacklinkOnEdit],
+      behaviours: [changeBacklinkOnEdit],
       fields: ['representative-first-names', 'representative-last-names', 'organisation'],
       next: '/contact-details'
     },
