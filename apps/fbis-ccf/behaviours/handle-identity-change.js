@@ -24,6 +24,12 @@ module.exports = superclass => class HandleIdentityChange extends superclass {
       return res.redirect('/representative-details/edit');
     }
 
+    const representative = req.sessionModel.get('representative-first-names');
+
+    if (newIdentity !== 'No' && !representative) {
+      return res.redirect('/representative-details/edit');
+    }
+
     return super.saveValues(req, res, next);
   }
 
