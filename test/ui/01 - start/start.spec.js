@@ -43,6 +43,15 @@ describe('/start', () => {
         expect(await listText[2].innerText()).to.equal('There\'s a different way to contact us if you are applying to the EU Settlement Scheme');
       });
 
+      it('should link users to the correct external URL', async() => {
+        const link = await page.$('a[href="https://www.gov.uk/contact-ukvi-inside-outside-uk/y/inside-the-uk/eu-settlement-scheme-frontier-worker-or-service-provider-from-switzerland-visa-applications"]');
+        await link.click();
+        await page.waitForLoadState();
+
+        const externalTitle = await page.$('h1');
+        expect(await externalTitle.innerText()).to.equal('EU Settlement Scheme, Frontier Worker or Service Provider from Switzerland visa applications');
+      });
+
       it('should include a list things the user needs to fill out the form', async() => {
         const list = await page.$$('#start-requirements > li');
         expect((await list[0].innerText()).includes('the applicant\'s name')).to.equal(true);
