@@ -15,7 +15,7 @@ steps:
 
 - name: test
   pull: if-not-exists
-  image: mcr.microsoft.com/playwright:bionic
+  image: buildkite/puppeteer:latest
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
