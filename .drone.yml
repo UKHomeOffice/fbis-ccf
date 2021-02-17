@@ -27,7 +27,7 @@ steps:
 
 - name: test-accessibility
   pull: if-not-exists
-  image: buildkite/puppeteer:latest
+  image: mcr.microsoft.com/playwright:bionic
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
