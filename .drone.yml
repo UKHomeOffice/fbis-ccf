@@ -27,7 +27,7 @@ steps:
 
 - name: test-accessibility
   pull: if-not-exists
-  image: zenika/alpine-chrome:with-puppeteer
+  image: zenika/alpine-chrome:with-node-12
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
