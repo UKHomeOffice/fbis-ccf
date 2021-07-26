@@ -4,7 +4,6 @@ const Behaviour = require('../../../apps/fbis-ccf/behaviours/add-uan-validator-i
 const uanValidator = require('../../../apps/fbis-ccf/validators').uan;
 
 describe('Add UAN validator if required behaviour', () => {
-
   let req;
   let res;
   let AddUANValidatorIfRequired;
@@ -28,7 +27,6 @@ describe('Add UAN validator if required behaviour', () => {
   });
 
   describe('process', () => {
-
     class Base {
       process() {}
     }
@@ -55,7 +53,5 @@ describe('Add UAN validator if required behaviour', () => {
       testInstance.process(req, res, () => {});
       expect(req.form.options.fields['application-number'].validate).to.deep.equal(undefined);
     });
-
   });
-
 });

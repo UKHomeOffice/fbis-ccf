@@ -3,9 +3,7 @@
 const validators = require('../../../apps/fbis-ccf/validators');
 
 describe('Custom validators', () => {
-
   describe('uan', () => {
-
     it('should approve an empty string', () => {
       expect(validators.uan('')).to.equal(true);
     });
@@ -35,7 +33,5 @@ describe('Custom validators', () => {
     it('should reject non-strings', () => {
       expect(validators.uan(1212123058968432)).to.equal(false);
     });
-
   });
-
 });

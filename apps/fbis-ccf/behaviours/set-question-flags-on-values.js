@@ -3,7 +3,6 @@
 const options = require('../fields/index').question.options;
 
 module.exports = superclass => class SetQuestionFlagsOnValues extends superclass {
-
   getValues(req, res, next) {
     return super.getValues(req, res, (err, values) => {
       if (err) {
@@ -17,5 +16,4 @@ module.exports = superclass => class SetQuestionFlagsOnValues extends superclass
       return next(null, values);
     });
   }
-
 };

@@ -23,11 +23,10 @@ const mockUUID = {
 const Behaviour = proxyquire('../../../apps/feedback/behaviours/feedback', {
   '../../../lib/utils': mockUtils,
   '../../../config': mockConfig,
-  'uuid': mockUUID
+  uuid: mockUUID
 });
 
 describe('Feedback behaviour', () => {
-
   let req;
   let res;
   let Feedback;
@@ -57,7 +56,6 @@ describe('Feedback behaviour', () => {
   });
 
   describe('getValues', () => {
-
     class Base {
       getValues() {}
     }
@@ -69,7 +67,6 @@ describe('Feedback behaviour', () => {
     });
 
     describe('on redirect to feedback page', () => {
-
       it('should set feedbackReturnTo to the user\'s previous location', () => {
         const referredFrom = 'referred-from-link.com';
         req.headers.referer = referredFrom;
@@ -84,13 +81,10 @@ describe('Feedback behaviour', () => {
         testInstance.getValues(req, res, nextStub);
         expect(req.sessionModel.set.notCalled).to.equal(true);
       });
-
     });
-
   });
 
   describe('saveValues', () => {
-
     class Base {
       saveValues() {}
     }
@@ -109,7 +103,6 @@ describe('Feedback behaviour', () => {
     });
 
     describe('on first submit', () => {
-
       beforeEach(() => {
         req.sessionModel.get.withArgs(mockConfig.notify.submitEmailReference).returns(undefined);
       });
@@ -128,15 +121,15 @@ describe('Feedback behaviour', () => {
       it('should call utils \'sendEmail\' with emailData containing only necessary fields from the form', () => {
         req.form.values = {
           'unwanted-field': 'unwanted value',
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': 'email@address.com'
+          feedbackRating: 'satisfied',
+          feedbackText: 'Satisfied with the service',
+          feedbackEmail: 'email@address.com'
         };
 
         const expected = {
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': 'email@address.com'
+          feedbackRating: 'satisfied',
+          feedbackText: 'Satisfied with the service',
+          feedbackEmail: 'email@address.com'
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -148,15 +141,15 @@ describe('Feedback behaviour', () => {
 
       it('should replace feedbackEmail with \'n/a\' if not provided', () => {
         req.form.values = {
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': undefined
+          feedbackRating: 'satisfied',
+          feedbackText: 'Satisfied with the service',
+          feedbackEmail: undefined
         };
 
         const expected = {
-          'feedbackRating': 'satisfied',
-          'feedbackText': 'Satisfied with the service',
-          'feedbackEmail': 'n/a'
+          feedbackRating: 'satisfied',
+          feedbackText: 'Satisfied with the service',
+          feedbackEmail: 'n/a'
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -217,11 +210,9 @@ describe('Feedback behaviour', () => {
             expect(req.sessionModel.unset).to.have.been.calledOnceWith('feedback-email-reference');
           });
       });
-
     });
 
     describe('on duplicate submit', () => {
-
       beforeEach(() => {
         req.sessionModel.get.withArgs(mockConfig.notify.feedbackEmailReference).returns('mockUUID');
       });
@@ -278,9 +269,6 @@ describe('Feedback behaviour', () => {
             expect(req.sessionModel.unset).to.have.been.calledOnceWith('feedback-email-reference');
           });
       });
-
     });
-
   });
-
 });

@@ -5,9 +5,7 @@ const utils = require('../../../lib/utils');
 const uuidv4 = require('uuid').v4;
 
 module.exports = superclass => class Feedback extends superclass {
-
   getValues(req, res, next) {
-
     const redirectFrom = req.headers.referer;
     const isRedirectFromFeedback = redirectFrom.endsWith('/feedback');
 
@@ -56,5 +54,4 @@ module.exports = superclass => class Feedback extends superclass {
     req.sessionModel.unset(notify.feedbackEmailReference);
     return next(err);
   }
-
 };

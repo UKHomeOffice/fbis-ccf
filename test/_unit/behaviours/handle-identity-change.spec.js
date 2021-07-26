@@ -5,7 +5,6 @@
 const Behaviour = require('../../../apps/fbis-ccf/behaviours/handle-identity-change');
 
 describe('Handle identity change behaviour', () => {
-
   let req;
   let res;
   let HandleIdentityChange;
@@ -29,7 +28,6 @@ describe('Handle identity change behaviour', () => {
   });
 
   describe('saveValues', () => {
-
     class Base {
       saveValues() {}
     }
@@ -40,18 +38,15 @@ describe('Handle identity change behaviour', () => {
     });
 
     describe('when user submits using the normal link, not the change link', () => {
-
       it('should not set any values on the session model or redirect the response', () => {
         req.url = '/identity';
         testInstance.saveValues(req, res, () => {});
         expect(req.sessionModel.set.notCalled).to.equal(true);
         expect(res.redirect.notCalled).to.equal(true);
       });
-
     });
 
     describe('when user submits using the change link, new identity is Yes, and previous identity is Yes', () => {
-
       it('should not set any values on the session model or redirect the response if the representative details exist', () => {
         req.url = '/identity/edit';
         req.form.values.identity = 'Yes';
@@ -63,11 +58,9 @@ describe('Handle identity change behaviour', () => {
         expect(req.sessionModel.set.notCalled).to.equal(true);
         expect(res.redirect.notCalled).to.equal(true);
       });
-
     });
 
     describe('when user submits using the change link, new identity is No, and previous identity is No', () => {
-
       it('should not set any values on the session model or redirect the response', () => {
         req.url = '/identity/edit';
         req.form.values.identity = 'No';
@@ -78,11 +71,9 @@ describe('Handle identity change behaviour', () => {
         expect(req.sessionModel.set.notCalled).to.equal(true);
         expect(res.redirect.notCalled).to.equal(true);
       });
-
     });
 
     describe('when user submits using the change link, new identity is No, and previous identity is Yes', () => {
-
       it('should clear the representative names and organisation on the session model, but not redirect', () => {
         req.url = '/identity/edit';
         req.form.values.identity = 'No';
@@ -96,11 +87,9 @@ describe('Handle identity change behaviour', () => {
         expect(req.sessionModel.set.thirdCall.args).to.deep.equal(['organisation', '']);
         expect(res.redirect.notCalled).to.equal(true);
       });
-
     });
 
     describe('when user submits using the change link, new identity is Yes, and previous identity is No', () => {
-
       it('should set the new identity on the session and redirect to the representative details page', () => {
         req.url = '/identity/edit';
         req.form.values.identity = 'Yes';
@@ -113,9 +102,6 @@ describe('Handle identity change behaviour', () => {
         expect(req.sessionModel.set.firstCall.args).to.deep.equal(['identity', 'Yes']);
         expect(res.redirect).to.have.been.calledOnceWith('/representative-details/edit');
       });
-
     });
-
   });
-
 });

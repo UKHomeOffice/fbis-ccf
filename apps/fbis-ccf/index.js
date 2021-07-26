@@ -39,7 +39,7 @@ module.exports = {
           field: 'identity',
           value: 'Yes'
         }
-      }],
+      }]
     },
     '/representative-details': {
       behaviours: [changeBacklinkOnEdit],

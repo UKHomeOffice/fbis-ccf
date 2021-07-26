@@ -1,21 +1,17 @@
 {
-  "build": {
-    "translate": {
-      "shared": "./apps/common/translations/src"
-    }
-  },
-  "getTerms": false,
-  "getCookies": false,
+  "appName": "FBIS Customer Contact Form",
+  "theme": "govUK",
   "routes": [
     "./apps/fbis-ccf",
     "./apps/feedback",
     "./apps/common"
   ],
+  "translations": "./apps/common/translations",
+  "views": "./apps/common/views",
   "session": {
     "name": "fbis-ccf.hof.sid"
   },
   "start": false,
-  "theme": "govuk",
-  "translations": "./apps/common/translations",
-  "views": "./apps/common/views"
+  "getTerms": false,
+  "getCookies": false
 }

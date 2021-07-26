@@ -3,7 +3,6 @@
 const Behaviour = require('../../../apps/fbis-ccf/behaviours/add-location-to-backlink');
 
 describe('Add location to backlink behaviour', () => {
-
   let req;
   let res;
   let AddLocationToBacklink;
@@ -13,14 +12,13 @@ describe('Add location to backlink behaviour', () => {
     req = {
       sessionModel: {
         get: sinon.stub().returns(undefined)
-      },
+      }
     };
 
     res = {};
   });
 
   describe('locals', () => {
-
     class Base {
       locals() {
         return {
@@ -51,7 +49,5 @@ describe('Add location to backlink behaviour', () => {
       const locals = testInstance.locals(req, res);
       expect(locals.backLink).to.equal('landing');
     });
-
   });
-
 });

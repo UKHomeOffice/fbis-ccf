@@ -3,7 +3,6 @@
 const customValidators = require('../validators/index');
 
 module.exports = superclass => class AddUANValidatorIfRequired extends superclass {
-
   process(req, res, next) {
     const isUANRequired = req.sessionModel.get('question') !== 'id-check';
 
@@ -13,5 +12,4 @@ module.exports = superclass => class AddUANValidatorIfRequired extends superclas
 
     return super.process(req, res, next);
   }
-
 };

@@ -1,4 +1,4 @@
 'use strict';
-// eslint-disable-next-line implicit-dependencies/no-implicit
-require('$$theme');
+
+require('hof/frontend/themes/gov-uk/client-js');
 require('./disable-multiple-submit');

@@ -1,16 +1,16 @@
 'use strict';
 
 module.exports = {
-  'feedbackRating': {
+  feedbackRating: {
     mixin: 'radio-group',
     validate: ['required'],
     options: ['very-satisfied', 'satisfied', 'neutral', 'dissatisfied', 'very-dissatisfied']
   },
-  'feedbackText': {
+  feedbackText: {
     mixin: 'textarea',
     validate: ['required']
   },
-  'feedbackEmail': {
+  feedbackEmail: {
     validate: ['email']
   }
 };

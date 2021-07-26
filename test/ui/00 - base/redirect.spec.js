@@ -3,28 +3,24 @@
 /* eslint max-len: off */
 
 describe('base url', () => {
-
-  beforeEach(async() => {
+  beforeEach(async () => {
     await page.goto(baseURL);
     await page.waitForLoadState();
   });
 
   describe('DEV (FBISCC-46) - Base url page redirect', () => {
-
-    it('should redirect to the start page', async() => {
+    it('should redirect to the start page', async () => {
       expect(await page.url()).to.equal(baseURL + '/start');
     });
-
   });
 
   describe('DEV - header and footer navigation', () => {
-
-    it('should have a link to the start page in the header', async() => {
+    it('should have a link to the start page in the header', async () => {
       const headerLink = await page.$('header a[href="/start"]');
       expect(await headerLink.innerText()).to.equal('Get help with your online immigration account');
     });
 
-    it('should have a link to the cookies page in the footer', async() => {
+    it('should have a link to the cookies page in the footer', async () => {
       const footerLink = await page.$('footer a[href="/cookies"]');
       expect(await footerLink.innerText()).to.equal('Cookies');
 
@@ -35,7 +31,7 @@ describe('base url', () => {
       expect(await header.innerText()).to.equal('Cookies');
     });
 
-    it('should have a link to the terms and conditions page in the footer', async() => {
+    it('should have a link to the terms and conditions page in the footer', async () => {
       const footerLink = await page.$('footer a[href="/terms-and-conditions"]');
       expect(await footerLink.innerText()).to.equal('Terms and conditions');
 
@@ -46,7 +42,7 @@ describe('base url', () => {
       expect(await header.innerText()).to.equal('Terms and conditions');
     });
 
-    it('should have a link to the accessibility statement page in the footer', async() => {
+    it('should have a link to the accessibility statement page in the footer', async () => {
       const footerLink = await page.$('footer a[href="/accessibility"]');
       expect(await footerLink.innerText()).to.equal('Accessibility statement');
 
@@ -56,7 +52,5 @@ describe('base url', () => {
       const header = await page.$('h1');
       expect(await header.innerText()).to.equal('Accessibility statement for \'Get help with your online immigration account\'');
     });
-
   });
-
 });

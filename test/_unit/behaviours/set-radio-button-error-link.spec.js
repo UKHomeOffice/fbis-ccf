@@ -3,7 +3,6 @@
 const Behaviour = require('../../../apps/fbis-ccf/behaviours/set-radio-button-error-link');
 
 describe('Set radio button error link behaviour', () => {
-
   let SetRadioButtonErrorLink;
   let testInstance;
   let nextStub;
@@ -11,7 +10,6 @@ describe('Set radio button error link behaviour', () => {
   const res = {};
 
   describe('getValues', () => {
-
     class Base {
       errorHandler() {}
     }
@@ -68,14 +66,12 @@ describe('Set radio button error link behaviour', () => {
 
       const expected = {
         query: {
-          key: 'query',
+          key: 'query'
         }
       };
 
       testInstance.errorHandler(err, req, res, nextStub);
       expect(err).to.deep.equal(expected);
     });
-
   });
-
 });

@@ -5,8 +5,7 @@
 const config = require('../ui-test-config');
 
 describe('Error - Form not submitted', () => {
-
-  beforeEach(async() => {
+  beforeEach(async () => {
     await page.goto(baseURL + '/start');
     await submitPage();
 
@@ -38,29 +37,25 @@ describe('Error - Form not submitted', () => {
   });
 
   describe('FR-ERR-29, (FBISCC-83) - \'Form not submitted\' error page', () => {
-
-    it('should include a header with text \'Sorry, your form has not been sent\'', async() => {
+    it('should include a header with text \'Sorry, your form has not been sent\'', async () => {
       const header = await page.$('h1');
       expect(await header.innerText()).to.equal('Sorry, your form has not been sent');
     });
 
-    it('should include a link to try again', async() => {
+    it('should include a link to try again', async () => {
       const link = await page.$('.error a[href="/confirm"]');
       expect(await link.innerText()).to.equal('Try again using the online form');
     });
 
-    it('should have a section with times you can call', async() => {
+    it('should have a section with times you can call', async () => {
       const callInfo = await page.$$('.call-info');
       expect(callInfo.length).to.equal(3);
     });
 
-    it('should include a link with text \'Find out about call charges\'', async() => {
+    it('should include a link with text \'Find out about call charges\'', async () => {
       const callInfo = await page.$$('.call-info');
       const expected = '<a href="https://www.gov.uk/call-charges" class="link">Find out about call charges</a>';
       expect(await callInfo[2].innerHTML()).to.include(expected);
     });
-
   });
-
 });
-

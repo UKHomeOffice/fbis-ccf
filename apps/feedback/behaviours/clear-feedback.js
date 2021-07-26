@@ -2,7 +2,6 @@
 const notify = require('../../../config').notify;
 
 module.exports = superclass => class ClearFeedback extends superclass {
-
   getValues(req, res, next) {
     req.sessionModel.unset([
       'feedbackRating',
@@ -18,5 +17,4 @@ module.exports = superclass => class ClearFeedback extends superclass {
     req.sessionModel.unset(['feedbackReturnTo', notify.feedbackEmailReference]);
     return res.redirect(referer);
   }
-
 };
