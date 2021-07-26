@@ -4,7 +4,7 @@
 
 const config = require('../ui-test-config');
 
-const setUp = async(inUK, question, identity) => {
+const setUp = async (inUK, question, identity) => {
   await page.goto(baseURL + '/start' + (inUK ? '' : '?outside-UK'));
   await submitPage();
 
@@ -25,26 +25,22 @@ const setUp = async(inUK, question, identity) => {
 };
 
 describe('/representative-details - content', () => {
-
   describe('FR-REP-4 (FBISCC-69) - Representative details', () => {
-
     describe('when the user accesses the service with the in-UK link', () => {
-
-      beforeEach(async() => await setUp(true, 'id-check', 'Yes'));
+      beforeEach(async () => await setUp(true, 'id-check', 'Yes'));
 
       describe('when user inputs the applicants details and continues to the representative details page', () => {
-
-        it('should include a header with text \'Your details\'', async() => {
+        it('should include a header with text \'Your details\'', async () => {
           const header = await page.$('h1');
           expect(await header.innerText()).to.equal('Your details');
         });
 
-        it('should include a hint with text \'Details of person filling out this form\'', async() => {
+        it('should include a hint with text \'Details of person filling out this form\'', async () => {
           const hint = await page.$('#representative-details-hint');
           expect(await hint.innerText()).to.equal('Details of the person filling out this form');
         });
 
-        it('should include three text input fields with labels \'First names\', \'Last names\' and \'Organisation (optional)\'', async() => {
+        it('should include three text input fields with labels \'First names\', \'Last names\' and \'Organisation (optional)\'', async () => {
           const textInputs = await page.$$('input[type="text"]');
           const labels = await page.$$('.form-group label');
 
@@ -55,18 +51,14 @@ describe('/representative-details - content', () => {
           expect(await labels[1].innerText()).to.equal('Last names');
           expect(await labels[2].innerText()).to.equal('Organisation name (optional)');
         });
-
       });
-
     });
 
     describe('when the user accesses the service with the outside-UK link', () => {
-
-      beforeEach(async() => await setUp(false, 'id-check', 'Yes'));
+      beforeEach(async () => await setUp(false, 'id-check', 'Yes'));
 
       describe('when user inputs the applicants details and continues to the representative details page', () => {
-
-        it('should include three text input fields with the labels \'Given names\', \'Family names\' and \'Organisation (optional)\'', async() => {
+        it('should include three text input fields with the labels \'Given names\', \'Family names\' and \'Organisation (optional)\'', async () => {
           const textInputs = await page.$$('input[type="text"]');
           const labels = await page.$$('.form-group label');
 
@@ -77,11 +69,7 @@ describe('/representative-details - content', () => {
           expect(await labels[1].innerText()).to.equal('Family names');
           expect(await labels[2].innerText()).to.equal('Organisation name (optional)');
         });
-
       });
-
     });
-
   });
-
 });

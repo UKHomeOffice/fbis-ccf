@@ -12,7 +12,6 @@ const Behaviour = proxyquire('../../../apps/feedback/behaviours/clear-feedback',
 
 
 describe('Clear feedback behaviour', () => {
-
   let req;
   let res;
   let ClearFeedback;
@@ -35,7 +34,6 @@ describe('Clear feedback behaviour', () => {
   });
 
   describe('getValues', () => {
-
     class Base {
       getValues() {}
     }
@@ -53,11 +51,9 @@ describe('Clear feedback behaviour', () => {
         'feedbackText',
         'feedbackEmail']);
     });
-
   });
 
   describe('successHandler', () => {
-
     class Base {
       sucessHandler() {}
     }
@@ -87,7 +83,5 @@ describe('Clear feedback behaviour', () => {
       testInstance.successHandler(req, res);
       expect(res.redirect).to.be.calledOnceWith('example-link.com/question');
     });
-
   });
-
 });

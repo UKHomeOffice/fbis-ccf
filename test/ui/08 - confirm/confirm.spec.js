@@ -4,7 +4,7 @@
 
 const config = require('../ui-test-config');
 
-const setUp = async(inUK, question, identity, useOptionalFields, shouldSucceed) => {
+const setUp = async (inUK, question, identity, useOptionalFields, shouldSucceed) => {
   await page.goto(baseURL + '/start' + (inUK ? '' : '?outside-UK'));
   await submitPage();
 
@@ -49,14 +49,11 @@ const setUp = async(inUK, question, identity, useOptionalFields, shouldSucceed) 
 };
 
 describe('/confirm', () => {
-
   describe('FR-RES-10 (FBISCC-75) - Response confirmation and edit', () => {
-
     describe('when the user is writing on their own behalf', () => {
+      beforeEach(async () => await setUp(true, 'id-check', 'No', false, true));
 
-      beforeEach(async() => await setUp(true, 'id-check', 'No', false, true));
-
-      it('should not display representative details section', async() => {
+      it('should not display representative details section', async () => {
         const h2s = await page.$$('h2');
 
         expect(h2s.length).to.equal(5);
@@ -66,14 +63,12 @@ describe('/confirm', () => {
         expect(await h2s[3].innerText()).to.equal('Contact details');
         expect(await h2s[4].innerText()).to.equal('Details of the problem');
       });
-
     });
 
     describe('when the user is writing on behalf of somebody else', () => {
+      beforeEach(async () => await setUp(true, 'id-check', 'Yes', false, true));
 
-      beforeEach(async() => await setUp(true, 'id-check', 'Yes', false, true));
-
-      it('should display the representative details section as well as the applicant details section', async() => {
+      it('should display the representative details section as well as the applicant details section', async () => {
         const h2s = await page.$$('h2');
 
         expect(h2s.length).to.equal(6);
@@ -84,14 +79,12 @@ describe('/confirm', () => {
         expect(await h2s[4].innerText()).to.equal('Contact details');
         expect(await h2s[5].innerText()).to.equal('Details of the problem');
       });
-
     });
 
     describe('when the user does not include optional fields', () => {
+      beforeEach(async () => await setUp(true, 'status', 'Yes', false, true));
 
-      beforeEach(async() => await setUp(true, 'status', 'Yes', false, true));
-
-      it('should only display required fields', async() => {
+      it('should only display required fields', async () => {
         const labels = await page.$$('.confirm-label');
         const values = await page.$$('.confirm-value');
 
@@ -118,14 +111,12 @@ describe('/confirm', () => {
         expect(await values[7].innerText()).to.equal(config.validEmail);
         expect(await values[8].innerText()).to.equal(config.validQuery);
       });
-
     });
 
     describe('when the user includes optional fields', () => {
+      beforeEach(async () => await setUp(true, 'status', 'Yes', true, true));
 
-      beforeEach(async() => await setUp(true, 'status', 'Yes', true, true));
-
-      it('should display the included optional fields', async() => {
+      it('should display the included optional fields', async () => {
         const labels = await page.$$('.confirm-label');
         const values = await page.$$('.confirm-value');
 
@@ -156,27 +147,23 @@ describe('/confirm', () => {
         expect(await values[9].innerText()).to.equal('07000000000');
         expect(await values[10].innerText()).to.equal(config.validQuery);
       });
-
     });
 
     describe('when the user accesses the service with the outside-UK link', () => {
+      beforeEach(async () => await setUp(false, 'status', 'No', false, true));
 
-      beforeEach(async() => await setUp(false, 'status', 'No', false, true));
-
-      it('should display \'Given names\' and \'Family names\' labels', async() => {
+      it('should display \'Given names\' and \'Family names\' labels', async () => {
         const labels = await page.$$('.confirm-label');
 
         expect(await labels[2].innerText()).to.equal('Given names');
         expect(await labels[3].innerText()).to.equal('Family names');
       });
-
     });
 
     describe('when the user clicks a change link', () => {
-
       let expectedHrefs;
 
-      beforeEach(async() => {
+      beforeEach(async () => {
         await setUp(true, 'status', 'Yes', true, true);
 
         expectedHrefs = [
@@ -194,7 +181,7 @@ describe('/confirm', () => {
         ];
       });
 
-      it('should navigate to the page where they can change their input', async() => {
+      it('should navigate to the page where they can change their input', async () => {
         for (let i = 0; i < expectedHrefs.length; i++) {
           const links = await page.$$('a[class="link"]');
 
@@ -208,14 +195,12 @@ describe('/confirm', () => {
           await submitPage();
         }
       });
-
     });
 
     describe('when the user makes a change and continues', () => {
+      beforeEach(async () => await setUp(true, 'status', 'No', false, true));
 
-      beforeEach(async() => await setUp(true, 'status', 'No', false, true));
-
-      it('should return to the confirmation page with the new entry included', async() => {
+      it('should return to the confirmation page with the new entry included', async () => {
         const updatedValue = 'I have updated my query';
 
         // find and click the query link
@@ -232,14 +217,12 @@ describe('/confirm', () => {
         const values = await page.$$('.confirm-value');
         expect(await values[6].innerText()).to.equal(updatedValue);
       });
-
     });
 
     describe('when the user changes their identity from representative to applicant', () => {
+      beforeEach(async () => await setUp(true, 'status', 'Yes', false, true));
 
-      beforeEach(async() => await setUp(true, 'status', 'Yes', false, true));
-
-      it('should not show representative details', async() => {
+      it('should not show representative details', async () => {
         // find and click identity link
         const identityLink = await page.$('a[href="/identity/edit#identity-Yes"]');
         await identityLink.click();
@@ -261,14 +244,12 @@ describe('/confirm', () => {
         expect(await h2s[3].innerText()).to.equal('Contact details');
         expect(await h2s[4].innerText()).to.equal('Details of the problem');
       });
-
     });
 
     describe('when the user changes their identity from applicant to representative', () => {
+      beforeEach(async () => await setUp(true, 'status', 'No', false, true));
 
-      beforeEach(async() => await setUp(true, 'status', 'No', false, true));
-
-      it('should collect the representative details and display them on the confirmation page', async() => {
+      it('should collect the representative details and display them on the confirmation page', async () => {
         // find and click identity link
         const identityLink = await page.$('a[href="/identity/edit#identity-No"]');
         await identityLink.click();
@@ -296,14 +277,12 @@ describe('/confirm', () => {
         expect(await h2s[4].innerText()).to.equal('Contact details');
         expect(await h2s[5].innerText()).to.equal('Details of the problem');
       });
-
     });
 
     describe('when the user changes their question category from \'status\' to \'id check\'', () => {
+      beforeEach(async () => await setUp(true, 'status', 'No', true, true));
 
-      beforeEach(async() => await setUp(true, 'status', 'No', true, true));
-
-      it('should not show the UAN field', async() => {
+      it('should not show the UAN field', async () => {
         // when question category is status assert UAN field is shown
         let fields = await page.$$('.confirm-label');
         expect(fields.length).to.equal(8);
@@ -331,14 +310,12 @@ describe('/confirm', () => {
         expect(await fields[5].innerText()).to.not.equal('Unique application number - UAN');
         expect(await fields[6].innerText()).to.not.equal('Unique application number - UAN');
       });
-
     });
 
     describe('when the user changes their question category from \'id check\' to \'status\'', () => {
+      beforeEach(async () => await setUp(true, 'id-check', 'No', true, true));
 
-      beforeEach(async() => await setUp(true, 'id-check', 'No', true, true));
-
-      it('should collect the UAN field on the applicant details page', async() => {
+      it('should collect the UAN field on the applicant details page', async () => {
         // find and click question link
         const questionLink = await page.$('a[href="/question/edit#question-id-check"]');
         await questionLink.click();
@@ -351,44 +328,35 @@ describe('/confirm', () => {
 
         expect(await page.url()).to.equal(baseURL + '/applicant-details/edit#question-id-check');
       });
-
     });
-
   });
 
   describe('FR-EMA-2 (FBISCC-37) - Emailing SRC', () => {
-
     describe('when the email sends successfully', () => {
-
-      beforeEach(async() => {
+      beforeEach(async () => {
         await setUp(true, 'id-check', 'No', true, true);
         await submitPage();
       });
 
-      it('should continue to the \'complete\' page', async() => {
+      it('should continue to the \'complete\' page', async () => {
         expect(await page.url()).to.equal(baseURL + '/complete');
       });
-
     });
 
     describe('when the email fails to send', () => {
-
-      beforeEach(async() => {
+      beforeEach(async () => {
         await setUp(true, 'id-check', 'No', true, false);
         await submitPage();
       });
 
-      it('should stay on the \'confirm\' page', async() => {
+      it('should stay on the \'confirm\' page', async () => {
         expect(await page.url()).to.equal(baseURL + '/confirm');
       });
 
-      it('should display the \'error\' template', async() => {
+      it('should display the \'error\' template', async () => {
         const h1 = await page.$('h1');
         expect(await h1.innerText()).to.equal('Sorry, your form has not been sent');
       });
-
     });
-
   });
-
 });

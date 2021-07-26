@@ -1,13 +1,12 @@
+/* eslint-disable consistent-return, no-console */
 'use strict';
-
-/* eslint no-console: off */
 
 const playwright = require('playwright');
 const minimist = require('minimist');
 const browserEngine = minimist(process.argv)['browser-engine'] || 'chromium';
 global.baseURL = 'http://localhost:8080';
 
-before(async() => {
+before(async () => {
   try {
     console.log(`Launching ${browserEngine}`);
 
@@ -27,7 +26,7 @@ before(async() => {
   }
 });
 
-after(async() => {
+after(async () => {
   try {
     console.log(`Closing ${browserEngine}`);
     return await browser.close();
@@ -37,7 +36,7 @@ after(async() => {
   }
 });
 
-beforeEach(async() => {
+beforeEach(async () => {
   try {
     global.page = await browser.newPage();
   } catch (e) {
@@ -46,7 +45,7 @@ beforeEach(async() => {
   }
 });
 
-afterEach(async() => {
+afterEach(async () => {
   try {
     await page.close();
   } catch (e) {
@@ -55,11 +54,11 @@ afterEach(async() => {
   }
 });
 
-global.submitPage = async() => {
+global.submitPage = async () => {
   const submit = await page.$('input[type="submit"]');
   await submit.click();
   await page.waitForLoadState();
 };
 
-global.getErrorSummaries = async() => await page.$$('.error-summary a');
-global.getErrorMessages = async() => await page.$$('.error-message');
+global.getErrorSummaries = async () => await page.$$('.error-summary a');
+global.getErrorMessages = async () => await page.$$('.error-message');

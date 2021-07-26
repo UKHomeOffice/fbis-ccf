@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = superclass => class HandleIdentityChange extends superclass {
-
   saveValues(req, res, next) {
     const isChangeLinkEdit = req.url.includes('/edit');
 
@@ -32,5 +31,4 @@ module.exports = superclass => class HandleIdentityChange extends superclass {
 
     return super.saveValues(req, res, next);
   }
-
 };

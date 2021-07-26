@@ -3,7 +3,6 @@
 const Behaviour = require('../../../apps/fbis-ccf/behaviours/set-question-flags-on-values');
 
 describe('Set question behaviour', () => {
-
   let SetQuestionFlagsOnValues;
   let testInstance;
   let superErr;
@@ -11,7 +10,6 @@ describe('Set question behaviour', () => {
   let nextStub;
 
   describe('getValues', () => {
-
     class Base {
       getValues(req, res, callback) {
         callback(superErr, superValues);
@@ -75,7 +73,5 @@ describe('Set question behaviour', () => {
       testInstance.getValues({}, {}, nextStub);
       expect(nextStub).to.have.been.calledOnceWith('error');
     });
-
   });
-
 });

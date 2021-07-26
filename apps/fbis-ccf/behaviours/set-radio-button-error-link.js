@@ -3,7 +3,6 @@
 const fields = require('../fields/index');
 
 module.exports = superclass => class SetRadioButtonErrorLink extends superclass {
-
   errorHandler(err, req, res, next) {
     const errFields = Object.keys(err);
 
@@ -14,5 +13,4 @@ module.exports = superclass => class SetRadioButtonErrorLink extends superclass 
     });
     return super.errorHandler(err, req, res, next);
   }
-
 };

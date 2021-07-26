@@ -29,13 +29,13 @@ module.exports = {
   },
   organisation: {},
   email: {
-    validate: ['required', 'email'],
+    validate: ['required', 'email']
   },
-  'phone': {
+  phone: {
     validate: ['internationalPhoneNumber']
   },
   query: {
     mixin: 'textarea',
-    validate: ['required', { type: 'maxlength', arguments: 2000 }],
+    validate: ['required', { type: 'maxlength', arguments: 2000 }]
   }
 };

@@ -3,7 +3,6 @@
 const Behaviour = require('../../../apps/fbis-ccf/behaviours/set-location-on-session');
 
 describe('Set location behaviour', () => {
-
   let req;
   let res;
   let SetLocationOnSession;
@@ -26,7 +25,6 @@ describe('Set location behaviour', () => {
   });
 
   describe('getValues', () => {
-
     class Base {
       getValues(request, response, callback) {
         callback(superErr, superValues);
@@ -56,7 +54,5 @@ describe('Set location behaviour', () => {
       expect(req.sessionModel.set).to.have.been.calledOnceWith('in-UK', false);
       expect(nextStub).to.have.been.calledOnceWith(null, { 'in-UK': false });
     });
-
   });
-
 });

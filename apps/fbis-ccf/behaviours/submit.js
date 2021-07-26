@@ -6,7 +6,6 @@ const questionOptions = require('../translations/src/en/fields').question.option
 const uuidv4 = require('uuid').v4;
 
 module.exports = superclass => class Submit extends superclass {
-
   saveValues(req, res, next) {
     let reference = req.sessionModel.get(notify.submitEmailReference);
 
@@ -47,7 +46,7 @@ module.exports = superclass => class Submit extends superclass {
       location: values['in-UK'] ? 'Inside UK' : 'Outside UK',
       query: values.query,
       question: Submit.getDescriptiveQuestionString(values.question, true),
-      'phone': values.phone
+      phone: values.phone
         ? `Phone number: ${values.phone}`
         : '',
       'application-number': values['application-number']
@@ -87,5 +86,4 @@ module.exports = superclass => class Submit extends superclass {
     err.formNotSubmitted = true;
     return next(err);
   }
-
 };

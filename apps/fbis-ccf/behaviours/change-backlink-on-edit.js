@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = superclass => class disableBacklinkOnEdit extends superclass {
-
   locals(req, res) {
-    let locals = super.locals(req, res);
+    const locals = super.locals(req, res);
 
     const isChangeLinkEdit = req.url.includes('/edit');
 
@@ -15,5 +14,4 @@ module.exports = superclass => class disableBacklinkOnEdit extends superclass {
 
     return locals;
   }
-
 };

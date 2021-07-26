@@ -3,7 +3,6 @@
 const config = require('./ui-test-config');
 
 module.exports = class MockNotifyClient {
-
   sendEmail(templateId, emailAddress, options) {
     const isInvalidEmail = options.personalisation.email
       && options.personalisation.email.includes(config.notifyFailureEmail);
@@ -27,5 +26,4 @@ module.exports = class MockNotifyClient {
       }
     });
   }
-
 };

@@ -23,12 +23,11 @@ const mockUUID = {
 const Behaviour = proxyquire('../../../apps/fbis-ccf/behaviours/submit', {
   '../../../lib/utils': mockUtils,
   '../../../config': mockConfig,
-  'uuid': mockUUID
+  uuid: mockUUID
 });
 
 
 describe('Submit behaviour', () => {
-
   let req;
   let res;
   let Submit;
@@ -46,7 +45,7 @@ describe('Submit behaviour', () => {
       sessionModel: {
         get: sinon.stub(),
         set: sinon.stub(),
-        unset: sinon.stub(),
+        unset: sinon.stub()
       },
       session: {
         save: sinon.stub()
@@ -57,7 +56,6 @@ describe('Submit behaviour', () => {
   });
 
   describe('saveValues', () => {
-
     class Base {
       saveValues() {}
     }
@@ -76,7 +74,6 @@ describe('Submit behaviour', () => {
     });
 
     describe('on first submit', () => {
-
       beforeEach(() => {
         req.sessionModel.get.withArgs(mockConfig.notify.submitEmailReference).returns(undefined);
       });
@@ -97,7 +94,7 @@ describe('Submit behaviour', () => {
           'some-unwanted-field': 'unwanted value',
           'applicant-first-names': 'John',
           'applicant-last-names': 'Smith',
-          'phone': '07000000000',
+          phone: '07000000000',
           'application-number': '3434-0000-0000-0001',
           email: 'john.smith@mail.com',
           identity: 'yes',
@@ -106,13 +103,13 @@ describe('Submit behaviour', () => {
           query: 'I am having an issue',
           question: 'account',
           'representative-first-names': 'Mary',
-          'representative-last-names': 'Sue',
+          'representative-last-names': 'Sue'
         };
 
         const expected = {
           'applicant-first-names': 'First names: John',
           'applicant-last-names': 'Last names: Smith',
-          'phone': 'Phone number: 07000000000',
+          phone: 'Phone number: 07000000000',
           'application-number': 'Unique application number (UAN): 3434-0000-0000-0001',
           email: 'Email address: john.smith@mail.com',
           identity: 'yes',
@@ -121,7 +118,7 @@ describe('Submit behaviour', () => {
           query: 'I am having an issue',
           question: 'Updating your immigration account details',
           'representative-first-names': 'First names: Mary',
-          'representative-last-names': 'Last names: Sue',
+          'representative-last-names': 'Last names: Sue'
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -135,7 +132,7 @@ describe('Submit behaviour', () => {
         req.form.historicalValues = {
           'applicant-first-names': 'John',
           'applicant-last-names': 'Smith',
-          'phone': '07000000000',
+          phone: '07000000000',
           'application-number': null,
           email: 'john.smith@mail.com',
           identity: 'no',
@@ -144,13 +141,13 @@ describe('Submit behaviour', () => {
           query: 'I am having an issue',
           question: 'id-check',
           'representative-first-names': false,
-          'representative-last-names': '',
+          'representative-last-names': ''
         };
 
         const expected = {
           'applicant-first-names': 'First names: John',
           'applicant-last-names': 'Last names: Smith',
-          'phone': 'Phone number: 07000000000',
+          phone: 'Phone number: 07000000000',
           'application-number': '',
           email: 'Email address: john.smith@mail.com',
           identity: 'no',
@@ -159,7 +156,7 @@ describe('Submit behaviour', () => {
           query: 'I am having an issue',
           question: 'The UK Immigration \'ID check\' app',
           'representative-first-names': '',
-          'representative-last-names': '',
+          'representative-last-names': ''
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -174,7 +171,7 @@ describe('Submit behaviour', () => {
           'some-unwanted-field': 'unwanted value',
           'applicant-first-names': 'John',
           'applicant-last-names': 'Smith',
-          'phone': '07000000000',
+          phone: '07000000000',
           'application-number': '3434-0000-0000-0001',
           email: 'john.smith@mail.com',
           identity: 'yes',
@@ -183,13 +180,13 @@ describe('Submit behaviour', () => {
           query: 'I am having an issue',
           question: 'account',
           'representative-first-names': 'Mary',
-          'representative-last-names': 'Sue',
+          'representative-last-names': 'Sue'
         };
 
         const expected = {
           'applicant-first-names': 'Given names: John',
           'applicant-last-names': 'Family names: Smith',
-          'phone': 'Phone number: 07000000000',
+          phone: 'Phone number: 07000000000',
           'application-number': 'Unique application number (UAN): 3434-0000-0000-0001',
           email: 'Email address: john.smith@mail.com',
           identity: 'yes',
@@ -198,7 +195,7 @@ describe('Submit behaviour', () => {
           query: 'I am having an issue',
           question: 'Updating your immigration account details',
           'representative-first-names': 'Given names: Mary',
-          'representative-last-names': 'Family names: Sue',
+          'representative-last-names': 'Family names: Sue'
         };
 
         return testInstance.saveValues(req, res, nextStub)
@@ -270,11 +267,9 @@ describe('Submit behaviour', () => {
             expect(req.sessionModel.unset).to.have.been.calledOnceWith('submit-email-reference');
           });
       });
-
     });
 
     describe('on duplicate submit', () => {
-
       beforeEach(() => {
         req.sessionModel.get.withArgs(mockConfig.notify.submitEmailReference).returns('mockUUID');
       });
@@ -341,9 +336,6 @@ describe('Submit behaviour', () => {
             expect(req.sessionModel.unset).to.have.been.calledOnceWith('submit-email-reference');
           });
       });
-
     });
-
   });
-
 });

@@ -23,9 +23,7 @@ afterEach(() => {
 });
 
 describe('Utils', () => {
-
   describe('sendEmail', () => {
-
     beforeEach(() => {
       mockNotifyClient.sendEmail.resolves(true);
     });
@@ -34,7 +32,7 @@ describe('Utils', () => {
       mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'delivered' }] } });
 
       const expected = {
-       personalisation: 'testData', reference: 'testReference'
+        personalisation: 'testData', reference: 'testReference'
       };
 
       return utils.sendEmail('testTemplate', 'testAddress', 'testReference', 'testData')
@@ -42,12 +40,10 @@ describe('Utils', () => {
           expect(mockNotifyClient.sendEmail).to.have.been.calledOnceWith('testTemplate', 'testAddress', expected);
         });
     });
-
   });
 
 
   describe('getEmail', () => {
-
     it('should return the email if it exists', () => {
       mockNotifyClient.getNotifications.resolves({ data: { notifications: ['testEmailData'] } });
 
@@ -71,15 +67,13 @@ describe('Utils', () => {
       mockNotifyClient.getNotifications.rejects(testError);
 
       return utils.getEmail('testRef')
-        .catch(err=> {
+        .catch(err => {
           expect(err).to.equal(testError);
         });
     });
-
   });
 
   describe('pollEmailStatus', () => {
-
     let pollEmailStatusSpy;
 
     beforeEach(() => {
@@ -94,7 +88,7 @@ describe('Utils', () => {
       mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'created' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(res).to.equal(true);
       });
     });
@@ -103,7 +97,7 @@ describe('Utils', () => {
       mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'sending' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(res).to.equal(true);
       });
     });
@@ -112,7 +106,7 @@ describe('Utils', () => {
       mockNotifyClient.getNotifications.resolves({ data: { notifications: [{ status: 'delivered' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(res).to.equal(true);
       });
     });
@@ -151,7 +145,7 @@ describe('Utils', () => {
       mockNotifyClient.getNotifications.onCall(3).resolves({ data: { notifications: [{ status: 'created' }] } });
 
       const promise = utils.pollEmailStatus('testRef', 0, 0);
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(pollEmailStatusSpy.getCalls().length).to.equal(4);
         expect(res).to.equal(true);
       });
@@ -167,8 +161,5 @@ describe('Utils', () => {
           expect(err.message).to.equal('Exceeded email status check retry limit');
         });
     });
-
   });
-
 });
-
